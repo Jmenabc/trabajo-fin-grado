@@ -1,0 +1,12 @@
+<form [formGroup]="formUsuario">
+  <div class="formGroup">
+    <input formControlName="email" type="text" class="formControl" placeholder="Username" #userEmail required />
+  </div>
+  <div class="formGroup">
+    <input formControlName="contraseña" type="password" class="formControl" placeholder="Password" #userPassword
+      required />
+  </div>
+  <div class="formGroup">
+    <button type="button" (click)="Registrarse(userEmail.value, userPassword.value)">entrar</button>
+  </div>
+</form>
