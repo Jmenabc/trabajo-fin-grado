@@ -1,0 +1,23 @@
+.bg-center {
+  background-image: url('https://media.revistaad.es/photos/60c2276b9784346c97ddf568/16:9/pass/256459.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; /* Imagen de fondo fija */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.text-center {
+  padding: 20px;
+}
+
+h1, p, .btn {
+  margin-bottom: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+}
