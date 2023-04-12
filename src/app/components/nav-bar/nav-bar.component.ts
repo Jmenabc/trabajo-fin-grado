@@ -9,13 +9,13 @@ import { Auth, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from '@
 })
 export class NavBarComponent {
 
-  authF = getAuth();
-  //Variable donde guardamos el uid del usuario
-  UsuarioUID: string = this.authF.currentUser!.uid.toString();
-  constructor(private UserS: UsuarioService) {}
-  recogerRol() {
-     return this.UserS.RecogerRol(this.UsuarioUID);
-  }
+  // authF = getAuth();
+  // //Variable donde guardamos el uid del usuario
+  // UsuarioUID: string = this.authF.currentUser!.uid.toString();
+  // constructor(private UserS: UsuarioService) {}
+  // recogerRol() {
+  //    return this.UserS.RecogerRol(this.UsuarioUID);
+  // }
 
-  RolUsuario: string = this.recogerRol(this.UsuarioUID);
+  //RolUsuario: string = this.recogerRol(this.UsuarioUID);
 }

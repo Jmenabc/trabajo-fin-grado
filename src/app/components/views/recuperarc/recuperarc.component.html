@@ -1,0 +1,12 @@
+<div>
+  <h2>Recuperar Contraseña</h2>
+  <form (ngSubmit)="enviarRecuperacionContrasena()">
+    <div class="form-group">
+      <label for="email">Correo electrónico</label>
+      <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar correo de recuperación</button>
+  </form>
+  <div *ngIf="mensaje" class="mt-3 alert alert-success">{{ mensaje }}</div>
+  <div *ngIf="error" class="mt-3 alert alert-danger">{{ error.message }}</div>
+</div>

@@ -15,6 +15,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PrincipalMenuEntradaComponent } from './components/views/principal-menu-entrada/principal-menu-entrada.component';
 import { BgImageComponent } from './components/bg-image/bg-image.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RecuperarcComponent } from './components/views/recuperarc/recuperarc.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     NavBarComponent,
     PrincipalMenuEntradaComponent,
     BgImageComponent,
+    RecuperarcComponent,
   ],
   imports: [
     BrowserModule,
