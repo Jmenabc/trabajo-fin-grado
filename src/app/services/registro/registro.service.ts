@@ -12,6 +12,6 @@ export class RegistroService {
 
   //Metodo para crear usuario
   CrearUsuario(data: any) {
-    return this.firestore.collection("usuarios").add(data);
+    return this.firestore.collection("Usuarios").add(data);
   }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SHA256 } from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -21,13 +22,16 @@ export class LoginComponent {
     private router: Router) { }
 
   Loguearse(email: string, password: string) {
+    //Antes de nada hacemos un hash de la contraseña
+    const hash = SHA256(password).toString();
     console.log("Entrando a Login.ts || Metodo Loguearse");
     return this.afAuth
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, hash)
       .then((result) => {
         console.log("Entrando a Login.ts/Loguearse || Devolviendo el correo y contraseña que recibimos de nuestro formulario");
         if (result) {
-          this.router.navigate(["/registro"])
+          console.log(hash)
+          this.router.navigate(["/Menu"])
         }
       })
       .catch((error) => {
