@@ -14,6 +14,7 @@ import { PaginicialComponent } from './components/views/paginicial/paginicial.co
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PrincipalMenuEntradaComponent } from './components/views/principal-menu-entrada/principal-menu-entrada.component';
 import { BgImageComponent } from './components/bg-image/bg-image.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { BgImageComponent } from './components/bg-image/bg-image.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    NoopAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
