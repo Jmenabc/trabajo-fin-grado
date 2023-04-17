@@ -1,0 +1,12 @@
+<ol class="list-group list-group-numbered">
+  <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let c of usuariosLista">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Nombre - {{c.nombre}}</div>
+      <div class="fw-bold">Apellidos - {{c.apellidos}}</div>
+      <div class="fw-bold">Correo - {{c.correo}}</div>
+    </div>
+    <div>
+      <a class="btn btn-primary m-5" routerLink="editar/{{c.documentId}}">Editar</a>
+    </div>
+  </li>
+</ol>

@@ -16,6 +16,7 @@ import { PrincipalMenuEntradaComponent } from './components/views/principal-menu
 import { BgImageComponent } from './components/bg-image/bg-image.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RecuperarcComponent } from './components/views/recuperarc/recuperarc.component';
+import { CrudSelectorComponent } from './components/views/crud-selector/crud-selector.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RecuperarcComponent } from './components/views/recuperarc/recuperarc.co
     PrincipalMenuEntradaComponent,
     BgImageComponent,
     RecuperarcComponent,
+    CrudSelectorComponent,
   ],
   imports: [
     BrowserModule,
