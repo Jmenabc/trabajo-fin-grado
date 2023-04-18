@@ -22,6 +22,15 @@ const routes: Routes = [
         (m) => m.UsuarioCrudModule
       ),
   },
+  {
+    path: 'botinesCRUD',
+    loadChildren: () =>
+      import('./modules/botines-crud/botines-crud.module').then(
+        (m) => m.BotinesCrudModule
+      ),
+  },
+
+  //Pagina de inicio
   { path: '**', redirectTo: 'Inicio', pathMatch: 'full' },
 ];
 
