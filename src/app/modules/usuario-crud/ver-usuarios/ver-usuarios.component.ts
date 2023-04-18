@@ -16,10 +16,10 @@ export class VerUsuariosComponent {
   getTodosLosClientes() {
     this.firebase.cogerTodos(this.coleccion).subscribe((resp: any) => {
       this.usuariosLista = [];
-      resp.forEach((clientesSnapshot: any) => {
+      resp.forEach((usuariosSnapshot: any) => {
         this.usuariosLista.push({
-          ...clientesSnapshot.payload.doc.data(),
-          documentId: clientesSnapshot.payload.doc.id,
+          ...usuariosSnapshot.payload.doc.data(),
+          documentId: usuariosSnapshot.payload.doc.id,
         });
       });
     });

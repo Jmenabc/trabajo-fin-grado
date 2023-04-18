@@ -1,0 +1,34 @@
+<section>
+  <div class="text-center mt-5">
+    <h1>Editar Cliente</h1>
+    <p>En este apartado podras editar al cliente seleccionado</p>
+  </div>
+</section>
+<section class="m-5">
+  <div class=" m-5">
+    <form class="text-center" [formGroup]="formUsuarios" (submit)="EditarDatos()">
+      <div class="input-group flex-nowrap p-2">
+        <span class="input-group-text" id="addon-wrapping">@</span>
+        <input type="text" class="form-control" placeholder="Nombre" aria-label="Username"
+          aria-describedby="addon-wrapping" formControlName="nombre">
+      </div>
+      <div class="input-group flex-nowrap p-2">
+        <span class="input-group-text" id="addon-wrapping">@</span>
+        <input type="text" class="form-control" placeholder="Apellidos" aria-label="Username"
+          aria-describedby="addon-wrapping" formControlName="apellidos">
+      </div>
+      <div class="input-group flex-nowrap p-2">
+        <span class="input-group-text" id="addon-wrapping">@</span>
+        <input type="text" class="form-control" placeholder="Telefono" aria-label="Username"
+          aria-describedby="addon-wrapping" formControlName="telefono">
+      </div>
+      <div class="input-group flex-nowrap p-2">
+        <span class="input-group-text" id="addon-wrapping">@</span>
+        <input type="text" class="form-control" placeholder="Nivel de permisos" aria-label="Username"
+          aria-describedby="addon-wrapping" formControlName="rol">
+      </div>
+      <button class="btn btn-primary btn-lg m-2" (click)="ActualizarDatos()">Registrar cambios</button>
+      <button class="btn btn-primary btn-lg m-2" (click)="Eliminar()">Eliminar cliente</button>
+    </form>
+  </div>
+</section>

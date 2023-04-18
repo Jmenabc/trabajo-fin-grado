@@ -6,13 +6,15 @@ import { ListaOpcionesComponent } from './lista-opciones/lista-opciones.componen
 import { VerUsuariosComponent } from './ver-usuarios/ver-usuarios.component';
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 
 @NgModule({
   declarations: [
     ListaOpcionesComponent,
     VerUsuariosComponent,
-    CrearUsuariosComponent
+    CrearUsuariosComponent,
+    EditarUsuarioComponent
   ],
   imports: [
     CommonModule,
