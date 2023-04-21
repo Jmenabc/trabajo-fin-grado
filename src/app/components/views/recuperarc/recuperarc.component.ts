@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -7,25 +8,13 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./recuperarc.component.css'],
 })
 export class RecuperarcComponent {
-  public email: string = '';
-  public mensaje: string = '';
-  public error: any = null;
 
+  email: string = "";
   constructor(private afAuth: AngularFireAuth) {}
 
-  public enviarRecuperacionContrasena(): void {
-    this.afAuth
-      .sendPasswordResetEmail(this.email)
-      .then(() => {
-        this.mensaje =
-          'Se ha enviado un correo de recuperación de contraseña a tu dirección de correo electrónico.';
-        this.error = null;
-      })
-      .catch((error) => {
-        this.mensaje = '';
-        this.error = error;
-      });
+  sendPasswordResetEmail() {
+    this.afAuth.sendPasswordResetEmail(this.email)
+      .then(() => console.log('Se ha enviado el correo de recuperación de contraseña.'))
+      .catch((error) => console.log('Ha ocurrido un error:', error));
   }
-
-  
 }
