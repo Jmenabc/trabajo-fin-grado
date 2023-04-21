@@ -29,6 +29,20 @@ const routes: Routes = [
         (m) => m.BotinesCrudModule
       ),
   },
+  {
+    path: 'pantalonesCRUD',
+    loadChildren: () =>
+      import('./modules/pantalones-crud/pantalones-crud.module').then(
+        (m) => m.PantalonesCrudModule
+      ),
+  },
+  {
+    path: 'camisetasCRUD',
+    loadChildren: () =>
+      import('./modules/camisetas-crud/camisetas-crud.module').then(
+        (m) => m.CamisetasCrudModule
+      ),
+  },
 
   //Pagina de inicio
   { path: '**', redirectTo: 'Inicio', pathMatch: 'full' },

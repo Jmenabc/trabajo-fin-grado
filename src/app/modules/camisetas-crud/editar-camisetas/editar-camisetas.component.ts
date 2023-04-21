@@ -1,34 +1,29 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
 
 @Component({
-  selector: 'app-editar-usuario',
-  templateUrl: './editar-usuario.component.html',
-  styleUrls: ['./editar-usuario.component.css'],
+  selector: 'app-editar-camisetas',
+  templateUrl: './editar-camisetas.component.html',
+  styleUrls: ['./editar-camisetas.component.css'],
 })
-export class EditarUsuarioComponent {
+export class EditarCamisetasComponent {
   //Declaramos la coleccion de firebase, id, y el objeto en los que vamos a trabajar
-  coleccion: string = 'Usuarios';
+  coleccion: string = 'Camisetas';
   documentId: string = '';
   usuario: any;
 
   constructor(
-    private firebase: UsuarioService,
+    private firebase: CamisetasService,
     private fb: FormBuilder,
     private ruta: ActivatedRoute
   ) {}
 
-  formUsuario = this.fb.group({
+  formCamisetas = this.fb.group({
     nombre: [],
-    apellidos: [],
-    password: [],
-    correo: [],
-    telefono: [],
-    mdDate: [],
-    mdUuid: [],
-    rol: [],
+    marca: [],
+    precio: [],
   });
 
   EditarDatos() {
@@ -36,7 +31,7 @@ export class EditarUsuarioComponent {
     this.firebase
       .cogerUno(this.coleccion, this.documentId)
       .subscribe((resp: any) => {
-        this.formUsuario.setValue(resp.payload.data());
+        this.formCamisetas.setValue(resp.payload.data());
       });
   }
   //Metodo para actualizar los datos del portero
@@ -45,7 +40,7 @@ export class EditarUsuarioComponent {
     this.firebase.Actualizar(
       this.coleccion,
       this.documentId,
-      this.formUsuario.value
+      this.formCamisetas.value
     );
     // this._location.back();
   }

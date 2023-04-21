@@ -6,26 +6,24 @@
 </section>
 <section class="m-5">
   <div class=" m-5">
-    <form class="text-center" [formGroup]="formUsuarios" (submit)="EditarDatos()">
-      <div class="input-group flex-nowrap p-2">
-        <span class="input-group-text" id="addon-wrapping">@</span>
-        <input type="text" class="form-control" placeholder="Nombre" aria-label="Username"
-          aria-describedby="addon-wrapping" formControlName="nombre">
+    <form class="text-center" [formGroup]="formUsuario" (submit)="EditarDatos()">
+      <div class="mb-3 d-flex justify-content-center">
+        <input class="rounded-pill p-2" placeholder="Nombre" type="text" formControlName="nombre" id="publico" >
       </div>
-      <div class="input-group flex-nowrap p-2">
-        <span class="input-group-text" id="addon-wrapping">@</span>
-        <input type="text" class="form-control" placeholder="Apellidos" aria-label="Username"
-          aria-describedby="addon-wrapping" formControlName="apellidos">
+      <div class="mb-3 d-flex justify-content-center">
+        <input class="rounded-pill p-2" placeholder="Apellidos" type="text" formControlName="apellidos" id="publico">
       </div>
-      <div class="input-group flex-nowrap p-2">
-        <span class="input-group-text" id="addon-wrapping">@</span>
-        <input type="text" class="form-control" placeholder="Telefono" aria-label="Username"
-          aria-describedby="addon-wrapping" formControlName="telefono">
+      <div class="mb-3 d-flex justify-content-center">
+        <input class="rounded-pill p-2" placeholder="password" type="text" formControlName="password" id="publico">
       </div>
-      <div class="input-group flex-nowrap p-2">
-        <span class="input-group-text" id="addon-wrapping">@</span>
-        <input type="text" class="form-control" placeholder="Nivel de permisos" aria-label="Username"
-          aria-describedby="addon-wrapping" formControlName="rol">
+      <div class="mb-3 d-flex justify-content-center">
+        <input class="rounded-pill p-2" placeholder="Correo" type="text" formControlName="correo" id="publico">
+      </div>
+      <div class="mb-3 d-flex justify-content-center">
+        <input class="rounded-pill p-2" placeholder="telefono" type="text" formControlName="telefono" id="publico">
+      </div>
+      <div class="mb-3 d-flex justify-content-center">
+        <input class="rounded-pill p-2" placeholder="mdUuid" type="text" formControlName="mdUuid" id="publico">
       </div>
       <button class="btn btn-primary btn-lg m-2" (click)="ActualizarDatos()">Registrar cambios</button>
       <button class="btn btn-primary btn-lg m-2" (click)="Eliminar()">Eliminar cliente</button>

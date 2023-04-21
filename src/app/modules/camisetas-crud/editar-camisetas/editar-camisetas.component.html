@@ -6,7 +6,7 @@
 </section>
 <section class="m-5">
   <div class=" m-5">
-    <form class="text-center" [formGroup]="formBotines" (submit)="EditarDatos()">
+    <form class="text-center" [formGroup]="formCamisetas" (submit)="EditarDatos()">
       <div class="input-group flex-nowrap p-2">
         <span class="input-group-text" id="addon-wrapping">@</span>
         <input type="text" class="form-control" placeholder="Nombre" aria-label="Username"
@@ -23,7 +23,7 @@
           aria-describedby="addon-wrapping" formControlName="precio">
       </div>
       <button class="btn btn-primary btn-lg m-2" (click)="ActualizarDatos()">Registrar cambios</button>
-      <button class="btn btn-primary btn-lg m-2" (click)="Eliminar()">Eliminar botin</button>
+      <button class="btn btn-primary btn-lg m-2" (click)="Eliminar()">Eliminar Camiseta</button>
     </form>
   </div>
 </section>

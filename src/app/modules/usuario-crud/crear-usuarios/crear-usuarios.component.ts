@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { SHA256 } from 'crypto-js';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { format } from 'date-fns';
+
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -28,26 +30,25 @@ export class CrearUsuariosComponent {
   formUsuarios = this.fb.group({
     nombre: [],
     apellidos: [],
-    contraseña: [],
+    password: [],
     correo: [],
+    telefono: [],
+    mdDate: [format(new Date(), 'dd/MM/yyyy')],
+    mdUuid: [111111],
     rol: [1],
   });
 
-  CrearUsuario(email: string, password: string) {
+  Registrarse(email: string, password: string) {
     //Antes de nada hacemos un hash de la contraseña
     const hash = SHA256(password).toString();
-    console.log('crear-usuarios.module.ts/CREAR || Metodo CrearUsuario');
+    console.log("Entrando a Registro.ts || Metodo Registrarse");
     return this.afAuth
       .createUserWithEmailAndPassword(email, hash)
       .then((result) => {
-        console.log(
-          'Entrando a crear-usuarios.module.ts/CREAR || Enviando el correo y contraseña que recibimos de nuestro formulario'
-        );
-        //Cambiamos el valor del campo contraseña para subirlo encryptado
-        // this.formUsuarios.get('contraseña')!.setValue(hash);
-        this.firebase.Crear(this.coleccion,this.formUsuarios.value);
-        console.log(hash);
-        this.router.navigate(['/Menu']);
+        console.log("Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario");
+        this.firebase.Crear(this.coleccion,this.formUsuarios.value)
+        console.log(hash)
+        this.router.navigate(["/Menu"])
       })
       .catch((error) => {
         window.alert(error.message);

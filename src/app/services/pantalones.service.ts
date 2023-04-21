@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root'
 })
-export class CamisetasService {
+export class PantalonesService {
 
   constructor(private firestore: AngularFirestore) { }
 
