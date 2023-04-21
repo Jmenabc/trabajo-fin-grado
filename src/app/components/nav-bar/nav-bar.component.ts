@@ -1,21 +1,34 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
-import { Auth, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from '@angular/fire/auth';
+import {
+  Auth,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent {
-
-  // authF = getAuth();
-  // //Variable donde guardamos el uid del usuario
-  // UsuarioUID: string = this.authF.currentUser!.uid.toString();
-  // constructor(private UserS: UsuarioService) {}
-  // recogerRol() {
-  //    return this.UserS.RecogerRol(this.UsuarioUID);
-  // }
-
-  //RolUsuario: string = this.recogerRol(this.UsuarioUID);
+  constructor(private afAuth: AngularFireAuth) {}
+  estado: string = '';
+  //Vamos a comprobar si el usuario esta logueado o no, en cada caso devolveremos o la letra
+  //a = registrado
+  //b = no registrado
+  //Con esto jugaremos con el navbar y meteremos los datos del usuario en el localStorage
+  async ComprobarEstadoSesion() {
+    const user = this.afAuth.currentUser;
+    if (await user) {
+      this.estado = 'a';
+    } else {
+      this.estado = 'b';
+    }
+  }
+  ngOnInit() {
+    this.ComprobarEstadoSesion();
+  }
 }
