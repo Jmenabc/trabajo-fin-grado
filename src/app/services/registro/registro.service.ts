@@ -14,4 +14,8 @@ export class RegistroService {
   CrearUsuario(data: any) {
     return this.firestore.collection("Usuarios").add(data);
   }
+  //Metodo para crear un documento de la base de datos
+  CrearRegistrar( data: any,uuid: string) {
+    return this.firestore.collection("Usuarios").doc(uuid).set(data);
+  }
 }

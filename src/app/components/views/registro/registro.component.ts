@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistroService } from 'src/app/services/registro/registro.service';
 import { SHA256 } from 'crypto-js';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-registro',
@@ -16,13 +17,15 @@ export class RegistroComponent {
     private firebase: RegistroService,
     private afAuth: AngularFireAuth,
     private router: Router,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private afs: AngularFirestore) { }
 
   //Creamos el formulario
   formUsuario = this.fb.group({
     email: [],
     contraseña: [],
     rol: [1],
+    uuid:[""]
   });
 
   Registrarse(email: string, password: string) {
@@ -32,8 +35,15 @@ export class RegistroComponent {
     return this.afAuth
       .createUserWithEmailAndPassword(email, hash)
       .then((result) => {
+        //Una vez se registra almacenamos el uuid
+        const uuid = result.user!.uid;
+        //Actualizamos el valor del formulario
+        this.formUsuario.patchValue({
+          uuid: result.user!.uid
+        });
         console.log("Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario");
-        this.firebase.CrearUsuario(this.formUsuario.value)
+        //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos
+        this.firebase.CrearRegistrar(this.formUsuario.value,uuid)
         console.log(hash)
         this.router.navigate(["/Menu"])
       })

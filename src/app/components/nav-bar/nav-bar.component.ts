@@ -16,6 +16,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class NavBarComponent {
   constructor(private afAuth: AngularFireAuth) {}
   estado: string = '';
+  rol: string = localStorage.getItem('rol')!;
   //Vamos a comprobar si el usuario esta logueado o no, en cada caso devolveremos o la letra
   //a = registrado
   //b = no registrado
@@ -30,5 +31,7 @@ export class NavBarComponent {
   }
   ngOnInit() {
     this.ComprobarEstadoSesion();
+    this.rol
+    console.log(this.rol)
   }
 }

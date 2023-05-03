@@ -10,7 +10,11 @@ export class LoginService {
 
   //Creamos nuetsra instancia de la clase auth para poder utilizar sus servicios
   authF = getAuth();
-  constructor(private firestore: AngularFirestore, private auth: Auth) { }
+  constructor(private firestore: AngularFirestore) { }
+
+  cogerRolUsuario(uuid: string) {
+    return this.firestore.collection('Usuarios', ref => ref.where("uuid", "==", uuid)).snapshotChanges()
+  }
 
 
 
