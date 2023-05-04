@@ -12,6 +12,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
+  public myText: string = "";
 
   constructor(
     private firebase: RegistroService,
@@ -37,6 +38,9 @@ export class RegistroComponent {
       .then((result) => {
         //Una vez se registra almacenamos el uuid
         const uuid = result.user!.uid;
+        const verified = result.user?.emailVerified;
+        //enviamos el correo de verificación
+        result.user!.sendEmailVerification();
         //Actualizamos el valor del formulario
         this.formUsuario.patchValue({
           uuid: result.user!.uid
@@ -44,11 +48,16 @@ export class RegistroComponent {
         console.log("Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario");
         //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos
         this.firebase.CrearRegistrar(this.formUsuario.value,uuid)
-        console.log(hash)
-        this.router.navigate(["/Menu"])
+        if (verified == true) {
+          this.router.navigate(["/Menu"])
+        } else {
+          this.myText = "Mira tu correo y verificate para continuar,\n mira en spam por si acaso :3"
+        }
+
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
+
 }

@@ -17,6 +17,7 @@ import { BgImageComponent } from './components/bg-image/bg-image.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RecuperarcComponent } from './components/views/recuperarc/recuperarc.component';
 import { CrudSelectorComponent } from './components/views/crud-selector/crud-selector.component';
+import { VerificadoEstadoComponent } from './components/views/verificado-estado/verificado-estado.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CrudSelectorComponent } from './components/views/crud-selector/crud-sel
     BgImageComponent,
     RecuperarcComponent,
     CrudSelectorComponent,
+    VerificadoEstadoComponent,
   ],
   imports: [
     BrowserModule,
