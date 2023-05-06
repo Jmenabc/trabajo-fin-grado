@@ -21,6 +21,7 @@ export class VerUsuariosComponent {
           ...usuariosSnapshot.payload.doc.data(),
           documentId: usuariosSnapshot.payload.doc.id,
         });
+        console.log(this.usuariosLista)
       });
     });
   }

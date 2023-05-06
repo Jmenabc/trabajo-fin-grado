@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Auth, getAuth, onAuthStateChanged, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { Firestore } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +22,7 @@ export class RegistroService {
   //Metodo que cuando te registres se cree un carrito de la compra para tu usuario
   CrearCarrito(uuid: string) {
     return this.firestore.collection(this.collection).doc(uuid).collection(this.collectionCarrito).doc(uuid).set({
-      "ejemplo":"rehtehtrh"
+      "ejemplo": []
     });
   }
 }

@@ -39,6 +39,7 @@ export class RegistroComponent {
       .then((result) => {
         //Una vez se registra almacenamos el uuid
         const uuid = result.user!.uid;
+        localStorage.setItem("uuid",uuid)
         //enviamos el correo de verificación
         result.user!.sendEmailVerification();
         //Actualizamos el valor del formulario

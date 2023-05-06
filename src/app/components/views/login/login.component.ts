@@ -48,6 +48,7 @@ export class LoginComponent {
         this.afs.collection("Usuarios").doc(uuid).get().subscribe((doc) => {
           if (doc.exists) {
             const campoValor = doc.get("rol");
+            localStorage.setItem('uuid', uuid);
             localStorage.setItem('rol', campoValor);
             console.log(localStorage)
           } else {

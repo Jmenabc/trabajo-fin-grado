@@ -1,1 +1,12 @@
-<p>carrito works!</p>
+<ol class="list-group list-group-numbered">
+  <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let c of datosCarrito">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Nombre - {{c.nombre}}</div>
+      <div class="fw-bold">Precio - {{c.precio}}</div>
+      <div class="fw-bold">Marca - {{c.marca}}</div>
+    </div>
+  </li>
+</ol>
+<h3>Total a pagar: {{suma}}€</h3>
+<button (click)="sumar()">Pagar</button>
+
