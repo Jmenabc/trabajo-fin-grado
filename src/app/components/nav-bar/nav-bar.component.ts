@@ -22,16 +22,22 @@ export class NavBarComponent {
   //b = no registrado
   //Con esto jugaremos con el navbar y meteremos los datos del usuario en el localStorage
   async ComprobarEstadoSesion() {
-    const user = this.afAuth.currentUser;
-    if (await user) {
+    console.log(localStorage.getItem('email'));
+    if (
+      localStorage.getItem('email') != undefined ||
+      localStorage.getItem('email') != null
+    ) {
       this.estado = 'a';
-    } else {
+    } else if (
+      localStorage.getItem('email') == undefined ||
+      localStorage.getItem('email') == null
+    ) {
       this.estado = 'b';
     }
   }
   ngOnInit() {
     this.ComprobarEstadoSesion();
-    this.rol
-    console.log(this.rol)
+    this.rol;
+    console.log(this.rol);
   }
 }
