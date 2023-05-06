@@ -7,6 +7,7 @@ import { PrincipalMenuEntradaComponent } from './components/views/principal-menu
 import { RecuperarcComponent } from './components/views/recuperarc/recuperarc.component';
 import { CrudSelectorComponent } from './components/views/crud-selector/crud-selector.component';
 import { VerificadoEstadoComponent } from './components/views/verificado-estado/verificado-estado.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'recuperarContraseña', component: RecuperarcComponent },
   { path: 'crudselector', component: CrudSelectorComponent },
   { path: 'verificado', component: VerificadoEstadoComponent },
+  { path: 'carrito', component: CarritoComponent },
   //Modules
   {
     path: 'usuarioCRUD',

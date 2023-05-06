@@ -18,6 +18,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RecuperarcComponent } from './components/views/recuperarc/recuperarc.component';
 import { CrudSelectorComponent } from './components/views/crud-selector/crud-selector.component';
 import { VerificadoEstadoComponent } from './components/views/verificado-estado/verificado-estado.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { VerificadoEstadoComponent } from './components/views/verificado-estado/
     RecuperarcComponent,
     CrudSelectorComponent,
     VerificadoEstadoComponent,
+    CarritoComponent,
   ],
   imports: [
     BrowserModule,
