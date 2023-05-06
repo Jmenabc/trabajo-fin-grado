@@ -18,4 +18,12 @@ export class CarritoService {
       .collection(this.collectionCarrito)
       .snapshotChanges();
   }
+
+  AñadirFav() {
+    return this.firestore
+      .collection(this.collection)
+      .doc(this.uuid!)
+      .collection(this.collectionCarrito)
+      .doc(this.uuid!)
+  }
 }
