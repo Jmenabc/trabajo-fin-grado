@@ -26,4 +26,12 @@ export class CarritoService {
       .collection(this.collectionCarrito)
       .doc(this.uuid!)
   }
+
+  docDir() {
+    return this.firestore
+      .collection(this.collection)
+      .doc(this.uuid!)
+      .collection(this.collectionCarrito)
+      .doc(this.uuid!)
+  }
 }

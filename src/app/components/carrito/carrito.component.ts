@@ -34,6 +34,11 @@ export class CarritoComponent {
 
   sumar() {
     alert("Pagado con exito")
+    this.cService.cogerTodos().subscribe((resp: any) => {
+      resp.forEach((carritoSnapshot: any) => {
+        console.log(carritoSnapshot)
+      });
+    });
   }
 
   ngOnInit() {

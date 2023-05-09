@@ -21,17 +21,13 @@ export class NavBarComponent {
   //a = registrado
   //b = no registrado
   //Con esto jugaremos con el navbar y meteremos los datos del usuario en el localStorage
-  async ComprobarEstadoSesion() {
+   ComprobarEstadoSesion() {
     console.log(localStorage.getItem('email'));
     if (
-      localStorage.getItem('email') != undefined ||
-      localStorage.getItem('email') != null
+      localStorage.getItem('correo') != null
     ) {
       this.estado = 'a';
-    } else if (
-      localStorage.getItem('email') == undefined ||
-      localStorage.getItem('email') == null
-    ) {
+    } else {
       this.estado = 'b';
     }
   }
