@@ -33,12 +33,16 @@ export class CarritoComponent {
   }
 
   sumar() {
-    alert("Pagado con exito")
-    this.cService.cogerTodos().subscribe((resp: any) => {
-      resp.forEach((carritoSnapshot: any) => {
-        console.log(carritoSnapshot)
-      });
+    alert("Pagado con exito");
+    this.cService.docDir().update({
+      productos: []
+    }).then(() => {
+      console.log("Objetos de la lista de productos eliminados correctamente");
+    })
+    .catch((error) => {
+      console.error("Error eliminando los productos de la lista: ", error);
     });
+    this.suma = 0;
   }
 
   ngOnInit() {
