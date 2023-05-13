@@ -3,7 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BotinesService } from 'src/app/services/botines/botines.service';
-import { SHA256 } from 'crypto-js';
+import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-crear-botines',
@@ -26,6 +27,9 @@ export class CrearBotinesComponent {
     nombre: [],
     marca: [],
     precio: [],
+    mdDate: [format(new Date(), 'dd/MM/yyyy')],
+    mdUuid:  uuidv4(),
+    url: ''
   });
 
 

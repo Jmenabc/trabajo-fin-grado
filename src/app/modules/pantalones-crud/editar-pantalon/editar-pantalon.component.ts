@@ -21,9 +21,12 @@ export class EditarPantalonComponent {
   ) {}
 
   formPantalones = this.fb.group({
-    nombre: [],
-    marca: [],
-    precio: [],
+    nombre: '',
+    marca: '',
+    precio: 0,
+    mdDate: [],
+    mdUuid: [],
+    url: ''
   });
 
   EditarDatos() {

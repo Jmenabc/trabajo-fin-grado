@@ -1,3 +1,7 @@
 .background-muestras {
-  background-color: aquamarine;
+  background-color: #38B6F5;
+}
+
+.redondeado {
+  border-radius: 48px;
 }

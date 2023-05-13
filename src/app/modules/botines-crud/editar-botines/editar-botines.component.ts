@@ -23,7 +23,10 @@ export class EditarBotinesComponent {
   formBotines = this.fb.group({
     nombre: [],
     marca: [],
-    precio: []
+    precio: [],
+    mdDate: [],
+    mdUuid: [],
+    url: ''
   });
 
   EditarDatos() {

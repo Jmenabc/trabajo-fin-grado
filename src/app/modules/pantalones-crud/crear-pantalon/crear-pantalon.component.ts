@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { PantalonesService } from 'src/app/services/pantalones.service';
+import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-crear-pantalon',
@@ -23,6 +25,9 @@ export class CrearPantalonComponent {
     nombre: [],
     marca: [],
     precio: [],
+    mdDate: [format(new Date(), 'dd/MM/yyyy')],
+    mdUuid:  uuidv4(),
+    url: ''
   });
 
 
