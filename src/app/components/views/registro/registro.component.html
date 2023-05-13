@@ -1,16 +1,24 @@
-<form [formGroup]="formUsuario">
-  <div class="formGroup">
-    <input formControlName="email" type="text" class="formControl" placeholder="Username" #userEmail required />
+<div class=" m-3">
+  <h1>MenaShop</h1>
+</div>
+
+<div class="container-fluid d-flex align-items-center mx-auto">
+  <div class="d-flex justify-content-center w-100">
+    <form [formGroup]="formUsuario" class="col-sm-10 col-md-8 col-lg-6 shadow rounded-lg p-4 d-flex flex-column justify-content-center align-items-center text-center mx-3">
+      <h3 class="text-center mb-3">Registrarse</h3>
+      <div class="formGroup mb-3">
+        <input formControlName="email" type="text" class="formControl rounded-pill py-2 px-3" placeholder="Username" #userEmail required>
+      </div>
+      <div class="formGroup mb-3">
+        <input formControlName="contraseña" type="password" class="formControl rounded-pill py-2 px-3" placeholder="Password" #userPassword required>
+      </div>
+      <div class="formGroup">
+        <button class="rounded-pill pt-2 pb-2 px-5" type="button" (click)="Registrarse(userEmail.value, userPassword.value)">entrar</button>
+      </div>
+      <div class="mt-3 text-center">
+        <a routerLink="/login">Si ya tienes cuenta pulsa aqui</a>
+      </div>
+    </form>
   </div>
-  <div class="formGroup">
-    <input formControlName="contraseña" type="password" class="formControl" placeholder="Password" #userPassword
-      required />
-  </div>
-  <div class="formGroup">
-    <button type="button" (click)="Registrarse(userEmail.value, userPassword.value)">entrar</button>
-  </div>
-  <div class="mt-3 text-center">
-      <a routerLink="/login">Si ya tienes cuenta pulsa aqui</a>
-    </div>
-</form>
+</div>
 <h1>{{ myText }}</h1>
