@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
-
+import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-crear-camisetas',
   templateUrl: './crear-camisetas.component.html',
@@ -22,6 +23,8 @@ export class CrearCamisetasComponent {
     nombre: [],
     marca: [],
     precio: [],
+    mdDate: [format(new Date(), 'dd/MM/yyyy')],
+    mdUuid:  uuidv4(),
   });
 
   CrearBotines() {

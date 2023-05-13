@@ -29,6 +29,9 @@ export class EditarCamisetasComponent {
     nombre: '',
     marca: '',
     precio: 0,
+    url: '',
+    mdDate: [],
+    mdUuid: []
   });
 
   Favoritos() {
@@ -39,19 +42,6 @@ export class EditarCamisetasComponent {
         precio: this.formCamisetas.get('precio')?.value,
       }),
     });
-    // this.cService.AñadirFav().get().forEach((doc) => {
-    //   if (doc.exists) {
-    //     const productos = doc.get("productos");
-    //     console.log(productos)
-    //     productos.push({
-    //       nombre: this.formCamisetas.get("nombre")?.value,
-    //       marca: this.formCamisetas.get("marca")?.value,
-    //       precio: this.formCamisetas.get("precio")?.value
-    //     })
-    //   } else {
-    //     console.log("No se encontró el documento");
-    //   }
-    // })
   }
 
   EditarDatos() {

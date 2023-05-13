@@ -1,8 +1,7 @@
 <!-- HTML -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img src="ruta_de_la_imagen" width="30" height="30" class="d-inline-block align-top">
-    Tienda Men'as
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <a class="navbar-brand mx-4" href="#">
+    MENA'SHOP
   </a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,37 +9,35 @@
   </button>
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
     <!-- No esta logueado -->
-      <ul class="navbar-nav" *ngIf="estado == 'b'">
+    <ul class="navbar-nav" *ngIf="estado == 'b'">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+      </li>
+      <i *ngIf="this.rol == '2'">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+          <a class="nav-link" routerLink="/crudselector">Administrador</a>
         </li>
-        <!-- <i *ngIf="this.rol == '2'"> -->
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/crudselector">Administrador</a>
-          </li>
-        <!-- </i> -->
+      </i>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="bi bi-person-fill"></i>
+        </a>
+      </li>
+    </ul>
+    <!-- Esta logueado -->
+    <ul class="navbar-nav" *ngIf="estado == 'a'">
+      <li class="nav-item">
+        <a class="nav-link">Perfil</a>
+      </li>
+      <i *ngIf="this.rol == '2'">
         <li class="nav-item">
-          <a class="nav-link" href="#">Enlace 3</a>
+          <a class="nav-link" routerLink="/crudselector">Administrador</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="bi bi-person-fill"></i>
-          </a>
-        </li>
-      </ul>
-      <!-- Esta logueado -->
-      <ul class="navbar-nav" *ngIf="estado == 'a'">
-        <li class="nav-item">
-          <a class="nav-link">Perfil</a>
-        </li>
-        <i *ngIf="this.rol == '2'">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/crudselector">Administrador</a>
-          </li>
-        </i>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/carrito">Carrito</a>
-        </li>
-      </ul>
+      </i>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/carrito">Carrito</a>
+      </li>
+
+    </ul>
   </div>
 </nav>

@@ -5,7 +5,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { SHA256 } from 'crypto-js';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { format } from 'date-fns';
-
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -34,7 +34,7 @@ export class CrearUsuariosComponent {
     correo: [],
     telefono: [],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
-    mdUuid: [111111],
+    mdUuid: uuidv4(),
     rol: [1],
   });
 
