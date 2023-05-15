@@ -5,7 +5,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { SHA256 } from 'crypto-js';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { format } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid';
+import { RegistroService } from 'src/app/services/registro/registro.service';
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -18,7 +18,8 @@ export class CrearUsuariosComponent {
     private ruta: ActivatedRoute,
     private firebase: UsuarioService,
     private afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private RegistroService: RegistroService
   ) // private _location: Location
   {}
   //La coleccion donde vamos a añadir los juguetes
@@ -34,7 +35,7 @@ export class CrearUsuariosComponent {
     correo: [],
     telefono: [],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
-    mdUuid: uuidv4(),
+    mdUuid: '',
     rol: [1],
   });
 
@@ -45,10 +46,19 @@ export class CrearUsuariosComponent {
     return this.afAuth
       .createUserWithEmailAndPassword(email, hash)
       .then((result) => {
+        //Una vez se registra almacenamos el uuid
+        const uuid = result.user!.uid;
+        localStorage.setItem("uuid",uuid)
+        //enviamos el correo de verificación
+        result.user!.sendEmailVerification();
+        //Actualizamos el valor del formulario
+        this.formUsuarios.patchValue({
+          mdUuid: result.user!.uid,
+        });
         console.log("Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario");
         this.firebase.Crear(this.coleccion,this.formUsuarios.value)
-        console.log(hash)
-        this.router.navigate(["/Menu"])
+        //Una vez se crea el usuario creamos el carrito
+        this.RegistroService.CrearCarrito(uuid);
       })
       .catch((error) => {
         window.alert(error.message);

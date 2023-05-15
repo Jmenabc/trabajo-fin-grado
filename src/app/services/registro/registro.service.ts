@@ -22,7 +22,7 @@ export class RegistroService {
   //Metodo que cuando te registres se cree un carrito de la compra para tu usuario
   CrearCarrito(uuid: string) {
     return this.firestore.collection(this.collection).doc(uuid).collection(this.collectionCarrito).doc(uuid).set({
-      "ejemplo": []
+      "carrito": []
     });
   }
 }

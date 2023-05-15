@@ -10,7 +10,7 @@
         <input formControlName="email" type="text" class="formControl rounded-pill py-2 px-3" placeholder="Username" #userEmail required>
       </div>
       <div class="formGroup mb-3">
-        <input formControlName="contraseña" type="password" class="formControl rounded-pill py-2 px-3" placeholder="Password" #userPassword required>
+        <input formControlName="contraseña" type="password" maxlength="5" class="formControl rounded-pill py-2 px-3" placeholder="Password" #userPassword required>
       </div>
       <div class="formGroup">
         <button class="rounded-pill pt-2 pb-2 px-5" type="button" (click)="Registrarse(userEmail.value, userPassword.value)">entrar</button>

@@ -10,7 +10,7 @@
         <input class="rounded-pill py-2 px-3 form-control" placeholder="Correo" type="text" #userEmail required>
       </div>
       <div class="mb-3 form-group">
-        <input class="rounded-pill py-2 px-3 form-control" placeholder="Contraseña" type="password" #userPassword required>
+        <input class="rounded-pill py-2 px-3 form-control" maxlength="5" placeholder="Contraseña" type="password" #userPassword required>
       </div>
       <div class="col text-center">
         <button class="rounded-pill pt-2 pb-2 px-5" type="button" (click)="Loguearse(userEmail.value, userPassword.value)">entrar</button>
