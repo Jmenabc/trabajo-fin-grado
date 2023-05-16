@@ -57,8 +57,6 @@ export class CrearUsuariosComponent {
         });
         console.log("Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario");
         this.firebase.Crear(this.coleccion,this.formUsuarios.value)
-        //Una vez se crea el usuario creamos el carrito
-        this.RegistroService.CrearCarrito(uuid);
       })
       .catch((error) => {
         window.alert(error.message);

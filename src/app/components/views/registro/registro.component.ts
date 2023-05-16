@@ -54,7 +54,7 @@ export class RegistroComponent {
         //Una vez se crea el usuario creamos el carrito
         this.firebase.CrearCarrito(uuid);
         //y le redirigimos a la ventana del menu
-        this.router.navigate(['/Menu']);
+        this.router.navigate(['/verificado']);
       })
       .catch((error) => {
         window.alert(error.message);

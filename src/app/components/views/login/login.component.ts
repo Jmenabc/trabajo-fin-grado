@@ -62,7 +62,7 @@ export class LoginComponent {
         );
         if (result) {
           console.log(hash);
-          this.router.navigate(['/Menu']);
+          this.router.navigate(['/verificado']);
         }
       })
       .catch((error) => {
