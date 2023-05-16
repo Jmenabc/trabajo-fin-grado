@@ -14,10 +14,6 @@ export class CarritoComponent {
     private cService: CarritoService,
     private rService: RecibosService
   ) {}
-  //Variables que necesitaremos para pasar la lista del carrito
-  //a la lista del recibo
-  carrito = this.cService.docDir().valueChanges();
-  recibo = this.rService.docDir();
 
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
   carritoLista: any[] = [];
@@ -33,6 +29,7 @@ export class CarritoComponent {
           ...carritoSnapshot.payload.doc.data(),
         });
         this.datosCarrito = this.carritoLista[0].productos;
+        console.log(this.datosCarrito = this.carritoLista[0].productos);
         //Ahora recogemos el precio de todos los obejtos de la lista y los sumamos
         this.datosCarrito.forEach((objeto) => {
           this.suma += objeto.precio;
@@ -40,10 +37,18 @@ export class CarritoComponent {
         });
       });
     });
+
+
   }
 
   sumar() {
     alert('Pagado con exito');
+    const data = {
+      miLista: this.datosCarrito
+    };
+    //Una vez sabemos que los datos del carrito estan en datosCarrito los añadimos a un recibo y lo generamos en la base de datos
+    this.rService.Crear("Recibos",data);
+    //Despues de haberlos generado en la base de datos generamos un pdf con los datos que queremos
     this.rService.CrearRecibo(localStorage.getItem('uuid')!.toString());
     this.cService
       .docDir()
