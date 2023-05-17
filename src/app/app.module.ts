@@ -19,6 +19,7 @@ import { RecuperarcComponent } from './components/views/recuperarc/recuperarc.co
 import { CrudSelectorComponent } from './components/views/crud-selector/crud-selector.component';
 import { VerificadoEstadoComponent } from './components/views/verificado-estado/verificado-estado.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CarritoComponent } from './components/carrito/carrito.component';
     CrudSelectorComponent,
     VerificadoEstadoComponent,
     CarritoComponent,
+    NoPermisosComponent,
   ],
   imports: [
     BrowserModule,

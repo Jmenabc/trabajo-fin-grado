@@ -8,6 +8,8 @@ import { RecuperarcComponent } from './components/views/recuperarc/recuperarc.co
 import { CrudSelectorComponent } from './components/views/crud-selector/crud-selector.component';
 import { VerificadoEstadoComponent } from './components/views/verificado-estado/verificado-estado.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { AdministradorPageGuard } from './guards/administrador-pagina/administrador-page.guard';
+import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,12 +17,14 @@ const routes: Routes = [
   { path: 'Inicio', component: PaginicialComponent },
   { path: 'Menu', component: PrincipalMenuEntradaComponent },
   { path: 'recuperarContraseña', component: RecuperarcComponent },
-  { path: 'crudselector', component: CrudSelectorComponent },
+  { path: 'crudselector', component: CrudSelectorComponent, canActivate: [AdministradorPageGuard] },
   { path: 'verificado', component: VerificadoEstadoComponent },
   { path: 'carrito', component: CarritoComponent },
+  { path: 'noPermisos', component: NoPermisosComponent },
   //Modules
   {
     path: 'usuarioCRUD',
+    canActivate: [AdministradorPageGuard],
     loadChildren: () =>
       import('./modules/usuario-crud/usuario-crud.module').then(
         (m) => m.UsuarioCrudModule
@@ -28,6 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'botinesCRUD',
+    canActivate: [AdministradorPageGuard],
     loadChildren: () =>
       import('./modules/botines-crud/botines-crud.module').then(
         (m) => m.BotinesCrudModule
@@ -35,6 +40,7 @@ const routes: Routes = [
   },
   {
     path: 'pantalonesCRUD',
+    canActivate: [AdministradorPageGuard],
     loadChildren: () =>
       import('./modules/pantalones-crud/pantalones-crud.module').then(
         (m) => m.PantalonesCrudModule
@@ -42,6 +48,7 @@ const routes: Routes = [
   },
   {
     path: 'camisetasCRUD',
+    canActivate: [AdministradorPageGuard],
     loadChildren: () =>
       import('./modules/camisetas-crud/camisetas-crud.module').then(
         (m) => m.CamisetasCrudModule
