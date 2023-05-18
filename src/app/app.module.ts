@@ -20,6 +20,9 @@ import { CrudSelectorComponent } from './components/views/crud-selector/crud-sel
 import { VerificadoEstadoComponent } from './components/views/verificado-estado/verificado-estado.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.component';
+import { ConfirmacionActivaComponent } from './components/confirmacion-activa/confirmacion-activa.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.
     VerificadoEstadoComponent,
     CarritoComponent,
     NoPermisosComponent,
+    ConfirmacionActivaComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,8 @@ import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     NoopAnimationsModule,
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
