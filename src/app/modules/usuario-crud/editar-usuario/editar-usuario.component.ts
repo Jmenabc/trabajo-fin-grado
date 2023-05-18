@@ -29,7 +29,7 @@ export class EditarUsuarioComponent {
     nombre: [],
     apellidos: [],
     contraseña: '',
-    email: [],
+    correo: [],
     telefono: [],
     mdDate: [],
     uuid: '',
@@ -62,13 +62,24 @@ export class EditarUsuarioComponent {
     modalRef.result
       .then((result) => {
         if (result === 'confirmar') {
-          this.firebase.Eliminar(this.coleccion, this.documentId);
-          this._location.back();
+          this.verificarRolYEliminar();
         }
       })
       .catch((error) => {
         console.log('Error:', error);
       });
+  }
+
+  verificarRolYEliminar() {
+    this.firebase.cogerUno(this.coleccion, this.documentId).subscribe((resp: any) => {
+      this.usuario = resp.payload.data();
+      if (this.usuario && this.usuario.rol === 3) {
+        console.log('No se puede eliminar debido al rol del usuario.');
+      } else {
+        this.firebase.Eliminar(this.coleccion, this.documentId);
+        this._location.back();
+      }
+    });
   }
 
   ngOnInit() {

@@ -31,26 +31,27 @@ export class CrearUsuariosComponent {
   formUsuarios = this.fb.group({
     nombre: [],
     apellidos: [],
-    password: [],
+    contraseña: [],
     correo: [],
     telefono: [],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     uuid: '',
-    rol: [1],
+    rol: [2],
+    url: []
   });
 
-  Registrarse(email: string, password: string) {
+  Registrarse(correo: string, password: string) {
     //Antes de nada hacemos un hash de la contraseña
     const hash = SHA256(password).toString();
     console.log("Entrando a Registro.ts || Metodo Registrarse");
     return this.afAuth
-      .createUserWithEmailAndPassword(email, hash)
+      .createUserWithEmailAndPassword(correo, hash)
       .then((result) => {
         //Una vez se registra almacenamos el uuid
-        const uuid = result.user!.uid;
-        localStorage.setItem("uuid",uuid)
+        // const uuid = result.user!.uid;
+        // localStorage.setItem("uuid",uuid)
         //enviamos el correo de verificación
-        result.user!.sendEmailVerification();
+        // result.user!.sendEmailVerification();
         //Actualizamos el valor del formulario
         this.formUsuarios.patchValue({
           uuid: result.user!.uid,
