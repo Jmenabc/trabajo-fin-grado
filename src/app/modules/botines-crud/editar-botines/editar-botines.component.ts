@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BotinesService } from 'src/app/services/botines/botines.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-editar-botines',
@@ -17,7 +18,8 @@ export class EditarBotinesComponent {
   constructor(
     private firebase: BotinesService,
     private fb: FormBuilder,
-    private ruta: ActivatedRoute
+    private ruta: ActivatedRoute,
+    private _location: Location
   ) {}
 
   formBotines = this.fb.group({
@@ -26,7 +28,7 @@ export class EditarBotinesComponent {
     precio: [],
     mdDate: [],
     mdUuid: [],
-    url: ''
+    url: '',
   });
 
   EditarDatos() {
@@ -50,8 +52,21 @@ export class EditarBotinesComponent {
 
   Eliminar() {
     this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    this.firebase.Eliminar(this.coleccion, this.documentId);
-    // this._location.back();
+    const confirmacion = prompt(
+      `Escribe "${this.documentId}" para confirmar la eliminación`
+    );
+    if (confirmacion === this.documentId) {
+      this.firebase
+        .Eliminar(this.coleccion, this.documentId)
+        .then(() => {
+          console.log('Elemento eliminado correctamente');
+          this.firebase.Eliminar(this.coleccion, this.documentId);
+          this._location.back();
+        })
+        .catch((error) => {
+          console.error('Error al eliminar el elemento:', error);
+        });
+    }
   }
 
   ngOnInit() {
