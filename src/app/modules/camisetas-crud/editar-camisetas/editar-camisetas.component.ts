@@ -1,4 +1,3 @@
-import { Firestore } from '@angular/fire/firestore';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +5,9 @@ import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
 import { CarritoService } from 'src/app/services/carrito/carrito.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmacionActivaComponent } from 'src/app/components/confirmacion-activa/confirmacion-activa.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-editar-camisetas',
@@ -22,7 +24,9 @@ export class EditarCamisetasComponent {
     private firebase: CamisetasService,
     private fb: FormBuilder,
     private ruta: ActivatedRoute,
-    private cService: CarritoService
+    private cService: CarritoService,
+    private _location: Location,
+    private modalService: NgbModal
   ) {}
 
   formCamisetas = this.fb.group({
@@ -65,8 +69,18 @@ export class EditarCamisetasComponent {
 
   Eliminar() {
     this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    this.firebase.Eliminar(this.coleccion, this.documentId);
-    // this._location.back();
+    const modalRef = this.modalService.open(ConfirmacionActivaComponent);
+    modalRef.componentInstance.documentId = this.documentId;
+    modalRef.result
+      .then((result) => {
+        if (result === 'confirmar') {
+          this.firebase.Eliminar(this.coleccion, this.documentId);
+          this._location.back();
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
   }
 
   ngOnInit() {

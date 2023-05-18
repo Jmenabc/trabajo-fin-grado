@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PantalonesService } from 'src/app/services/pantalones.service';
+import { Location } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmacionActivaComponent } from 'src/app/components/confirmacion-activa/confirmacion-activa.component';
 
 @Component({
   selector: 'app-editar-pantalon',
@@ -17,7 +20,9 @@ export class EditarPantalonComponent {
   constructor(
     private firebase: PantalonesService,
     private fb: FormBuilder,
-    private ruta: ActivatedRoute
+    private ruta: ActivatedRoute,
+    private _location: Location,
+    private modalService: NgbModal
   ) {}
 
   formPantalones = this.fb.group({
@@ -50,8 +55,18 @@ export class EditarPantalonComponent {
 
   Eliminar() {
     this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    this.firebase.Eliminar(this.coleccion, this.documentId);
-    // this._location.back();
+    const modalRef = this.modalService.open(ConfirmacionActivaComponent);
+    modalRef.componentInstance.documentId = this.documentId;
+    modalRef.result
+      .then((result) => {
+        if (result === 'confirmar') {
+          this.firebase.Eliminar(this.coleccion, this.documentId);
+          this._location.back();
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
   }
 
   ngOnInit() {

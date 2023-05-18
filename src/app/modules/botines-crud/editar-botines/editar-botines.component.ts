@@ -55,21 +55,6 @@ export class EditarBotinesComponent {
 
   Eliminar() {
     this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    // const confirmacion = prompt(
-    //   `Escribe "${this.documentId}" para confirmar la eliminación`
-    // );
-    // if (confirmacion === this.documentId) {
-    //   this.firebase
-    //     .Eliminar(this.coleccion, this.documentId)
-    //     .then(() => {
-    //       console.log('Elemento eliminado correctamente');
-    //       this.firebase.Eliminar(this.coleccion, this.documentId);
-    //       this._location.back();
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error al eliminar el elemento:', error);
-    //     });
-    // }
     const modalRef = this.modalService.open(ConfirmacionActivaComponent);
     modalRef.componentInstance.documentId = this.documentId;
     modalRef.result
