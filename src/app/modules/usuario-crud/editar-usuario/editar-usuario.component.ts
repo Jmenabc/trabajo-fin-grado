@@ -27,7 +27,7 @@ export class EditarUsuarioComponent {
     email: [],
     telefono: [],
     mdDate: [],
-    mdUuid: '',
+    uuid: '',
     rol: [],
   });
 

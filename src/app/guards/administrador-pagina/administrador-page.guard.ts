@@ -5,6 +5,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+/*
+* Guardian que comprueba que los usuario no administradores no puedan entrar
+* @CanActivate
+* @Author Jmenabc
+*/
 export class AdministradorPageGuard implements CanActivate {
   constructor(private router: Router) {}
   canActivate(
@@ -12,11 +18,12 @@ export class AdministradorPageGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (localStorage.getItem("rol") == "2") {
       return true;
-    } else {
+    }else if(localStorage.getItem("rol") == "3") {
+      return true;
+    }
+    else {
       this.router.navigate(['/noPermisos']);
       return false;
-
     }
   }
-
 }

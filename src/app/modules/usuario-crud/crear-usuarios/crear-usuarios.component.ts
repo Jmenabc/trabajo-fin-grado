@@ -35,7 +35,7 @@ export class CrearUsuariosComponent {
     correo: [],
     telefono: [],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
-    mdUuid: '',
+    uuid: '',
     rol: [1],
   });
 
@@ -53,7 +53,7 @@ export class CrearUsuariosComponent {
         result.user!.sendEmailVerification();
         //Actualizamos el valor del formulario
         this.formUsuarios.patchValue({
-          mdUuid: result.user!.uid,
+          uuid: result.user!.uid,
         });
         console.log("Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario");
         this.firebase.Crear(this.coleccion,this.formUsuarios.value)
