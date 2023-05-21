@@ -12,44 +12,26 @@ export class CarritoService {
   uuid = localStorage.getItem('uuid');
 
   cogerTodos() {
-    try {
-      return this.firestore
-        .collection(this.collection)
-        .doc(this.uuid!)
-        .collection(this.collectionCarrito)
-        .snapshotChanges();
-    } catch (error) {
-      console.log('Se ha producido un error de conexión con la base de datos');
-      //Redireccionar a la ventana de no hay conexión
-      return this.router.navigate(['/errorbbdd']);
-    }
+    return this.firestore
+      .collection(this.collection)
+      .doc(this.uuid!)
+      .collection(this.collectionCarrito)
+      .snapshotChanges();
   }
 
   AñadirFav() {
-    try {
-      return this.firestore
-        .collection(this.collection)
-        .doc(this.uuid!)
-        .collection(this.collectionCarrito)
-        .doc(this.uuid!);
-    } catch (error) {
-      console.log('Se ha producido un error de conexión con la base de datos');
-      //Redireccionar a la ventana de no hay conexión
-      return this.router.navigate(['/errorbbdd']);
-    }
+    return this.firestore
+      .collection(this.collection)
+      .doc(this.uuid!)
+      .collection(this.collectionCarrito)
+      .doc(this.uuid!);
   }
 
   docDir() {
-    try {
-      return this.firestore
-        .collection(this.collection)
-        .doc(this.uuid!)
-        .collection(this.collectionCarrito)
-        .doc(this.uuid!);
-    } catch (error) {
-      console.log('Se ha producido un error de conexión con la base de datos');
-      //Redireccionar a la ventana de no hay conexión
-      return this.router.navigate(['/errorbbdd']);
-    }
+    return this.firestore
+      .collection(this.collection)
+      .doc(this.uuid!)
+      .collection(this.collectionCarrito)
+      .doc(this.uuid!);
   }
 }

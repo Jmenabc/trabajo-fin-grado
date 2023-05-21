@@ -24,6 +24,7 @@ import { ConfirmacionActivaComponent } from './components/confirmacion-activa/co
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaseDatosErrorComponent } from './components/views/base-datos-error/base-datos-error.component';
+import { ListaBotinesComponent } from './components/views/lista-botines/lista-botines.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { BaseDatosErrorComponent } from './components/views/base-datos-error/bas
     NoPermisosComponent,
     ConfirmacionActivaComponent,
     BaseDatosErrorComponent,
+    ListaBotinesComponent,
   ],
   imports: [
     BrowserModule,
