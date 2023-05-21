@@ -13,6 +13,10 @@ import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.
 import { BaseDatosErrorComponent } from './components/views/base-datos-error/base-datos-error.component';
 import { ListaBotinesComponent } from './components/views/lista-botines/lista-botines.component';
 import { DetallesBotinesComponent } from './components/views/detalles-botines/detalles-botines.component';
+import { ListaCamisetasComponent } from './components/views/lista-camisetas/lista-camisetas.component';
+import { ListaPantalonesComponent } from './components/views/lista-pantalones/lista-pantalones.component';
+import { DetallesCamisetasComponent } from './components/views/detalles-camisetas/detalles-camisetas.component';
+import { DetallesPantalonesComponent } from './components/views/detalles-pantalones/detalles-pantalones.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +36,10 @@ const routes: Routes = [
   //Listas de la ropa cliente
   { path: 'ListaBotines', component: ListaBotinesComponent },
   { path: 'DetallesBotines/:id', component: DetallesBotinesComponent },
+  { path: 'ListaCamisetas', component: ListaCamisetasComponent },
+  { path: 'DetallesCamisetas/:id', component: DetallesCamisetasComponent },
+  { path: 'ListaPantalones', component: ListaPantalonesComponent },
+  { path: 'DetallesPantalones/:id', component: DetallesPantalonesComponent },
   //Modules
   {
     path: 'usuarioCRUD',

@@ -26,6 +26,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaseDatosErrorComponent } from './components/views/base-datos-error/base-datos-error.component';
 import { ListaBotinesComponent } from './components/views/lista-botines/lista-botines.component';
 import { DetallesBotinesComponent } from './components/views/detalles-botines/detalles-botines.component';
+import { ListaCamisetasComponent } from './components/views/lista-camisetas/lista-camisetas.component';
+import { ListaPantalonesComponent } from './components/views/lista-pantalones/lista-pantalones.component';
+import { DetallesCamisetasComponent } from './components/views/detalles-camisetas/detalles-camisetas.component';
+import { DetallesPantalonesComponent } from './components/views/detalles-pantalones/detalles-pantalones.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,10 @@ import { DetallesBotinesComponent } from './components/views/detalles-botines/de
     BaseDatosErrorComponent,
     ListaBotinesComponent,
     DetallesBotinesComponent,
+    ListaCamisetasComponent,
+    ListaPantalonesComponent,
+    DetallesCamisetasComponent,
+    DetallesPantalonesComponent,
   ],
   imports: [
     BrowserModule,
