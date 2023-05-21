@@ -11,6 +11,8 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { AdministradorPageGuard } from './guards/administrador-pagina/administrador-page.guard';
 import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.component';
 import { BaseDatosErrorComponent } from './components/views/base-datos-error/base-datos-error.component';
+import { ListaBotinesComponent } from './components/views/lista-botines/lista-botines.component';
+import { DetallesBotinesComponent } from './components/views/detalles-botines/detalles-botines.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,6 +29,9 @@ const routes: Routes = [
   { path: 'carrito', component: CarritoComponent },
   { path: 'noPermisos', component: NoPermisosComponent },
   { path: 'errorBBDD', component: BaseDatosErrorComponent },
+  //Listas de la ropa cliente
+  { path: 'ListaBotines', component: ListaBotinesComponent },
+  { path: 'DetallesBotines/:id', component: DetallesBotinesComponent },
   //Modules
   {
     path: 'usuarioCRUD',

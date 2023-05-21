@@ -30,4 +30,8 @@ export class ListaBotinesComponent {
       this.router.navigate(['/errorBBDD']);
     }
   }
+
+  ngOnInit() {
+    this.getTodosLosBotines();
+  }
 }

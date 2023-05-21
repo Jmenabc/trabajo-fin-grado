@@ -32,7 +32,7 @@ export class CarritoComponent {
         console.log(this.datosCarrito = this.carritoLista[0].productos);
         //Ahora recogemos el precio de todos los obejtos de la lista y los sumamos
         this.datosCarrito.forEach((objeto) => {
-          this.suma += objeto.precio;
+          this.suma += objeto.precio * objeto.cantidad;
           console.log(this.suma);
         });
       });

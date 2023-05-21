@@ -39,21 +39,6 @@ export class EditarCamisetasComponent {
     mdUuid: [],
   });
 
-  Favoritos() {
-    try {
-      this.cService.AñadirFav().update({
-        productos: firebase.firestore.FieldValue.arrayUnion({
-          nombre: this.formCamisetas.get('nombre')?.value,
-          marca: this.formCamisetas.get('marca')?.value,
-          precio: this.formCamisetas.get('precio')?.value,
-        }),
-      });
-    } catch (error) {
-      console.log('Error en la base de datos');
-      this.router.navigate(['/errorBBDD']);
-    }
-  }
-
   EditarDatos() {
     try {
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;

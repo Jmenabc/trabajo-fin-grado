@@ -8,13 +8,7 @@ export class CamisetasService {
   constructor(private firestore: AngularFirestore, private router: Router) {}
 
   cogerTodos(coleccion: string) {
-    try {
-      return this.firestore.collection(coleccion).snapshotChanges();
-    } catch (error) {
-      console.log('Se ha producido un error de conexión con la base de datos');
-      //Redireccionar a la ventana de no hay conexión
-      return this.router.navigate(['/errorbbdd']);
-    }
+    return this.firestore.collection(coleccion).snapshotChanges();
   }
   //Metodo para coger un documento de la base de datos
   cogerUno(coleccion: string, documentId: string) {
