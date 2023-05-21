@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BotinesService } from 'src/app/services/botines/botines.service';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +22,8 @@ export class EditarBotinesComponent {
     private fb: FormBuilder,
     private ruta: ActivatedRoute,
     private _location: Location,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) {}
 
   formBotines = this.fb.group({
@@ -35,38 +36,53 @@ export class EditarBotinesComponent {
   });
 
   EditarDatos() {
-    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    this.firebase
-      .cogerUno(this.coleccion, this.documentId)
-      .subscribe((resp: any) => {
-        this.formBotines.setValue(resp.payload.data());
-      });
+    try {
+      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+      this.firebase
+        .cogerUno(this.coleccion, this.documentId)
+        .subscribe((resp: any) => {
+          this.formBotines.setValue(resp.payload.data());
+        });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
   }
   //Metodo para actualizar los datos del portero
   ActualizarDatos() {
-    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    this.firebase.Actualizar(
-      this.coleccion,
-      this.documentId,
-      this.formBotines.value
-    );
+    try {
+      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+      this.firebase.Actualizar(
+        this.coleccion,
+        this.documentId,
+        this.formBotines.value
+      );
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
     // this._location.back();
   }
 
   Eliminar() {
-    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    const modalRef = this.modalService.open(ConfirmacionActivaComponent);
-    modalRef.componentInstance.documentId = this.documentId;
-    modalRef.result
-      .then((result) => {
-        if (result === 'confirmar') {
-          this.firebase.Eliminar(this.coleccion, this.documentId);
-          this._location.back();
-        }
-      })
-      .catch((error) => {
-        console.log('Error:', error);
-      });
+    try {
+      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+      const modalRef = this.modalService.open(ConfirmacionActivaComponent);
+      modalRef.componentInstance.documentId = this.documentId;
+      modalRef.result
+        .then((result) => {
+          if (result === 'confirmar') {
+            this.firebase.Eliminar(this.coleccion, this.documentId);
+            this._location.back();
+          }
+        })
+        .catch((error) => {
+          console.log('Error:', error);
+        });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
   }
 
   ngOnInit() {

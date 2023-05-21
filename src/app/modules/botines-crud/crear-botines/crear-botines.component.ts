@@ -14,7 +14,8 @@ import { v4 as uuidv4 } from 'uuid';
 export class CrearBotinesComponent {
   constructor(
     private fb: FormBuilder,
-    private firebase: BotinesService
+    private firebase: BotinesService,
+    private router: Router
   ) // private _location: Location
   {}
   //La coleccion donde vamos a añadir los juguetes
@@ -34,6 +35,11 @@ export class CrearBotinesComponent {
 
 
   CrearBotines() {
-    this.firebase.Crear(this.coleccion,this.formBotines.value);
+    try {
+      this.firebase.Crear(this.coleccion,this.formBotines.value);
+    } catch (error) {
+      console.log("Error en la base de datos");
+      this.router.navigate(['/errorBBDD']);
+    }
   }
 }

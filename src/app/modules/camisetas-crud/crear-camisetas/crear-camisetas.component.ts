@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-crear-camisetas',
   templateUrl: './crear-camisetas.component.html',
@@ -11,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class CrearCamisetasComponent {
   constructor(
     private fb: FormBuilder,
-    private firebase: CamisetasService// private _location: Location
+    private firebase: CamisetasService, private router: Router// private _location: Location
   ) {}
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Camisetas';
@@ -28,6 +29,11 @@ export class CrearCamisetasComponent {
   });
 
   CrearBotines() {
-    this.firebase.Crear(this.coleccion, this.formCamisetas.value);
+    try {
+      this.firebase.Crear(this.coleccion, this.formCamisetas.value);
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
   }
 }

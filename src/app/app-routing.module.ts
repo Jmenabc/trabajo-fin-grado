@@ -10,6 +10,7 @@ import { VerificadoEstadoComponent } from './components/views/verificado-estado/
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { AdministradorPageGuard } from './guards/administrador-pagina/administrador-page.guard';
 import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.component';
+import { BaseDatosErrorComponent } from './components/views/base-datos-error/base-datos-error.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,10 +18,15 @@ const routes: Routes = [
   { path: 'Inicio', component: PaginicialComponent },
   { path: 'Menu', component: PrincipalMenuEntradaComponent },
   { path: 'recuperarContraseña', component: RecuperarcComponent },
-  { path: 'crudselector', component: CrudSelectorComponent, canActivate: [AdministradorPageGuard] },
+  {
+    path: 'crudselector',
+    component: CrudSelectorComponent,
+    canActivate: [AdministradorPageGuard],
+  },
   { path: 'verificado', component: VerificadoEstadoComponent },
   { path: 'carrito', component: CarritoComponent },
   { path: 'noPermisos', component: NoPermisosComponent },
+  { path: 'errorBBDD', component: BaseDatosErrorComponent },
   //Modules
   {
     path: 'usuarioCRUD',

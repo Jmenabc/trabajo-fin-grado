@@ -23,6 +23,7 @@ import { NoPermisosComponent } from './components/views/no-permisos/no-permisos.
 import { ConfirmacionActivaComponent } from './components/confirmacion-activa/confirmacion-activa.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BaseDatosErrorComponent } from './components/views/base-datos-error/base-datos-error.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CarritoComponent,
     NoPermisosComponent,
     ConfirmacionActivaComponent,
+    BaseDatosErrorComponent,
   ],
   imports: [
     BrowserModule,

@@ -39,7 +39,7 @@ export class RegistroComponent {
       .then((result) => {
         //Una vez se registra almacenamos el uuid
         const uuid = result.user!.uid;
-        localStorage.setItem("uuid",uuid)
+        localStorage.setItem('uuid', uuid);
         //enviamos el correo de verificación
         result.user!.sendEmailVerification();
         //Actualizamos el valor del formulario
@@ -57,7 +57,8 @@ export class RegistroComponent {
         this.router.navigate(['/verificado']);
       })
       .catch((error) => {
-        window.alert(error.message);
+        console.log('Error en la base de datos');
+        return this.router.navigate(['/errorBBDD']);
       });
   }
 }

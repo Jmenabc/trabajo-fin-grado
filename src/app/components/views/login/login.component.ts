@@ -18,7 +18,6 @@ import { LoginService } from 'src/app/services/login/login.service';
  * @author Jmenabc
  */
 export class LoginComponent {
-
   constructor(
     private fb: FormBuilder,
     private afAuth: AngularFireAuth,
@@ -28,8 +27,6 @@ export class LoginComponent {
   ) {}
 
   datosUsuario: any[] = [];
-
-
 
   Loguearse(email: string, password: string) {
     //Antes de nada hacemos un hash de la contraseña
@@ -45,16 +42,20 @@ export class LoginComponent {
         //Una vez se loguea recogemos el uuid
         const uuid = result.user!.uid;
         //Recorremos el documento y le extraemos el rol
-        this.afs.collection("Usuarios").doc(uuid).get().subscribe((doc) => {
-          if (doc.exists) {
-            const campoValor = doc.get("rol");
-            localStorage.setItem('uuid', uuid);
-            localStorage.setItem('rol', campoValor);
-            console.log(localStorage)
-          } else {
-            console.log('El documento no existe');
-          }
-        })
+        this.afs
+          .collection('Usuarios')
+          .doc(uuid)
+          .get()
+          .subscribe((doc) => {
+            if (doc.exists) {
+              const campoValor = doc.get('rol');
+              localStorage.setItem('uuid', uuid);
+              localStorage.setItem('rol', campoValor);
+              console.log(localStorage);
+            } else {
+              console.log('El documento no existe');
+            }
+          });
 
         //mostramos por consola el objeto
         console.log(
@@ -66,9 +67,8 @@ export class LoginComponent {
         }
       })
       .catch((error) => {
-        window.alert(
-          'Se ha producido un error al intentar iniciar sesion, si el error persiste pongase en contacto con el administrador'
-        );
+        console.log('Error en la base de datos');
+        return this.router.navigate(['/errorBBDD']);
       });
   }
 }

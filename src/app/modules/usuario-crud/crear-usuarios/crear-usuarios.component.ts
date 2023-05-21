@@ -19,9 +19,8 @@ export class CrearUsuariosComponent {
     private firebase: UsuarioService,
     private afAuth: AngularFireAuth,
     private router: Router,
-    private RegistroService: RegistroService
-  ) // private _location: Location
-  {}
+    private RegistroService: RegistroService // private _location: Location
+  ) {}
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Usuarios';
   documentId: string = '';
@@ -37,30 +36,37 @@ export class CrearUsuariosComponent {
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     uuid: '',
     rol: [2],
-    url: []
+    url: [],
   });
 
   Registrarse(correo: string, password: string) {
-    //Antes de nada hacemos un hash de la contraseña
-    const hash = SHA256(password).toString();
-    console.log("Entrando a Registro.ts || Metodo Registrarse");
-    return this.afAuth
-      .createUserWithEmailAndPassword(correo, hash)
-      .then((result) => {
-        //Una vez se registra almacenamos el uuid
-        // const uuid = result.user!.uid;
-        // localStorage.setItem("uuid",uuid)
-        //enviamos el correo de verificación
-        // result.user!.sendEmailVerification();
-        //Actualizamos el valor del formulario
-        this.formUsuarios.patchValue({
-          uuid: result.user!.uid,
+    try {
+      //Antes de nada hacemos un hash de la contraseña
+      const hash = SHA256(password).toString();
+      console.log('Entrando a Registro.ts || Metodo Registrarse');
+      return this.afAuth
+        .createUserWithEmailAndPassword(correo, hash)
+        .then((result) => {
+          //Una vez se registra almacenamos el uuid
+          // const uuid = result.user!.uid;
+          // localStorage.setItem("uuid",uuid)
+          //enviamos el correo de verificación
+          // result.user!.sendEmailVerification();
+          //Actualizamos el valor del formulario
+          this.formUsuarios.patchValue({
+            uuid: result.user!.uid,
+          });
+          console.log(
+            'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
+          );
+          this.firebase.Crear(this.coleccion, this.formUsuarios.value);
+        })
+        .catch((error) => {
+          window.alert(error.message);
         });
-        console.log("Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario");
-        this.firebase.Crear(this.coleccion,this.formUsuarios.value)
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      return this.router.navigate(['/errorBBDD']);
+    }
   }
 }

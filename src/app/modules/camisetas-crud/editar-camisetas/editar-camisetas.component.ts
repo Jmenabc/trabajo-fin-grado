@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
 import { CarritoService } from 'src/app/services/carrito/carrito.service';
 import firebase from 'firebase/compat/app';
@@ -26,7 +26,8 @@ export class EditarCamisetasComponent {
     private ruta: ActivatedRoute,
     private cService: CarritoService,
     private _location: Location,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) {}
 
   formCamisetas = this.fb.group({
@@ -35,52 +36,72 @@ export class EditarCamisetasComponent {
     precio: 0,
     url: '',
     mdDate: [],
-    mdUuid: []
+    mdUuid: [],
   });
 
   Favoritos() {
-    this.cService.AñadirFav().update({
-      productos: firebase.firestore.FieldValue.arrayUnion({
-        nombre: this.formCamisetas.get('nombre')?.value,
-        marca: this.formCamisetas.get('marca')?.value,
-        precio: this.formCamisetas.get('precio')?.value,
-      }),
-    });
+    try {
+      this.cService.AñadirFav().update({
+        productos: firebase.firestore.FieldValue.arrayUnion({
+          nombre: this.formCamisetas.get('nombre')?.value,
+          marca: this.formCamisetas.get('marca')?.value,
+          precio: this.formCamisetas.get('precio')?.value,
+        }),
+      });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
   }
 
   EditarDatos() {
-    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    this.firebase
-      .cogerUno(this.coleccion, this.documentId)
-      .subscribe((resp: any) => {
-        this.formCamisetas.setValue(resp.payload.data());
-      });
+    try {
+      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+      this.firebase
+        .cogerUno(this.coleccion, this.documentId)
+        .subscribe((resp: any) => {
+          this.formCamisetas.setValue(resp.payload.data());
+        });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
   }
   //Metodo para actualizar los datos del portero
   ActualizarDatos() {
-    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    this.firebase.Actualizar(
-      this.coleccion,
-      this.documentId,
-      this.formCamisetas.value
-    );
-    // this._location.back();
+    try {
+      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+      this.firebase.Actualizar(
+        this.coleccion,
+        this.documentId,
+        this.formCamisetas.value
+      );
+      // this._location.back();
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
   }
 
   Eliminar() {
-    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-    const modalRef = this.modalService.open(ConfirmacionActivaComponent);
-    modalRef.componentInstance.documentId = this.documentId;
-    modalRef.result
-      .then((result) => {
-        if (result === 'confirmar') {
-          this.firebase.Eliminar(this.coleccion, this.documentId);
-          this._location.back();
-        }
-      })
-      .catch((error) => {
-        console.log('Error:', error);
-      });
+    try {
+      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+      const modalRef = this.modalService.open(ConfirmacionActivaComponent);
+      modalRef.componentInstance.documentId = this.documentId;
+      modalRef.result
+        .then((result) => {
+          if (result === 'confirmar') {
+            this.firebase.Eliminar(this.coleccion, this.documentId);
+            this._location.back();
+          }
+        })
+        .catch((error) => {
+          console.log('Error:', error);
+        });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
   }
 
   ngOnInit() {
