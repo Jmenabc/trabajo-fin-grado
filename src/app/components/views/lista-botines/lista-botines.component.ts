@@ -13,6 +13,7 @@ export class ListaBotinesComponent {
   coleccion = 'Botines';
   botinesLista: any[] = [];
   documentId: string = '';
+  filtro : string = "";
 
   getTodosLosBotines() {
     try {
@@ -29,6 +30,21 @@ export class ListaBotinesComponent {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
+  }
+
+  Filtrar() {
+    this.firebase.Filtrar(this.coleccion,this.filtro).subscribe(
+      (resp: any) => {
+        this.botinesLista = [];
+        resp.forEach((botinesSnapshot: any) => {
+          this.botinesLista.push(
+            {
+              ...botinesSnapshot.payload.doc.data(),
+              documentId: botinesSnapshot.payload.doc.id,
+            }
+          )
+        });
+      })
   }
 
   ngOnInit() {

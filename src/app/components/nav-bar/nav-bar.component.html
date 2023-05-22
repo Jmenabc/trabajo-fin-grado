@@ -13,6 +13,15 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/ListaBotines">Botines</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/ListaCamisetas">Camisetas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/ListaPantalones">Pantalones</a>
+      </li>
       <i *ngIf="this.rol == '2'">
         <li class="nav-item">
           <a class="nav-link" routerLink="/crudselector">Administrador</a>
@@ -29,6 +38,19 @@
       <li class="nav-item">
         <a class="nav-link">Perfil</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link bg-transparent" (click)="cerrarSesion()">Cerrar Sesión</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/ListaBotines">Botines</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/ListaCamisetas">Camisetas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/ListaPantalones">Pantalones</a>
+      </li>
+
       <i *ngIf="this.rol == '2'">
         <li class="nav-item">
           <a class="nav-link" routerLink="/crudselector">Administrador</a>

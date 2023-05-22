@@ -28,47 +28,32 @@ export class LoginComponent {
 
   datosUsuario: any[] = [];
 
-  Loguearse(email: string, password: string) {
-    //Antes de nada hacemos un hash de la contraseña
-    const hash = SHA256(password).toString();
-    console.log('Entrando a Login.ts || Metodo Loguearse');
-    return this.afAuth
-      .signInWithEmailAndPassword(email, hash)
-      .then((result) => {
-        //Una vez nos hemos logueado guardamos en el localStorage nuestro correo para poder usarlo y tenerlo guardado
-        localStorage.setItem('correo', email);
-        //Una vez guardado el correo nos disponemos a ejecutar una query para buscar el rol del usuario para guardarlo en
-        //el localStorage
-        //Una vez se loguea recogemos el uuid
-        const uuid = result.user!.uid;
-        //Recorremos el documento y le extraemos el rol
-        this.afs
-          .collection('Usuarios')
-          .doc(uuid)
-          .get()
-          .subscribe((doc) => {
-            if (doc.exists) {
-              const campoValor = doc.get('rol');
-              localStorage.setItem('uuid', uuid);
-              localStorage.setItem('rol', campoValor);
-              console.log(localStorage);
-            } else {
-              console.log('El documento no existe');
-            }
-          });
+  async Loguearse(email: string, password: string) {
+    try {
+      const hash = SHA256(password).toString();
+      console.log('Entrando a Login.ts || Metodo Loguearse');
 
-        //mostramos por consola el objeto
-        console.log(
-          'Entrando a Login.ts/Loguearse || Devolviendo el correo y contraseña que recibimos de nuestro formulario'
-        );
-        if (result) {
-          console.log(hash);
-          this.router.navigate(['/verificado']);
-        }
-      })
-      .catch((error) => {
-        console.log('Error en la base de datos');
-        return this.router.navigate(['/errorBBDD']);
-      });
+      const result = await this.afAuth.signInWithEmailAndPassword(email, hash);
+      const uuid = result.user!.uid;
+
+      localStorage.setItem('correo', email);
+
+      const doc = await this.afs.collection('Usuarios').doc(uuid).get().toPromise();
+
+      if (doc!.exists) {
+        const campoValor = doc!.get('rol');
+        localStorage.setItem('uuid', uuid);
+        localStorage.setItem('rol', campoValor);
+        console.log(localStorage);
+      } else {
+        console.log('El documento no existe');
+      }
+
+      console.log('Entrando a Login.ts/Loguearse || Devolviendo el correo y contraseña que recibimos de nuestro formulario');
+      console.log(hash);
+      this.router.navigate(['/verificado']);
+    } catch (error) {
+      console.log('Error al loguearse contraseña inválida');
+    }
   }
 }
