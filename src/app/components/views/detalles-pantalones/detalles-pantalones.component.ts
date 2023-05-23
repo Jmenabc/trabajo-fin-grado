@@ -20,6 +20,7 @@ export class DetallesPantalonesComponent {
   usuario: any;
   detalles: any[] = [];
   cantidad: number = 0;
+  rol = localStorage.getItem("rol");
   constructor(
     private firebase: PantalonesService,
     private fb: FormBuilder,

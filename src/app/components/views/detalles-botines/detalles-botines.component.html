@@ -1,14 +1,16 @@
 <app-nav-bar></app-nav-bar>
-<ol class="list-group list-group-numbered">
-  <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let c of detalles">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Nombre - {{c.nombre}}</div>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="d-flex flex-column text-center">
+    <div *ngFor="let c of detalles" class="d-flex flex-column align-items-center my-4">
+      <img src="{{ c.url }}" alt="Imagen del producto" class="rounded" style="max-width: 200px; max-height: 200px;">
+      <div class="fw-bold mt-3">Nombre - {{c.nombre}}</div>
       <div class="fw-bold">Marca - {{c.marca}}</div>
       <div class="fw-bold">Precio - {{c.precio}}</div>
+      <i *ngIf="this.rol !== null">
+        <button (click)="Favoritos()" class="btn btn-primary mt-3">Añadir al carrito</button>
+        <input type="number" id="cantidad" name="cantidad" [(ngModel)]="cantidad" class="form-control mt-2">
+      </i>
     </div>
-    <div>
-      <button (click)="Favoritos()">Añadir al carrito</button>
-      <input type="number" id="cantidad" name="cantidad" [(ngModel)]="cantidad">
-    </div>
-  </li>
-</ol>
+  </div>
+</div>

@@ -18,6 +18,7 @@ export class DetallesBotinesComponent {
   usuario: any;
   detalles: any[] = [];
   cantidad: number = 0;
+  rol = localStorage.getItem("rol");
 
   constructor(
     private firebase: BotinesService,
@@ -28,6 +29,7 @@ export class DetallesBotinesComponent {
   ) {}
 
   VerDetalles() {
+    console.log(this.rol);
     try {
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;
       this.firebase
