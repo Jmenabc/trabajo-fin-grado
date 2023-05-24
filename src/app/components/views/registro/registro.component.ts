@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistroService } from 'src/app/services/registro/registro.service';
 import { SHA256 } from 'crypto-js';
@@ -13,6 +13,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class RegistroComponent {
   public myText: string = '';
+  //Variables de validacion
+  email: string = '';
 
   constructor(
     private firebase: RegistroService,
@@ -24,10 +26,13 @@ export class RegistroComponent {
 
   //Creamos el formulario
   formUsuario = this.fb.group({
-    email: [],
-    contraseña: [],
+    email: '',
+    contraseña: '',
     rol: [1],
     uuid: [''],
+    nombre: '',
+    apellidos: '',
+    telefono: ''
   });
 
   Registrarse(email: string, password: string) {
@@ -35,11 +40,6 @@ export class RegistroComponent {
     const hash = SHA256(password).toString();
     console.log('Entrando a Registro.ts || Metodo Registrarse');
     return this.afAuth
-      .fetchSignInMethodsForEmail(email)
-      .then((signInMethods) => {
-        if (signInMethods.length > 0) {
-          console.log('El correo electrónico existe.');
-          this.afAuth
             .createUserWithEmailAndPassword(email, hash)
             .then((result) => {
               //Una vez se registra almacenamos el uuid
@@ -65,12 +65,12 @@ export class RegistroComponent {
               console.log('Error en la base de datos');
               return this.router.navigate(['/errorBBDD']);
             });
-        } else {
-          console.log('El correo electrónico no existe.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error al verificar el correo electrónico:', error);
-      });
+  }
+
+  //Validaciones de los inputs
+
+  validarEmail() {
+    const pattern = /^[a-zA-Z0-9\s.@]*$/;
+    return pattern.test(this.email);
   }
 }

@@ -3,6 +3,7 @@ import { CarritoService } from 'src/app/services/carrito/carrito.service';
 import { RecibosService } from 'src/app/services/recibos/recibos.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-carrito',
@@ -43,6 +44,8 @@ export class CarritoComponent {
 
   sumar() {
     alert('Pagado con exito');
+    console.log(this.datosCarrito)
+    this.generarPDF(this.datosCarrito);
     const data = {
       miLista: this.datosCarrito
     };
@@ -66,7 +69,31 @@ export class CarritoComponent {
     this.suma = 0;
   }
 
+
+  generarPDF(lista: any[]) {
+    const doc = new jsPDF();
+
+    let posY = 10;
+
+    lista.forEach((objeto) => {
+      const nombre = objeto.nombre;
+      const valor = objeto.valor;
+      const precio = objeto.precio
+
+      doc.text(`Nombre: ${nombre}. Marca: ${nombre}. Precio: ${precio}.`, 10, posY);
+      posY += 5;
+      doc.text(`   Valor: ${valor}`, 10, posY);
+
+      posY += 10;
+    });
+
+    doc.save('lista.pdf');
+  }
+
   ngOnInit() {
-    this.get();
+    this.get()
   }
 }
+
+
+
