@@ -32,40 +32,53 @@ export class RegistroComponent {
     uuid: [''],
     nombre: '',
     apellidos: '',
-    telefono: ''
+    telefono: '',
   });
 
-  Registrarse(email: string, password: string) {
+  async Registrarse(email: string, password: string) {
     //Antes de nada hacemos un hash de la contraseña
     const hash = SHA256(password).toString();
     console.log('Entrando a Registro.ts || Metodo Registrarse');
-    return this.afAuth
-            .createUserWithEmailAndPassword(email, hash)
-            .then((result) => {
-              //Una vez se registra almacenamos el uuid
-              const uuid = result.user!.uid;
-              localStorage.setItem('uuid', uuid);
-              //enviamos el correo de verificación
-              result.user!.sendEmailVerification();
-              //Actualizamos el valor del formulario
-              this.formUsuario.patchValue({
-                uuid: result.user!.uid,
-                contraseña: hash
-              });
-              console.log(
-                'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
-              );
-              //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos
-              this.firebase.CrearRegistrar(this.formUsuario.value, uuid);
-              //Una vez se crea el usuario creamos el carrito
-              this.firebase.CrearCarrito(uuid);
-              //y le redirigimos a la ventana del menu
-              this.router.navigate(['/verificado']);
-            })
-            .catch((error) => {
-              console.log('Error en la base de datos');
-              return this.router.navigate(['/errorBBDD']);
-            });
+    return await this.afAuth
+      .createUserWithEmailAndPassword(email, hash)
+      .then(async (result) => {
+        //Una vez se registra almacenamos el uuid
+        const uuid = result.user!.uid;
+        //enviamos el correo de verificación
+        result.user!.sendEmailVerification();
+        //Actualizamos el valor del formulario
+        this.formUsuario.patchValue({
+          uuid: result.user!.uid,
+          contraseña: hash,
+        });
+        localStorage.setItem('correo', email);
+        const doc = await this.afs
+          .collection('Usuarios')
+          .doc(uuid)
+          .get()
+          .toPromise();
+        if (doc!.exists) {
+          const campoValor = doc!.get('rol');
+          localStorage.setItem('uuid', uuid);
+          localStorage.setItem('rol', campoValor);
+          console.log(localStorage);
+        } else {
+          console.log('El documento no existe');
+        }
+        console.log(
+          'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
+        );
+        //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos
+        this.firebase.CrearRegistrar(this.formUsuario.value, uuid);
+        //Una vez se crea el usuario creamos el carrito
+        this.firebase.CrearCarrito(uuid);
+        //y le redirigimos a la ventana del menu
+        this.router.navigate(['/verificado']);
+      })
+      .catch((error) => {
+        console.log('Error en la base de datos');
+        return this.router.navigate(['/errorBBDD']);
+      });
   }
 
   //Validaciones de los inputs
