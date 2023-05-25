@@ -74,20 +74,26 @@ export class CarritoComponent {
     const doc = new jsPDF();
 
     let posY = 10;
-
+    doc.text('MENASHOP', 10, posY);
+    posY += 10;
+    doc.text('Muchas gracias por su compra', 10, posY);
+    posY += 10;
+    doc.text(`Correo: ${localStorage.getItem('correo')}`, 10, posY);
+    posY += 20;
     lista.forEach((objeto) => {
       const nombre = objeto.nombre;
-      const valor = objeto.valor;
+      const cantidad = objeto.cantidad;
       const precio = objeto.precio
+
 
       doc.text(`Nombre: ${nombre}. Marca: ${nombre}. Precio: ${precio}.`, 10, posY);
       posY += 5;
-      doc.text(`   Valor: ${valor}`, 10, posY);
+      doc.text(`   Cantidad: ${cantidad}`, 10, posY);
 
       posY += 10;
     });
-
-    doc.save('lista.pdf');
+    doc.text(`Total a pagar: ${this.suma} €`,10,posY);
+    doc.save(`Menashop-${Math.floor(Math.random() * 90000) + 10000}.pdf`);
   }
 
   ngOnInit() {

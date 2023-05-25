@@ -50,6 +50,7 @@ export class RegistroComponent {
               //Actualizamos el valor del formulario
               this.formUsuario.patchValue({
                 uuid: result.user!.uid,
+                contraseña: hash
               });
               console.log(
                 'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'

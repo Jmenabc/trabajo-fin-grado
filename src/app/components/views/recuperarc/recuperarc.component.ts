@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-
+import { SHA256 } from 'crypto-js';
 @Component({
   selector: 'app-recuperarc',
   templateUrl: './recuperarc.component.html',
