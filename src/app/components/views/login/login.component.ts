@@ -27,6 +27,9 @@ export class LoginComponent {
   ) {}
   contrasenaInc: string = '';
   datosUsuario: any[] = [];
+  //Variables de validacion
+  email: string = '';
+  contrasena: string = '';
 
   async Loguearse(email: string, password: string) {
     try {
@@ -60,5 +63,17 @@ export class LoginComponent {
     } catch (error) {
       console.log('Error al loguearse contraseña inválida');
     }
+  }
+
+  //Validaciones de los inputs
+
+  validarEmail() {
+    const pattern = /^[a-zA-Z0-9\s.@]*$/;
+    return pattern.test(this.email);
+  }
+
+  validarContrasena() {
+    const pattern = /^[a-zA-Z0-9\s]*$/;
+    return pattern.test(this.contrasena);
   }
 }

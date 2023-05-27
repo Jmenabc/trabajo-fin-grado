@@ -17,6 +17,7 @@ import { ListaCamisetasComponent } from './components/views/lista-camisetas/list
 import { ListaPantalonesComponent } from './components/views/lista-pantalones/lista-pantalones.component';
 import { DetallesCamisetasComponent } from './components/views/detalles-camisetas/detalles-camisetas.component';
 import { DetallesPantalonesComponent } from './components/views/detalles-pantalones/detalles-pantalones.component';
+import { PerfilComponent } from './components/views/perfil/perfil.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'carrito', component: CarritoComponent },
   { path: 'noPermisos', component: NoPermisosComponent },
   { path: 'errorBBDD', component: BaseDatosErrorComponent },
+  { path: 'perfil', component: PerfilComponent },
   //Listas de la ropa cliente
   { path: 'ListaBotines', component: ListaBotinesComponent },
   { path: 'DetallesBotines/:id', component: DetallesBotinesComponent },

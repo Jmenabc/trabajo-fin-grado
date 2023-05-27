@@ -30,6 +30,7 @@ import { ListaCamisetasComponent } from './components/views/lista-camisetas/list
 import { ListaPantalonesComponent } from './components/views/lista-pantalones/lista-pantalones.component';
 import { DetallesCamisetasComponent } from './components/views/detalles-camisetas/detalles-camisetas.component';
 import { DetallesPantalonesComponent } from './components/views/detalles-pantalones/detalles-pantalones.component';
+import { PerfilComponent } from './components/views/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DetallesPantalonesComponent } from './components/views/detalles-pantalo
     ListaPantalonesComponent,
     DetallesCamisetasComponent,
     DetallesPantalonesComponent,
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,

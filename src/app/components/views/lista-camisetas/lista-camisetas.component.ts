@@ -13,7 +13,7 @@ export class ListaCamisetasComponent {
   coleccion = 'Camisetas';
   camisetasLista: any[] = [];
   documentId: string = '';
-
+  nombre: string = '';
   getTodosLasCamisetas() {
     try {
       this.firebase.cogerTodos(this.coleccion).subscribe((resp: any) => {
@@ -29,6 +29,11 @@ export class ListaCamisetasComponent {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
+  }
+
+  validarNombre() {
+    const pattern = /^[a-zA-Z\s]*$/;
+    return pattern.test(this.nombre);
   }
 
   ngOnInit() {

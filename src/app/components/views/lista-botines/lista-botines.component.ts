@@ -13,8 +13,8 @@ export class ListaBotinesComponent {
   coleccion = 'Botines';
   botinesLista: any[] = [];
   documentId: string = '';
-  filtro : string = "";
-
+  filtro: string = '';
+  nombre: string = '';
   getTodosLosBotines() {
     try {
       this.firebase.cogerTodos(this.coleccion).subscribe((resp: any) => {
@@ -33,18 +33,22 @@ export class ListaBotinesComponent {
   }
 
   Filtrar() {
-    this.firebase.Filtrar(this.coleccion,this.filtro).subscribe(
-      (resp: any) => {
+    this.firebase
+      .Filtrar(this.coleccion, this.filtro)
+      .subscribe((resp: any) => {
         this.botinesLista = [];
         resp.forEach((botinesSnapshot: any) => {
-          this.botinesLista.push(
-            {
-              ...botinesSnapshot.payload.doc.data(),
-              documentId: botinesSnapshot.payload.doc.id,
-            }
-          )
+          this.botinesLista.push({
+            ...botinesSnapshot.payload.doc.data(),
+            documentId: botinesSnapshot.payload.doc.id,
+          });
         });
-      })
+      });
+  }
+
+  validarNombre() {
+    const pattern = /^[a-zA-Z\s]*$/;
+    return pattern.test(this.nombre);
   }
 
   ngOnInit() {

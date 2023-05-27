@@ -15,7 +15,10 @@ export class RegistroComponent {
   public myText: string = '';
   //Variables de validacion
   email: string = '';
-
+  contrasena: string = '';
+  nombre: string = '';
+  apellidos: string = '';
+  telefono: string = '';
   constructor(
     private firebase: RegistroService,
     private afAuth: AngularFireAuth,
@@ -52,6 +55,10 @@ export class RegistroComponent {
           contraseña: hash,
         });
         localStorage.setItem('correo', email);
+        //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos
+        this.firebase.CrearRegistrar(this.formUsuario.value, uuid);
+        //Una vez se crea el usuario creamos el carrito
+        this.firebase.CrearCarrito(uuid);
         const doc = await this.afs
           .collection('Usuarios')
           .doc(uuid)
@@ -68,10 +75,6 @@ export class RegistroComponent {
         console.log(
           'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
         );
-        //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos
-        this.firebase.CrearRegistrar(this.formUsuario.value, uuid);
-        //Una vez se crea el usuario creamos el carrito
-        this.firebase.CrearCarrito(uuid);
         //y le redirigimos a la ventana del menu
         this.router.navigate(['/verificado']);
       })
@@ -86,5 +89,25 @@ export class RegistroComponent {
   validarEmail() {
     const pattern = /^[a-zA-Z0-9\s.@]*$/;
     return pattern.test(this.email);
+  }
+
+  validarContrasena() {
+    const pattern = /^[a-zA-Z0-9\s]*$/;
+    return pattern.test(this.contrasena);
+  }
+
+  validarNombre() {
+    const pattern = /^[a-zA-Z\s]*$/;
+    return pattern.test(this.nombre);
+  }
+
+  validarApellidos() {
+    const pattern = /^[a-zA-Z\s]*$/;
+    return pattern.test(this.apellidos);
+  }
+
+  validarTelefono() {
+    const pattern = /^[0-9]*$/;
+    return pattern.test(this.telefono);
   }
 }

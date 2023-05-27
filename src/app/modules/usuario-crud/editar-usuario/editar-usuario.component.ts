@@ -16,6 +16,7 @@ export class EditarUsuarioComponent {
   coleccion: string = 'Usuarios';
   documentId: string = '';
   usuario: any;
+  rol: string = localStorage.getItem("rol")!;
 
   constructor(
     private firebase: UsuarioService,
