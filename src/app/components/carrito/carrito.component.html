@@ -1,3 +1,6 @@
+<div class="mx-3 mb-4">
+  <h1>Tu Carrito</h1>
+</div>
 <ol class="list-group list-group-numbered">
   <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let c of datosCarrito">
     <div class="ms-2 me-auto">
@@ -8,6 +11,7 @@
     </div>
   </li>
 </ol>
+<span></span>
 <h3>Total a pagar: {{suma}}€</h3>
 <button (click)="sumar()">Pagar</button>
 
