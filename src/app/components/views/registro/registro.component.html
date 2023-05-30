@@ -1,5 +1,5 @@
 <div class=" m-3">
-  <h1>MenaShop</h1>
+  <a class="h1 text-decoration-none text-dark font-weight-bold" routerLink="/Menu">MenaShop</a>
 </div>
 
 <div class="container-fluid d-flex align-items-center mx-auto">
@@ -13,7 +13,7 @@
         <div *ngIf="!validarEmail()" class="text-danger">El correo solo puede contener letras, números y espacios.</div>
       </div>
       <div class="formGroup mb-3">
-        <input [(ngModel)]="contrasena" (input)="validarContrasena()" formControlName="contraseña" type="password"
+        <input [(ngModel)]="contrasena" (input)="validarContrasena()" type="password"
           maxlength="5" class="formControl rounded-pill py-2 px-3" placeholder="Password" #userPassword required>
         <div *ngIf="!validarContrasena()" class="text-danger">La contraseña solo puede contener letras y números.
         </div>
@@ -49,4 +49,4 @@
     </form>
   </div>
 </div>
-<h1>{{ myText }}</h1>
+<p class="text-danger">{{ myText }}</p>

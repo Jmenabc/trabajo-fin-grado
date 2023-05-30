@@ -1,5 +1,5 @@
 <div class=" m-3">
-  <h1>MenaShop</h1>
+  <a class="h1 text-decoration-none text-dark font-weight-bold" routerLink="/Menu">MenaShop</a>
 </div>
 
 <div class="container-fluid d-flex align-items-center mx-auto">
@@ -17,7 +17,7 @@
           maxlength="5" placeholder="Contraseña" type="password" #userPassword required>
         <div *ngIf="!validarContrasena()" class="text-danger">La contraseña solo puede contener letras y números.
         </div>
-        <div class="col text-center">
+        <div class="col text-center mt-3">
           <button class="rounded-pill pt-2 pb-2 px-5" type="button"
             (click)="Loguearse(userEmail.value, userPassword.value)">entrar</button>
         </div>

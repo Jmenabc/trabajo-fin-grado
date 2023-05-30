@@ -30,7 +30,6 @@ export class RegistroComponent {
   //Creamos el formulario
   formUsuario = this.fb.group({
     email: '',
-    contraseña: '',
     rol: [1],
     uuid: [''],
     nombre: '',
@@ -52,13 +51,13 @@ export class RegistroComponent {
         //Actualizamos el valor del formulario
         this.formUsuario.patchValue({
           uuid: result.user!.uid,
-          contraseña: hash,
         });
         localStorage.setItem('correo', email);
-        //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos
-        this.firebase.CrearRegistrar(this.formUsuario.value, uuid);
         //Una vez se crea el usuario creamos el carrito
         this.firebase.CrearCarrito(uuid);
+        //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos
+        this.firebase.CrearRegistrar(this.formUsuario.value, uuid);
+
         const doc = await this.afs
           .collection('Usuarios')
           .doc(uuid)
@@ -80,7 +79,7 @@ export class RegistroComponent {
       })
       .catch((error) => {
         console.log('Error en la base de datos');
-        return this.router.navigate(['/errorBBDD']);
+        this.myText = "Rellena todos los valores"
       });
   }
 

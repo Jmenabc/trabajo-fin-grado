@@ -32,7 +32,6 @@ export class CrearUsuariosComponent {
   formUsuarios = this.fb.group({
     nombre: [],
     apellidos: [],
-    contraseña: [],
     correo: [],
     telefono: [],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
