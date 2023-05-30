@@ -4,6 +4,8 @@ import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-crear-camisetas',
   templateUrl: './crear-camisetas.component.html',
@@ -12,7 +14,10 @@ import { Router } from '@angular/router';
 export class CrearCamisetasComponent {
   constructor(
     private fb: FormBuilder,
-    private firebase: CamisetasService, private router: Router// private _location: Location
+    private log: LoggerService,
+    private firebase: CamisetasService,
+    private router: Router,
+    private _location: Location
   ) {}
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Camisetas';
@@ -25,12 +30,15 @@ export class CrearCamisetasComponent {
     marca: [],
     precio: [],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
-    mdUuid:  uuidv4(),
+    mdUuid: uuidv4(),
   });
 
   CrearBotines() {
     try {
+      this.log.log('Creando camiseta');
       this.firebase.Crear(this.coleccion, this.formCamisetas.value);
+      this.log.log('Saliendo de crear camiseta');
+      this._location.back();
     } catch (error) {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

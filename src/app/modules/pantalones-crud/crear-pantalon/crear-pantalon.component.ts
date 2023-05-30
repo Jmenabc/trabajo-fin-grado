@@ -4,6 +4,7 @@ import { PantalonesService } from 'src/app/services/pantalones.service';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-crear-pantalon',
@@ -14,7 +15,8 @@ export class CrearPantalonComponent {
   constructor(
     private fb: FormBuilder,
     private firebase: PantalonesService,
-    private router: Router // private _location: Location
+    private router: Router,
+    private _location: Location
   ) {}
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Pantalones';
@@ -34,6 +36,7 @@ export class CrearPantalonComponent {
   CrearPatalones() {
     try {
       this.firebase.Crear(this.coleccion, this.formPantalones.value);
+      this._location.back();
     } catch (error) {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BotinesService } from 'src/app/services/botines/botines.service';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-crear-botines',
@@ -15,8 +16,8 @@ export class CrearBotinesComponent {
   constructor(
     private fb: FormBuilder,
     private firebase: BotinesService,
-    private router: Router
-  ) // private _location: Location
+    private router: Router,
+   private _location: Location)
   {}
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Botines';
@@ -37,6 +38,7 @@ export class CrearBotinesComponent {
   CrearBotines() {
     try {
       this.firebase.Crear(this.coleccion,this.formBotines.value);
+      this._location.back();
     } catch (error) {
       console.log("Error en la base de datos");
       this.router.navigate(['/errorBBDD']);

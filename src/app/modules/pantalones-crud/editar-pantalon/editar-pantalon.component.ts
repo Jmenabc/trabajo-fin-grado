@@ -57,7 +57,7 @@ export class EditarPantalonComponent {
         this.documentId,
         this.formPantalones.value
       );
-      // this._location.back();
+      this._location.back();
     } catch (error) {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

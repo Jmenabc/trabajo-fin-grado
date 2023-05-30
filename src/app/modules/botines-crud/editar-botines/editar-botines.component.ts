@@ -57,6 +57,7 @@ export class EditarBotinesComponent {
         this.documentId,
         this.formBotines.value
       );
+      this._location.back();
     } catch (error) {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

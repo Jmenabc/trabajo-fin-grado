@@ -6,6 +6,7 @@ import { SHA256 } from 'crypto-js';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { format } from 'date-fns';
 import { RegistroService } from 'src/app/services/registro/registro.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -19,7 +20,8 @@ export class CrearUsuariosComponent {
     private firebase: UsuarioService,
     private afAuth: AngularFireAuth,
     private router: Router,
-    private RegistroService: RegistroService // private _location: Location
+    private RegistroService: RegistroService,
+    private _location: Location
   ) {}
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Usuarios';
@@ -60,6 +62,7 @@ export class CrearUsuariosComponent {
             'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
           );
           this.firebase.Crear(this.coleccion, this.formUsuarios.value);
+          this._location.back();
         })
         .catch((error) => {
           window.alert(error.message);

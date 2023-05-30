@@ -61,6 +61,7 @@ export class EditarCamisetasComponent {
         this.documentId,
         this.formCamisetas.value
       );
+        this._location.back();
       // this._location.back();
     } catch (error) {
       console.log('Error en la base de datos');

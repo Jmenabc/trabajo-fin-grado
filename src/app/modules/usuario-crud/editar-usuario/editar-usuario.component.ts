@@ -16,7 +16,7 @@ export class EditarUsuarioComponent {
   coleccion: string = 'Usuarios';
   documentId: string = '';
   usuario: any;
-  rol: string = localStorage.getItem("rol")!;
+  rol: string = localStorage.getItem('rol')!;
 
   constructor(
     private firebase: UsuarioService,
@@ -60,7 +60,7 @@ export class EditarUsuarioComponent {
         this.documentId,
         this.formUsuario.value
       );
-      // this._location.back();
+      this._location.back();
     } catch (error) {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
