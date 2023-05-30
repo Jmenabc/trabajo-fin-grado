@@ -8,8 +8,5 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 })
 export class PrincipalMenuEntradaComponent {
   constructor(private loggerService: LoggerService) {}
-  onSaveLogsClick() {
-    this.loggerService.log("ejemplo");
-    this.loggerService.saveLogsToFile();
-  }
+
 }

@@ -35,9 +35,8 @@ export class CrearCamisetasComponent {
 
   CrearBotines() {
     try {
-      this.log.log('Creando camiseta');
+
       this.firebase.Crear(this.coleccion, this.formCamisetas.value);
-      this.log.log('Saliendo de crear camiseta');
       this._location.back();
     } catch (error) {
       console.log('Error en la base de datos');
