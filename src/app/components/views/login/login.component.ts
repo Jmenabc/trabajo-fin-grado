@@ -37,9 +37,8 @@ export class LoginComponent {
 
   async Loguearse(email: string, password: string) {
     try {
-      const hash = SHA256(password).toString();
-      this.AñadirAlLog('Entrando a Login.ts || Metodo Loguearse');
-      const result = await this.afAuth.signInWithEmailAndPassword(email, hash);
+      this.AnadirAlLog('Entrando a Login.ts || Metodo Loguearse');
+      const result = await this.afAuth.signInWithEmailAndPassword(email, password);
       const uuid = result.user!.uid;
 
       localStorage.setItem('correo', email);
@@ -56,10 +55,10 @@ export class LoginComponent {
         localStorage.setItem('rol', campoValor);
         console.log(localStorage);
       } else {
-        this.AñadirAlLog('El documento no existe');
+        this.AnadirAlLog('El documento no existe');
       }
 
-      this.AñadirAlLog(
+      this.AnadirAlLog(
         'Entrando a Login.ts/Loguearse || Devolviendo el correo y contraseña que recibimos de nuestro formulario'
       );
       this.router.navigate(['/verificado']);
@@ -81,11 +80,11 @@ export class LoginComponent {
   }
 
   //Metodo que añade al log
-  AñadirAlLog(data:string) {
+  AnadirAlLog(data:string) {
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato: data
+          data: data
         }),
       });
     } catch (error) {

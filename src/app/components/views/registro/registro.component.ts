@@ -38,11 +38,9 @@ export class RegistroComponent {
   });
 
   async Registrarse(email: string, password: string) {
-    //Antes de nada hacemos un hash de la contraseña
-    const hash = SHA256(password).toString();
     console.log('Entrando a Registro.ts || Metodo Registrarse');
     return await this.afAuth
-      .createUserWithEmailAndPassword(email, hash)
+      .createUserWithEmailAndPassword(email, password)
       .then(async (result) => {
         //Una vez se registra almacenamos el uuid
         const uuid = result.user!.uid;

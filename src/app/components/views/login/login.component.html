@@ -14,7 +14,7 @@
       </div>
       <div class="mb-3 form-group">
         <input [(ngModel)]="contrasena" (input)="validarContrasena()" class="rounded-pill py-2 px-3 form-control"
-          maxlength="5" placeholder="Contraseña" type="password" #userPassword required>
+          maxlength="10" placeholder="Contraseña" type="password" #userPassword required>
         <div *ngIf="!validarContrasena()" class="text-danger">La contraseña solo puede contener letras y números.
         </div>
         <div class="col text-center mt-3">

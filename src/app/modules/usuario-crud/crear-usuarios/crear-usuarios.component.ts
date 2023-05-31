@@ -22,7 +22,7 @@ export class CrearUsuariosComponent {
     private router: Router,
     private RegistroService: RegistroService,
     private _location: Location
-  ) {}
+  ) { }
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Usuarios';
   documentId: string = '';
@@ -46,13 +46,13 @@ export class CrearUsuariosComponent {
       const hash = SHA256(password).toString();
       console.log('Entrando a Registro.ts || Metodo Registrarse');
       return this.afAuth
-        .createUserWithEmailAndPassword(correo, hash)
+        .createUserWithEmailAndPassword(correo, password)
         .then((result) => {
           //Una vez se registra almacenamos el uuid
-          // const uuid = result.user!.uid;
-          // localStorage.setItem("uuid",uuid)
+          const uuid = result.user!.uid;
+          localStorage.setItem("uuid", uuid)
           //enviamos el correo de verificación
-          // result.user!.sendEmailVerification();
+          result.user!.sendEmailVerification();
           //Actualizamos el valor del formulario
           this.formUsuarios.patchValue({
             uuid: result.user!.uid,
