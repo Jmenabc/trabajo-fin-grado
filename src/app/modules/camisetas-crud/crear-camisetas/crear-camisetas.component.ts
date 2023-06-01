@@ -31,6 +31,7 @@ export class CrearCamisetasComponent {
     precio: [],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     mdUuid: uuidv4(),
+    url: ''
   });
 
   CrearBotines() {

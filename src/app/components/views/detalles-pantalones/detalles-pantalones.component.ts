@@ -19,6 +19,7 @@ export class DetallesPantalonesComponent {
   documentId: string = '';
   usuario: any;
   detalles: any[] = [];
+  detF: any;
   cantidad: number = 0;
   rol = localStorage.getItem("rol");
   constructor(
@@ -38,7 +39,7 @@ export class DetallesPantalonesComponent {
         .cogerUno(this.coleccion, this.documentId)
         .subscribe((resp: any) => {
           this.detalles.push(resp.payload.data());
-          console.log(this.detalles);
+          this.detF = this.detalles[0];
         });
     } catch (error) {
       console.log('Error en la base de datos');

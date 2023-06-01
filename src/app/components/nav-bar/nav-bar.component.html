@@ -3,55 +3,55 @@
   <a class="navbar-brand mx-4" routerLink="/Menu">
     MENA'SHOP
   </a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
     <!-- No esta logueado -->
-    <ul class="navbar-nav" *ngIf="estado == 'b'">
-      <li class="nav-item">
+    <ul class="navbar-nav " *ngIf="estado == 'b'">
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/ListaBotines">Botines</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/ListaCamisetas">Camisetas</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item mx-2" >
         <a class="nav-link" routerLink="/ListaPantalones">Pantalones</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="bi bi-person-fill"></i>
-        </a>
       </li>
     </ul>
     <!-- Esta logueado -->
     <ul class="navbar-nav" *ngIf="estado == 'a'">
-      <li class="nav-item">
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/perfil">Perfil</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item mx-2">
         <a class="nav-link bg-transparent" (click)="cerrarSesion()">Cerrar Sesión</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/ListaBotines">Botines</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/ListaCamisetas">Camisetas</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/ListaPantalones">Pantalones</a>
       </li>
 
       <i *ngIf="this.rol == '2' || this.rol == '3'">
-        <li class="nav-item">
+        <li class="nav-item mx-2">
           <a class="nav-link" routerLink="/crudselector">Administrador</a>
         </li>
       </i>
-      <li class="nav-item">
+      <i *ngIf="this.rol != '2'">
+        <li class="nav-item mx-2">
+          <a class="nav-link" routerLink="/crudselector">Administrador</a>
+        </li>
+      </i>
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/carrito">Carrito</a>
       </li>
 

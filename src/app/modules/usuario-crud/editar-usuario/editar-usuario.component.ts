@@ -30,7 +30,7 @@ export class EditarUsuarioComponent {
   formUsuario = this.fb.group({
     nombre: [],
     apellidos: [],
-    correo: [],
+    email: [],
     telefono: [],
     mdDate: [],
     uuid: '',
