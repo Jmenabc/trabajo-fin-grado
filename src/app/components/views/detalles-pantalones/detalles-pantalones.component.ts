@@ -5,8 +5,11 @@ import { PantalonesService } from 'src/app/services/pantalones.service';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CarritoService } from 'src/app/services/carrito/carrito.service';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import { format } from 'date-fns';
+
 
 @Component({
   selector: 'app-detalles-pantalones',
@@ -22,6 +25,8 @@ export class DetallesPantalonesComponent {
   detF: any;
   cantidad: number = 0;
   rol = localStorage.getItem("rol");
+  fecha: any = format(new Date(), 'dd/MM/yyyy');
+
   constructor(
     private firebase: PantalonesService,
     private fb: FormBuilder,
@@ -29,8 +34,24 @@ export class DetallesPantalonesComponent {
     private _location: Location,
     private modalService: NgbModal,
     private cService: CarritoService,
-    private router: Router
+    private router: Router,
+    private log: LoggerService
   ) {}
+
+  //Metodo que añade al log
+  AnadirAlLog(data:string) {
+    console.log(data);
+    try {
+      this.log.AñadirLog().update({
+        data: firebase.firestore.FieldValue.arrayUnion({
+          dato:`[${this.fecha}]:${data}`
+        }),
+      });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
+  }
 
   VerDetalles() {
     try {

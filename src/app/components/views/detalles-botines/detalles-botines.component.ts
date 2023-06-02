@@ -3,8 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BotinesService } from 'src/app/services/botines/botines.service';
 import { Location } from '@angular/common';
 import { CarritoService } from 'src/app/services/carrito/carrito.service';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import { format } from 'date-fns';
+
 
 @Component({
   selector: 'app-detalles-botines',
@@ -20,6 +23,7 @@ export class DetallesBotinesComponent {
   detF: any;
   cantidad: number = 0;
   rol = localStorage.getItem("rol");
+  fecha: any = format(new Date(), 'dd/MM/yyyy');
 
   constructor(
     private firebase: BotinesService,
@@ -27,7 +31,23 @@ export class DetallesBotinesComponent {
     private _location: Location,
     private router: Router,
     private cService: CarritoService,
+    private log: LoggerService
   ) {}
+
+  //Metodo que añade al log
+  AnadirAlLog(data:string) {
+    console.log(data);
+    try {
+      this.log.AñadirLog().update({
+        data: firebase.firestore.FieldValue.arrayUnion({
+          dato:`[${this.fecha}]:${data}`
+        }),
+      });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
+  }
 
   VerDetalles() {
     console.log(this.rol);

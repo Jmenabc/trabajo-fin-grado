@@ -2,14 +2,17 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BotinesService } from 'src/app/services/botines/botines.service';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import { format } from 'date-fns';
 @Component({
   selector: 'app-lista-botines',
   templateUrl: './lista-botines.component.html',
   styleUrls: ['./lista-botines.component.css'],
 })
 export class ListaBotinesComponent {
-  constructor(private firebase: BotinesService, private router: Router) { }
+  constructor(private log: LoggerService,private firebase: BotinesService, private router: Router) { }
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
   dataSource!: MatTableDataSource<any>;
   coleccion = 'Botines';
@@ -17,14 +20,27 @@ export class ListaBotinesComponent {
   documentId: string = '';
   filtro: string = '';
   nombre: string = '';
-
+  fecha: any = format(new Date(), 'dd/MM/yyyy');
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
+//Metodo que añade al log
+AnadirAlLog(data:string) {
+  console.log(data);
+  try {
+    this.log.AñadirLog().update({
+      data: firebase.firestore.FieldValue.arrayUnion({
+        dato:`[${this.fecha}]:${data}`
+      }),
+    });
+  } catch (error) {
+    console.log('Error en la base de datos');
+    this.router.navigate(['/errorBBDD']);
+  }
+}
 
 
 

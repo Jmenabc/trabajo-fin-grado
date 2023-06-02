@@ -5,7 +5,10 @@ import { BotinesService } from 'src/app/services/botines/botines.service';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionActivaComponent } from 'src/app/components/confirmacion-activa/confirmacion-activa.component';
-
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import { format } from 'date-fns';
 @Component({
   selector: 'app-editar-botines',
   templateUrl: './editar-botines.component.html',
@@ -16,6 +19,7 @@ export class EditarBotinesComponent {
   coleccion: string = 'Botines';
   documentId: string = '';
   usuario: any;
+  fecha: any = format(new Date(), 'dd/MM/yyyy');
 
   constructor(
     private firebase: BotinesService,
@@ -23,7 +27,9 @@ export class EditarBotinesComponent {
     private ruta: ActivatedRoute,
     private _location: Location,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private log: LoggerService
+
   ) {}
 
   formBotines = this.fb.group({
@@ -43,6 +49,20 @@ export class EditarBotinesComponent {
         .subscribe((resp: any) => {
           this.formBotines.setValue(resp.payload.data());
         });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
+  }
+  //Metodo que añade al log
+  AnadirAlLog(data:string) {
+    console.log(data);
+    try {
+      this.log.AñadirLog().update({
+        data: firebase.firestore.FieldValue.arrayUnion({
+          dato:`[${this.fecha}]:${data}`
+        }),
+      });
     } catch (error) {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

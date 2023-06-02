@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import { RegistroService } from 'src/app/services/registro/registro.service';
 import { SHA256 } from 'crypto-js';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import { format } from 'date-fns';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -19,13 +22,17 @@ export class RegistroComponent {
   nombre: string = '';
   apellidos: string = '';
   telefono: string = '';
+  fecha: any = format(new Date(), 'dd/MM/yyyy');
   constructor(
     private firebase: RegistroService,
     private afAuth: AngularFireAuth,
     private router: Router,
     private fb: FormBuilder,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private log: LoggerService
   ) {}
+
+
 
   //Creamos el formulario
   formUsuario = this.fb.group({
@@ -106,5 +113,19 @@ export class RegistroComponent {
   validarTelefono() {
     const pattern = /^[0-9]*$/;
     return pattern.test(this.telefono);
+  }
+
+  AnadirAlLog(data:string) {
+    console.log(data);
+    try {
+      this.log.AñadirLog().update({
+        data: firebase.firestore.FieldValue.arrayUnion({
+          dato:`[${this.fecha}]:${data}`
+        }),
+      });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
   }
 }

@@ -5,6 +5,10 @@ import { PantalonesService } from 'src/app/services/pantalones.service';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionActivaComponent } from 'src/app/components/confirmacion-activa/confirmacion-activa.component';
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-editar-pantalon',
@@ -16,6 +20,7 @@ export class EditarPantalonComponent {
   coleccion: string = 'Pantalones';
   documentId: string = '';
   usuario: any;
+  fecha: any = format(new Date(), 'dd/MM/yyyy');
 
   constructor(
     private firebase: PantalonesService,
@@ -23,7 +28,9 @@ export class EditarPantalonComponent {
     private ruta: ActivatedRoute,
     private _location: Location,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private log: LoggerService
+
   ) {}
 
   formPantalones = this.fb.group({
@@ -34,6 +41,21 @@ export class EditarPantalonComponent {
     mdUuid: [],
     url: '',
   });
+
+  //Metodo que añade al log
+  AnadirAlLog(data:string) {
+    console.log(data);
+    try {
+      this.log.AñadirLog().update({
+        data: firebase.firestore.FieldValue.arrayUnion({
+          dato:`[${this.fecha}]:${data}`
+        }),
+      });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
+  }
 
   EditarDatos() {
     try {

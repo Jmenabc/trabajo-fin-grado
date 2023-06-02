@@ -5,7 +5,10 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionActivaComponent } from 'src/app/components/confirmacion-activa/confirmacion-activa.component';
-
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import { format } from 'date-fns';
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.component.html',
@@ -17,15 +20,16 @@ export class EditarUsuarioComponent {
   documentId: string = '';
   usuario: any;
   rol: string = localStorage.getItem('rol')!;
-
+  fecha: any = format(new Date(), 'dd/MM/yyyy');
   constructor(
     private firebase: UsuarioService,
     private fb: FormBuilder,
     private ruta: ActivatedRoute,
     private _location: Location,
     private modalService: NgbModal,
-    private router: Router
-  ) {}
+    private router: Router,
+    private log: LoggerService
+  ) { }
 
   formUsuario = this.fb.group({
     nombre: [],
@@ -37,6 +41,21 @@ export class EditarUsuarioComponent {
     rol: [],
   });
 
+  //Metodo que añade al log
+  AnadirAlLog(data: string) {
+    console.log(data);
+    try {
+      this.log.AñadirLog().update({
+        data: firebase.firestore.FieldValue.arrayUnion({
+          dato: `[${this.fecha}]:${data}`
+        }),
+      });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
+  }
+  
   EditarDatos() {
     try {
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;

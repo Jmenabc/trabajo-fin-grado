@@ -8,6 +8,8 @@ import 'firebase/compat/firestore';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionActivaComponent } from 'src/app/components/confirmacion-activa/confirmacion-activa.component';
 import { Location } from '@angular/common';
+import { LoggerService } from 'src/app/services/logger/logger.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-editar-camisetas',
@@ -27,9 +29,11 @@ export class EditarCamisetasComponent {
     private cService: CarritoService,
     private _location: Location,
     private modalService: NgbModal,
-    private router: Router
-  ) {}
+    private router: Router,
+    private log: LoggerService
 
+  ) {}
+  fecha: any = format(new Date(), 'dd/MM/yyyy');
   formCamisetas = this.fb.group({
     nombre: '',
     marca: '',
@@ -52,6 +56,22 @@ export class EditarCamisetasComponent {
       this.router.navigate(['/errorBBDD']);
     }
   }
+
+  //Metodo que añade al log
+  AnadirAlLog(data:string) {
+    console.log(data);
+    try {
+      this.log.AñadirLog().update({
+        data: firebase.firestore.FieldValue.arrayUnion({
+          dato:`[${this.fecha}]:${data}`
+        }),
+      });
+    } catch (error) {
+      console.log('Error en la base de datos');
+      this.router.navigate(['/errorBBDD']);
+    }
+  }
+
   //Metodo para actualizar los datos del portero
   ActualizarDatos() {
     try {
