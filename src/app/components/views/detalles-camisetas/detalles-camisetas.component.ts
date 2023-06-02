@@ -7,15 +7,18 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { format } from 'date-fns';
-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmacionActivaComponent } from 'src/app/components/confirmacion-activa/confirmacion-activa.component';
 import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-detalles-camisetas',
   templateUrl: './detalles-camisetas.component.html',
   styleUrls: ['./detalles-camisetas.component.css'],
 })
+/*
+  Pagina que nos muestra los detalles de la camiseta seleccionada
+  @author Jmenabc
+*/
 export class DetallesCamisetasComponent {
   //Declaramos la coleccion de firebase, id, y el objeto en los que vamos a trabajar
   coleccion: string = 'Camisetas';
@@ -29,32 +32,29 @@ export class DetallesCamisetasComponent {
 
   constructor(
     private firebase: CamisetasService,
-    private fb: FormBuilder,
     private ruta: ActivatedRoute,
     private cService: CarritoService,
-    private _location: Location,
-    private modalService: NgbModal,
     private router: Router,
     private log: LoggerService
-  ) {}
+  ) { }
 
 
   //Metodo que añade al log
-  AnadirAlLog(data:string) {
-    console.log(data);
+  AnadirAlLog(data: string) {
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
   VerDetalles() {
     try {
+      this.AnadirAlLog('Cargando detalles del producto');
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;
       this.firebase
         .cogerUno(this.coleccion, this.documentId)
@@ -62,14 +62,17 @@ export class DetallesCamisetasComponent {
           this.detalles.push(resp.payload.data());
           this.detF = this.detalles[0];
         });
+      this.AnadirAlLog('Detalles cargados')
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
-
+  //Metodo para añadir a favoritos
   Favoritos() {
     try {
+      this.AnadirAlLog('Añadiendo a favoritos')
+
       this.cService.AñadirFav().update({
         productos: firebase.firestore.FieldValue.arrayUnion({
           nombre: this.detalles[0].nombre,
@@ -78,8 +81,10 @@ export class DetallesCamisetasComponent {
           cantidad: this.cantidad,
         }),
       });
+      this.AnadirAlLog('Añadido a favoritos')
+
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error al añadir a favoritos');
       this.router.navigate(['/errorBBDD']);
     }
   }

@@ -11,8 +11,12 @@ import { format } from 'date-fns';
   templateUrl: './lista-camisetas.component.html',
   styleUrls: ['./lista-camisetas.component.css']
 })
+/*
+  Pagina que contiene la lista de las camisetas de la pagina
+  @author Jmenabc
+*/
 export class ListaCamisetasComponent {
-  constructor(private log: LoggerService,private firebase: CamisetasService, private router: Router) {}
+  constructor(private log: LoggerService, private firebase: CamisetasService, private router: Router) { }
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
   dataSource!: MatTableDataSource<any>;
   coleccion = 'Camisetas';
@@ -20,8 +24,10 @@ export class ListaCamisetasComponent {
   documentId: string = '';
   nombre: string = '';
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  //Metodo que recoge todos los pantalones
   getTodosLasCamisetas() {
     try {
+      this.AnadirAlLog('Recogemos los camisetas');
       this.firebase.cogerTodos(this.coleccion).subscribe((resp: any) => {
         this.camisetasLista = [];
         resp.forEach((camisetasSnapshot: any) => {
@@ -30,36 +36,30 @@ export class ListaCamisetasComponent {
             documentId: camisetasSnapshot.payload.doc.id,
           });
           this.dataSource = new MatTableDataSource(this.camisetasLista);
-
+          this.AnadirAlLog('Camisetas recogidas');
         });
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error al recoger camisetas');
       this.router.navigate(['/errorBBDD']);
     }
   }
-
+  //Metodo que aplica el filtro para buscar
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  validarNombre() {
-    const pattern = /^[a-zA-Z\s]*$/;
-    return pattern.test(this.nombre);
-  }
-
   //Metodo que añade al log
-  AnadirAlLog(data:string) {
-    console.log(data);
+  AnadirAlLog(data: string) {
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Recogemos los camisetas');('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }

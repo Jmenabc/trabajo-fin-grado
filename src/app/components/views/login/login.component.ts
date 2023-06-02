@@ -62,7 +62,8 @@ export class LoginComponent {
       );
       this.router.navigate(['/verificado']);
     } catch (error) {
-      console.log('Error al loguearse contraseña inválida');
+      this.AnadirAlLog('Error al loguearse contraseña inválida');
+      this.contrasenaInc="Contraseña incorrecta";
     }
   }
 

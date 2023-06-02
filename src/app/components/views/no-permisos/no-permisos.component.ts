@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './no-permisos.component.html',
   styleUrls: ['./no-permisos.component.css']
 })
+
 export class NoPermisosComponent {
 
 }

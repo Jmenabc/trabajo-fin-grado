@@ -14,6 +14,10 @@ import { format } from 'date-fns';
   templateUrl: './detalles-botines.component.html',
   styleUrls: ['./detalles-botines.component.css'],
 })
+/*
+  Pagina que nos muestra los detalles del botin seleccionado
+  @author Jmenabc
+*/
 export class DetallesBotinesComponent {
   //Declaramos la coleccion de firebase, id, y el objeto en los que vamos a trabajar
   coleccion: string = 'Botines';
@@ -28,30 +32,28 @@ export class DetallesBotinesComponent {
   constructor(
     private firebase: BotinesService,
     private ruta: ActivatedRoute,
-    private _location: Location,
     private router: Router,
     private cService: CarritoService,
     private log: LoggerService
-  ) {}
+  ) { }
 
   //Metodo que añade al log
-  AnadirAlLog(data:string) {
-    console.log(data);
+  AnadirAlLog(data: string) {
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
-
+  //Metodo que carga los detalles
   VerDetalles() {
-    console.log(this.rol);
     try {
+      this.AnadirAlLog('Cargando detalles del producto');
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;
       this.firebase
         .cogerUno(this.coleccion, this.documentId)
@@ -59,27 +61,30 @@ export class DetallesBotinesComponent {
           this.detalles.push(resp.payload.data());
           this.detF = this.detalles[0];
         });
+      this.AnadirAlLog('Detalles cargados')
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error al cargar detalles');
       this.router.navigate(['/errorBBDD']);
     }
   }
-
-   Favoritos() {
-     try {
-       this.cService.AñadirFav().update({
-         productos: firebase.firestore.FieldValue.arrayUnion({
-           nombre: this.detalles[0].nombre,
-           marca: this.detalles[0].marca,
-           precio: this.detalles[0].precio,
-           cantidad: this.cantidad
-         }),
-       });
-     } catch (error) {
-       console.log('Error en la base de datos');
-       this.router.navigate(['/errorBBDD']);
-     }
-   }
+  //Metodo para añadir a favoritos
+  Favoritos() {
+    try {
+      this.AnadirAlLog('Añadiendo a favoritos')
+      this.cService.AñadirFav().update({
+        productos: firebase.firestore.FieldValue.arrayUnion({
+          nombre: this.detalles[0].nombre,
+          marca: this.detalles[0].marca,
+          precio: this.detalles[0].precio,
+          cantidad: this.cantidad
+        }),
+      });
+      this.AnadirAlLog('Añadido a favoritos')
+    } catch (error) {
+      this.AnadirAlLog('Error al añadir a favoritos');
+      this.router.navigate(['/errorBBDD']);
+    }
+  }
 
   ngOnInit() {
     this.VerDetalles();

@@ -7,6 +7,10 @@ import { SHA256 } from 'crypto-js';
   templateUrl: './recuperarc.component.html',
   styleUrls: ['./recuperarc.component.css'],
 })
+/*
+  Clase que contiene el metodo para recuperar contraseña
+  @author Jmenabc
+*/
 export class RecuperarcComponent {
 
   email: string = "";

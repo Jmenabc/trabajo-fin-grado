@@ -14,6 +14,10 @@ import { format } from 'date-fns';
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css'],
 })
+/*
+  Clase de registro en la aplicación
+  @author Jmenabc
+*/
 export class RegistroComponent {
   public myText: string = '';
   //Variables de validacion
@@ -45,7 +49,7 @@ export class RegistroComponent {
   });
 
   async Registrarse(email: string, password: string) {
-    console.log('Entrando a Registro.ts || Metodo Registrarse');
+    this.AnadirAlLog('Entrando a Registro.ts || Metodo Registrarse');
     return await this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then(async (result) => {
@@ -74,16 +78,16 @@ export class RegistroComponent {
           localStorage.setItem('rol', campoValor);
           console.log(localStorage);
         } else {
-          console.log('El documento no existe');
+          this.AnadirAlLog('El documento no existe');
         }
-        console.log(
+        this.AnadirAlLog(
           'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
         );
         //y le redirigimos a la ventana del menu
         this.router.navigate(['/verificado']);
       })
       .catch((error) => {
-        console.log('Error en la base de datos');
+        this.AnadirAlLog('Error en la base de datos');
         this.myText = "Rellena todos los valores"
       });
   }

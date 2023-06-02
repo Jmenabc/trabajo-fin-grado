@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
   templateUrl: './crud-selector.component.html',
   styleUrls: ['./crud-selector.component.css']
 })
+/*
+  Pagina donde podremos seleccionar el crud correspondiente
+  @author Jmenabc
+*/
 export class CrudSelectorComponent {
 fecha: any = format(new Date(), 'dd/MM/yyyy');
   constructor(private log: LoggerService,private router: Router,) {}
@@ -27,6 +31,6 @@ fecha: any = format(new Date(), 'dd/MM/yyyy');
     }
   }
   ngOnInit() {
-
+    this.AnadirAlLog('Entrando al selector de CRUD');
   }
 }
