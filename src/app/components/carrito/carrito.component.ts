@@ -14,7 +14,7 @@ export class CarritoComponent {
   constructor(
     private cService: CarritoService,
     private rService: RecibosService
-  ) {}
+  ) { }
 
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
   carritoLista: any[] = [];
@@ -43,14 +43,19 @@ export class CarritoComponent {
   }
 
   sumar() {
-    alert('Pagado con exito');
-    console.log(this.datosCarrito)
-    this.generarPDF(this.datosCarrito);
-    const data = {
-      miLista: this.datosCarrito
-    };
-    //Una vez sabemos que los datos del carrito estan en datosCarrito los añadimos a un recibo y lo generamos en la base de datos
-    this.rService.Crear("Recibos",data);
+    if (this.suma == 0) {
+
+    } else {
+      alert('Pagado con exito');
+      console.log(this.datosCarrito)
+      this.generarPDF(this.datosCarrito);
+      const data = {
+        miLista: this.datosCarrito
+      };
+      //Una vez sabemos que los datos del carrito estan en datosCarrito los añadimos a un recibo y lo generamos en la base de datos
+      this.rService.Crear("Recibos", data);
+    }
+
     //Despues de haberlos generado en la base de datos generamos un pdf con los datos que queremos
     this.rService.CrearRecibo(localStorage.getItem('uuid')!.toString());
     this.cService
@@ -92,8 +97,12 @@ export class CarritoComponent {
 
       posY += 10;
     });
-    doc.text(`Total a pagar: ${this.suma} €`,10,posY);
-    doc.save(`Menashop-${Math.floor(Math.random() * 90000) + 10000}.pdf`);
+    doc.text(`Total a pagar: ${this.suma} €`, 10, posY);
+    if (this.suma == 0) {
+
+    } else {
+      doc.save(`Menashop-${Math.floor(Math.random() * 90000) + 10000}.pdf`);
+    }
   }
 
   ngOnInit() {

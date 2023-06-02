@@ -46,6 +46,10 @@ export class EditarCamisetasComponent {
     mdDate: [],
     mdUuid: [],
   });
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
+  }
 //Metodo que carga los datos
 EditarDatos() {
   try {

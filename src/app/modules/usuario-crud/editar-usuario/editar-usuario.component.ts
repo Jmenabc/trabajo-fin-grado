@@ -44,7 +44,10 @@ export class EditarUsuarioComponent {
     uuid: '',
     rol: [],
   });
-
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
+  }
   //Metodo que añade al log
   AnadirAlLog(data: string) {
     try {
@@ -68,7 +71,7 @@ export class EditarUsuarioComponent {
         .subscribe((resp: any) => {
           this.formUsuario.setValue(resp.payload.data());
         });
-        this.AnadirAlLog('Datos cargados correctamente')
+      this.AnadirAlLog('Datos cargados correctamente')
     } catch (error) {
       this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

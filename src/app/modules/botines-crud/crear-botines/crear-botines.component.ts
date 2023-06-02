@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BotinesService } from 'src/app/services/botines/botines.service';
 import { v4 as uuidv4 } from 'uuid';
 import { Location } from '@angular/common';
@@ -53,6 +52,10 @@ export class CrearBotinesComponent {
       this.AnadirAlLog("Error al crear botin");
       this.router.navigate(['/errorBBDD']);
     }
+  }
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
   }
 
   //Metodo que añade al log

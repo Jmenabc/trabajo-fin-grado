@@ -60,6 +60,7 @@ export class DetallesCamisetasComponent {
         .cogerUno(this.coleccion, this.documentId)
         .subscribe((resp: any) => {
           this.detalles.push(resp.payload.data());
+          console.log(resp.payload.data());
           this.detF = this.detalles[0];
         });
       this.AnadirAlLog('Detalles cargados')

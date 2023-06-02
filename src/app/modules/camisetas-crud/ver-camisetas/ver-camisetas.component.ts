@@ -5,6 +5,7 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { format } from 'date-fns';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ver-camisetas',
@@ -16,12 +17,16 @@ import { format } from 'date-fns';
   @author Jmenabc
 */
 export class VerCamisetasComponent {
-  constructor(private log: LoggerService,private firebase: CamisetasService, private router: Router) {}
+  constructor(private _location: Location,private log: LoggerService,private firebase: CamisetasService, private router: Router) {}
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
   coleccion = 'Camisetas';
   camisetasLista: any[] = [];
   documentId: string = '';
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
+  }
 //Metodo para recoger todos las camisetas
   getTodosLasCamisetas() {
     try {

@@ -1,11 +1,4 @@
 import { Component } from '@angular/core';
-import { UsuarioService } from 'src/app/services/usuario/usuario.service';
-import {
-  Auth,
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-} from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 

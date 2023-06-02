@@ -28,6 +28,7 @@ export class LoginComponent {
     private log: LoggerService
   ) {}
   contrasenaInc: string = '';
+  emailInc: string = '';
   datosUsuario: any[] = [];
   //Variables de validacion
   email: string = '';
@@ -70,7 +71,7 @@ export class LoginComponent {
   //Validaciones de los inputs
 
   validarEmail() {
-    const pattern = /^[a-zA-Z0-9\s.@]*$/;
+    const pattern = /^[a-zA-Z0-9\s.]+@gmail\.com$/;
     return pattern.test(this.email);
   }
 
@@ -81,7 +82,6 @@ export class LoginComponent {
 
   //Metodo que añade al log
   AnadirAlLog(data:string) {
-    console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
@@ -89,8 +89,7 @@ export class LoginComponent {
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
-      this.router.navigate(['/errorBBDD']);
+      this.AnadirAlLog('Error en la base de datos');
     }
   }
 }

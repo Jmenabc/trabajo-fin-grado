@@ -4,6 +4,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { format } from 'date-fns';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-lista-opciones',
@@ -17,10 +18,15 @@ import { Router } from '@angular/router';
 export class ListaOpcionesComponent {
   constructor(
     private router: Router,
-    private log: LoggerService
+    private log: LoggerService,
+    private _location: Location
   ) { }
 
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
+  }
   //Metodo que añade al log
   AnadirAlLog(data: string) {
     try {

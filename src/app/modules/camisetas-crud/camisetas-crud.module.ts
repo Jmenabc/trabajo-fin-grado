@@ -8,13 +8,13 @@ import { VerCamisetasComponent } from './ver-camisetas/ver-camisetas.component';
 import { EditarCamisetasComponent } from './editar-camisetas/editar-camisetas.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     ListaOpcionesComponent,
     CrearCamisetasComponent,
     VerCamisetasComponent,
-    EditarCamisetasComponent
+    EditarCamisetasComponent,
+
   ],
   imports: [
     CommonModule,

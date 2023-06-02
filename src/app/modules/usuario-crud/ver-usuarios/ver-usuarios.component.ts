@@ -5,6 +5,7 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { format } from 'date-fns';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ver-usuarios',
@@ -16,12 +17,16 @@ import { format } from 'date-fns';
   @author Jmenabc
 */
 export class VerUsuariosComponent {
-  constructor(private log: LoggerService, private firebase: UsuarioService, private router: Router) { }
+  constructor(private log: LoggerService, private _location: Location, private firebase: UsuarioService, private router: Router) { }
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
   coleccion = 'Usuarios';
   usuariosLista: any[] = [];
   documentId: string = '';
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
+  }
   //Metodo para recoger todos los clientes/usuarios
   getTodosLosClientes() {
     try {

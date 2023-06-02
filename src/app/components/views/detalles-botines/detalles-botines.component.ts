@@ -70,16 +70,19 @@ export class DetallesBotinesComponent {
   //Metodo para añadir a favoritos
   Favoritos() {
     try {
-      this.AnadirAlLog('Añadiendo a favoritos')
-      this.cService.AñadirFav().update({
-        productos: firebase.firestore.FieldValue.arrayUnion({
-          nombre: this.detalles[0].nombre,
-          marca: this.detalles[0].marca,
-          precio: this.detalles[0].precio,
-          cantidad: this.cantidad
-        }),
-      });
-      this.AnadirAlLog('Añadido a favoritos')
+      if (firebase.auth().currentUser) {
+        this.AnadirAlLog('Añadiendo a favoritos')
+        this.cService.AñadirFav().update({
+          productos: firebase.firestore.FieldValue.arrayUnion({
+            nombre: this.detF.nombre,
+            marca: this.detF.marca,
+            precio: this.detF.precio,
+            cantidad: this.cantidad
+          }),
+        });
+        this.AnadirAlLog('Añadido a favoritos')
+      }
+      this.AnadirAlLog('No tiene permisos')
     } catch (error) {
       this.AnadirAlLog('Error al añadir a favoritos');
       this.router.navigate(['/errorBBDD']);

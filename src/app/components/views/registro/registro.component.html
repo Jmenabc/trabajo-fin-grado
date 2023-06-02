@@ -10,7 +10,7 @@
       <div class="formGroup mb-3">
         <input [(ngModel)]="email" (input)="validarEmail()" formControlName="email" type="text"
           class="formControl rounded-pill py-2 px-3" placeholder="Correo" #userEmail required>
-        <div *ngIf="!validarEmail()" class="text-danger">El correo solo puede contener letras, números y espacios.</div>
+        <div *ngIf="!validarEmail()" class="text-danger">El correo solo puede contener letras, números y espacios. y el @gmail.com</div>
       </div>
       <div class="formGroup mb-3">
         <input [(ngModel)]="contrasena" (input)="validarContrasena()" type="password"

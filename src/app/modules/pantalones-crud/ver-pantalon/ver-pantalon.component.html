@@ -6,7 +6,10 @@
       <div class="fw-bold">Precio - {{c.precio}}</div>
     </div>
     <div>
-      <a class="btn btn-primary m-5" routerLink='EditarPantalones/{{c.documentId}}'>Editar</a>
+      <a class="btn btn-dark text-light m-5" routerLink='EditarPantalones/{{c.documentId}}'>Editar</a>
     </div>
   </li>
 </ol>
+<div class="mt-3 text-center">
+  <button class="btn btn-dark btn-lg m-2 px-5 text-light" (click)="irAtras()" type="submit">Ir atras</button>
+</div>

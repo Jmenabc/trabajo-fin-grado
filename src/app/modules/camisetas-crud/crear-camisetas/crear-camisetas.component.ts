@@ -41,6 +41,10 @@ export class CrearCamisetasComponent {
     mdUuid: uuidv4(),
     url: ''
   });
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
+  }
   //Metodo que crea camisetas
   CrearCamiseta() {
     try {

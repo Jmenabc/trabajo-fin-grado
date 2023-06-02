@@ -25,7 +25,7 @@ export class CrearPantalonComponent {
     private router: Router,
     private _location: Location,
     private log: LoggerService
-  ) {}
+  ) { }
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Pantalones';
   documentId: string = '';
@@ -41,12 +41,16 @@ export class CrearPantalonComponent {
     mdUuid: uuidv4(),
     url: '',
   });
-
-  AnadirAlLog(data:string) {
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
+  }
+  //Metodo que añade al log
+  AnadirAlLog(data: string) {
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {

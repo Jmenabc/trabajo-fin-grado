@@ -31,7 +31,7 @@ export class EditarPantalonComponent {
     private router: Router,
     private log: LoggerService
 
-  ) {}
+  ) { }
 
   formPantalones = this.fb.group({
     nombre: '',
@@ -41,6 +41,11 @@ export class EditarPantalonComponent {
     mdUuid: [],
     url: '',
   });
+
+  //Metodo ir para la ventana de atras
+  irAtras() {
+    this._location.back();
+  }
 
   //Metodo que carga los datos
   EditarDatos() {
@@ -52,18 +57,18 @@ export class EditarPantalonComponent {
         .subscribe((resp: any) => {
           this.formPantalones.setValue(resp.payload.data());
         });
-        this.AnadirAlLog('Datos cargados');
+      this.AnadirAlLog('Datos cargados');
     } catch (error) {
       this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
   //Metodo que añade al log
-  AnadirAlLog(data:string) {
+  AnadirAlLog(data: string) {
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {

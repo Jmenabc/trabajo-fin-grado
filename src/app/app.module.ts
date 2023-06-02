@@ -36,6 +36,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table'
 
 @NgModule({
+
   declarations: [
     AppComponent,
     LoginComponent,
@@ -79,4 +80,4 @@ import { MatTableModule } from '@angular/material/table'
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
