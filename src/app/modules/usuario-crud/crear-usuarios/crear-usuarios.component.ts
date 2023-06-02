@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { SHA256 } from 'crypto-js';
@@ -36,16 +36,17 @@ export class CrearUsuariosComponent {
   documentId: string = '';
   cliente?: any;
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  rellenar: string = "";
   //Declaramos nuestro formulario para enviar los datos del juguete
   formUsuarios = this.fb.group({
-    nombre: [],
-    apellidos: [],
-    correo: [],
-    telefono: [],
+    nombre: ['',Validators.required],
+    apellidos: ['',Validators.required],
+    correo: ['',Validators.required],
+    telefono: ['',Validators.required],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     uuid: '',
     rol: [2],
-    url: [],
+    url: ['',Validators.required],
   });
 
   //Metodo ir para la ventana de atras
@@ -86,11 +87,15 @@ export class CrearUsuariosComponent {
           this.AnadirAlLog(
             'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
           );
-          this.firebase.Crear(this.coleccion, this.formUsuarios.value);
-          this._location.back();
+          if (this.formUsuarios.valid) {
+            this.firebase.Crear(this.coleccion, this.formUsuarios.value);
+            this._location.back();
+            this.AnadirAlLog("Usuario Creado");
+          }
         })
         .catch((error) => {
           this.AnadirAlLog(error.message);
+          this.rellenar="Rellene todos los campos";
         });
     } catch (error) {
       this.AnadirAlLog('Error en la base de datos');

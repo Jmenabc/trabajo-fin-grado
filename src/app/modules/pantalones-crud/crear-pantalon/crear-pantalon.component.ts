@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { PantalonesService } from 'src/app/services/pantalones.service';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
@@ -31,15 +31,16 @@ export class CrearPantalonComponent {
   documentId: string = '';
   cliente?: any;
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  rellenar: string = "";
 
   //Declaramos nuestro formulario para enviar los datos del botin registrado
   formPantalones = this.fb.group({
-    nombre: [],
-    marca: [],
-    precio: [],
+    nombre: ['', Validators.required],
+    marca: ['', Validators.required],
+    precio: ['', Validators.required],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
-    mdUuid: uuidv4(),
-    url: '',
+    mdUuid: [uuidv4()],
+    url: ['', Validators.required]
   });
   //Metodo ir para la ventana de atras
   irAtras() {
@@ -61,10 +62,14 @@ export class CrearPantalonComponent {
   //Metodo que crea pantalones
   CrearPatalones() {
     try {
-      this.AnadirAlLog('Creando pantalon');
-      this.firebase.Crear(this.coleccion, this.formPantalones.value);
-      this._location.back();
-      this.AnadirAlLog('Pantalon creado')
+      if (this.formPantalones.valid) {
+        this.AnadirAlLog('Creando Pantalon')
+        this.firebase.Crear(this.coleccion, this.formPantalones.value);
+        this._location.back();
+        this.AnadirAlLog('Pantalon creado con exito')
+      }
+      this.AnadirAlLog('Formulario invalido');
+      this.rellenar = "Rellene todos los campos";
     } catch (error) {
       this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

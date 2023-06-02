@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
@@ -31,15 +31,16 @@ export class CrearCamisetasComponent {
   documentId: string = '';
   cliente?: any;
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  rellenar: string = "";
 
   //Declaramos nuestro formulario para enviar los datos del botin registrado
   formCamisetas = this.fb.group({
-    nombre: [],
-    marca: [],
-    precio: [],
-    mdDate: [format(new Date(), 'dd/MM/yyyy')],
-    mdUuid: uuidv4(),
-    url: ''
+    nombre: ['', Validators.required],
+    marca: ['', Validators.required],
+    precio: ['', Validators.required],
+    mdDate: [format(new Date(), 'dd/MM/yyyy'), Validators.required],
+    mdUuid: [uuidv4(), Validators.required],
+    url: ['', Validators.required]
   });
   //Metodo ir para la ventana de atras
   irAtras() {
@@ -48,10 +49,14 @@ export class CrearCamisetasComponent {
   //Metodo que crea camisetas
   CrearCamiseta() {
     try {
-      this.AnadirAlLog('Creando camiseta')
-      this.firebase.Crear(this.coleccion, this.formCamisetas.value);
-      this._location.back();
-      this.AnadirAlLog('Camiseta creada')
+      if (this.formCamisetas.valid) {
+        this.AnadirAlLog('Creando camiseta')
+        this.firebase.Crear(this.coleccion, this.formCamisetas.value);
+        this._location.back();
+        this.AnadirAlLog('Camiseta creado con exito')
+      }
+      this.AnadirAlLog('Formulario invalido');
+      this.rellenar = "Rellene todos los campos";
     } catch (error) {
       this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
