@@ -30,7 +30,7 @@ export class BotinesService {
   Eliminar(coleccion: string, documentId: string) {
     return this.firestore.collection(coleccion).doc(documentId).delete();
   }
-  Filtrar(coleccion: string,palabra: string) {
+  FiltrarNombre(coleccion: string,palabra: string) {
     return this.firestore.collection(coleccion, ref => ref.where("nombre", "==", palabra)).snapshotChanges()
   }
 }

@@ -31,6 +31,9 @@ import { ListaPantalonesComponent } from './components/views/lista-pantalones/li
 import { DetallesCamisetasComponent } from './components/views/detalles-camisetas/detalles-camisetas.component';
 import { DetallesPantalonesComponent } from './components/views/detalles-pantalones/detalles-pantalones.component';
 import { PerfilComponent } from './components/views/perfil/perfil.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table'
 
 @NgModule({
   declarations: [
@@ -55,6 +58,7 @@ import { PerfilComponent } from './components/views/perfil/perfil.component';
     DetallesCamisetasComponent,
     DetallesPantalonesComponent,
     PerfilComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,10 @@ import { PerfilComponent } from './components/views/perfil/perfil.component';
     provideFirestore(() => getFirestore()),
     NoopAnimationsModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],

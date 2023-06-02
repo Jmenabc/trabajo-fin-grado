@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-lista-camisetas',
@@ -10,6 +11,7 @@ import { CamisetasService } from 'src/app/services/camisetas/camisetas.service';
 export class ListaCamisetasComponent {
   constructor(private firebase: CamisetasService, private router: Router) {}
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
+  dataSource!: MatTableDataSource<any>;
   coleccion = 'Camisetas';
   camisetasLista: any[] = [];
   documentId: string = '';
@@ -23,12 +25,19 @@ export class ListaCamisetasComponent {
             ...camisetasSnapshot.payload.doc.data(),
             documentId: camisetasSnapshot.payload.doc.id,
           });
+          this.dataSource = new MatTableDataSource(this.camisetasLista);
+
         });
       });
     } catch (error) {
       console.log('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   validarNombre() {
