@@ -1,12 +1,15 @@
-<ol class="list-group list-group-numbered">
+<ol class="list-group">
   <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let c of camisetasLista">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Nombre - {{c.nombre}}</div>
-      <div class="fw-bold">Marca - {{c.marca}}</div>
-      <div class="fw-bold">Precio - {{c.precio}}</div>
+    <div class="d-flex flex-wrap align-items-center">
+      <img src="{{c.url}}" height="100" width="100" class="me-3 mb-3">
+      <div>
+        <div class="fw-bold">Nombre - {{c.nombre}}</div>
+        <div class="fw-bold">Marca - {{c.marca}}</div>
+        <div class="fw-bold">Precio - {{c.precio}} €</div>
+      </div>
     </div>
-    <div>
-      <a class="btn btn-dark text-light m-5" routerLink='EditarCamiseta/{{c.documentId}}'>Editar</a>
+    <div class="ms-auto">
+      <a class="btn btn-primary mt-3 mt-md-0" [routerLink]="'/DetallesBotines/' + c.documentId">Ver detalles</a>
     </div>
   </li>
 </ol>

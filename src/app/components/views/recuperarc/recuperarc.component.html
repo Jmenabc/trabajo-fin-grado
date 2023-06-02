@@ -1,7 +1,7 @@
-<div>
-  <h2>Recuperar Contraseña</h2>
+<div class="text-center">
+  <h2 class="mb-4">Recuperar Contraseña</h2>
   <form (ngSubmit)="sendPasswordResetEmail()" #form="ngForm">
-    <div>
+    <div class="m-3">
       <label for="email">Correo electrónico:</label>
       <input type="email" id="email" name="email" required [(ngModel)]="email">
     </div>
