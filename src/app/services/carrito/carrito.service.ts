@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
+/*
+  Servicio que contiene mis metodos (Carrito) a la base de datos
+  @author Jmenabc
+*/
 export class CarritoService {
   constructor(private firestore: AngularFirestore, private router: Router) {}
   //Datos necesarios para el acceso al carrito

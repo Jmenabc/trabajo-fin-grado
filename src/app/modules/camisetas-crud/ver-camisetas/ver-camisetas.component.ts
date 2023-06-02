@@ -11,6 +11,10 @@ import { format } from 'date-fns';
   templateUrl: './ver-camisetas.component.html',
   styleUrls: ['./ver-camisetas.component.css'],
 })
+/*
+  Clase que carga las camisetas en la vista
+  @author Jmenabc
+*/
 export class VerCamisetasComponent {
   constructor(private log: LoggerService,private firebase: CamisetasService, private router: Router) {}
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
@@ -18,9 +22,10 @@ export class VerCamisetasComponent {
   camisetasLista: any[] = [];
   documentId: string = '';
   fecha: any = format(new Date(), 'dd/MM/yyyy');
-
+//Metodo para recoger todos las camisetas
   getTodosLasCamisetas() {
     try {
+      this.AnadirAlLog('Recogiendo camisetas')
       this.firebase.cogerTodos(this.coleccion).subscribe((resp: any) => {
         this.camisetasLista = [];
         resp.forEach((camisetasSnapshot: any) => {
@@ -30,15 +35,15 @@ export class VerCamisetasComponent {
           });
         });
       });
+      this.AnadirAlLog('Camisetas recogidas');
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
 
   //Metodo que añade al log
   AnadirAlLog(data:string) {
-    console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
@@ -46,7 +51,7 @@ export class VerCamisetasComponent {
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }

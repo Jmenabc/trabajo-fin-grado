@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
+/*
+  Servicio que contiene mis metodos (Camisetas) a la base de datos
+  @author Jmenabc
+*/
 export class CamisetasService {
   constructor(private firestore: AngularFirestore, private router: Router) {}
 

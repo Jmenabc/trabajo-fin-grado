@@ -5,8 +5,12 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
+/*
+  Servicio que contiene mis metodos (Recibos) a la base de datos
+  @author Jmenabc
+*/
 export class RecibosService {
-  collection: string = 'Recibo ';
+  collection: string = 'Recibos';
   uuid = localStorage.getItem('uuid');
   constructor(private firestore: AngularFirestore, private router: Router) {}
 

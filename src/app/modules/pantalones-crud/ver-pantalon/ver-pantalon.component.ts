@@ -11,6 +11,10 @@ import { format } from 'date-fns';
   templateUrl: './ver-pantalon.component.html',
   styleUrls: ['./ver-pantalon.component.css'],
 })
+/*
+  Clase que carga los pantalones en la vista
+  @author Jmenabc
+*/
 export class VerPantalonComponent {
   constructor(private log: LoggerService, private fs: PantalonesService, private router: Router) { }
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
@@ -18,9 +22,10 @@ export class VerPantalonComponent {
   pantalonesLista: any[] = [];
   documentId: string = '';
   fecha: any = format(new Date(), 'dd/MM/yyyy');
-
+  //Metodo para recoger todos los botines
   getTodosLosPantalones() {
     try {
+      this.AnadirAlLog('Recogiendo pantalones')
       this.fs.cogerTodos(this.coleccion).subscribe((resp: any) => {
         this.pantalonesLista = [];
         resp.forEach((botinesSnapshot: any) => {
@@ -30,14 +35,14 @@ export class VerPantalonComponent {
           });
         });
       });
+      this.AnadirAlLog('Pantalones recogidos');
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
   //Metodo que añade al log
   AnadirAlLog(data: string) {
-    console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
@@ -45,7 +50,7 @@ export class VerPantalonComponent {
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }

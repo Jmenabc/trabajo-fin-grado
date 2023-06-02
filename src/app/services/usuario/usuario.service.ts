@@ -7,6 +7,10 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 @Injectable({
   providedIn: 'root',
 })
+/*
+  Servicio que contiene mis metodos (Usuarios) a la base de datos
+  @author Jmenabc
+*/
 export class UsuarioService {
   constructor(private firestore: AngularFirestore, private router: Router) {}
 
