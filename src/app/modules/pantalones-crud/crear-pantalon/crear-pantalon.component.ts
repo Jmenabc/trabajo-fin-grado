@@ -14,6 +14,10 @@ import { format } from 'date-fns';
   templateUrl: './crear-pantalon.component.html',
   styleUrls: ['./crear-pantalon.component.css'],
 })
+/*
+  Clase que contiene los metodos de creacion de pantalones
+  @author
+*/
 export class CrearPantalonComponent {
   constructor(
     private fb: FormBuilder,
@@ -38,9 +42,7 @@ export class CrearPantalonComponent {
     url: '',
   });
 
-  //Metodo que añade al log
   AnadirAlLog(data:string) {
-    console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
@@ -48,16 +50,19 @@ export class CrearPantalonComponent {
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
+  //Metodo que crea pantalones
   CrearPatalones() {
     try {
+      this.AnadirAlLog('Creando pantalon');
       this.firebase.Crear(this.coleccion, this.formPantalones.value);
       this._location.back();
+      this.AnadirAlLog('Pantalon creado')
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }

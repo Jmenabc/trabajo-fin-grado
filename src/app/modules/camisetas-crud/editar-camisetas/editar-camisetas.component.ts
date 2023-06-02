@@ -16,6 +16,10 @@ import { format } from 'date-fns';
   templateUrl: './editar-camisetas.component.html',
   styleUrls: ['./editar-camisetas.component.css'],
 })
+/*
+  Clase que contiene los metodos para actualizar  y eliminar
+  @author Jmenabc
+*/
 export class EditarCamisetasComponent {
   //Declaramos la coleccion de firebase, id, y el objeto en los que vamos a trabajar
   coleccion: string = 'Camisetas';
@@ -42,73 +46,77 @@ export class EditarCamisetasComponent {
     mdDate: [],
     mdUuid: [],
   });
-
-  EditarDatos() {
-    try {
-      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-      this.firebase
-        .cogerUno(this.coleccion, this.documentId)
-        .subscribe((resp: any) => {
-          this.formCamisetas.setValue(resp.payload.data());
-        });
-    } catch (error) {
-      console.log('Error en la base de datos');
-      this.router.navigate(['/errorBBDD']);
-    }
-  }
-
-  //Metodo que añade al log
-  AnadirAlLog(data:string) {
-    console.log(data);
-    try {
-      this.log.AñadirLog().update({
-        data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
-        }),
+//Metodo que carga los datos
+EditarDatos() {
+  try {
+    this.AnadirAlLog('Cargamos los datos');
+    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+    this.firebase
+      .cogerUno(this.coleccion, this.documentId)
+      .subscribe((resp: any) => {
+        this.formCamisetas.setValue(resp.payload.data());
       });
-    } catch (error) {
-      console.log('Error en la base de datos');
-      this.router.navigate(['/errorBBDD']);
-    }
+      this.AnadirAlLog('Datos cargados');
+  } catch (error) {
+    this.AnadirAlLog('Error en la base de datos');
+    this.router.navigate(['/errorBBDD']);
   }
-
-  //Metodo para actualizar los datos del portero
-  ActualizarDatos() {
-    try {
-      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-      this.firebase.Actualizar(
-        this.coleccion,
-        this.documentId,
-        this.formCamisetas.value
-      );
-        this._location.back();
-      // this._location.back();
-    } catch (error) {
-      console.log('Error en la base de datos');
-      this.router.navigate(['/errorBBDD']);
-    }
+}
+//Metodo que añade al log
+AnadirAlLog(data:string) {
+  try {
+    this.log.AñadirLog().update({
+      data: firebase.firestore.FieldValue.arrayUnion({
+        dato:`[${this.fecha}]:${data}`
+      }),
+    });
+  } catch (error) {
+    this.AnadirAlLog('Error en la base de datos');
+    this.router.navigate(['/errorBBDD']);
   }
-
-  Eliminar() {
-    try {
-      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-      const modalRef = this.modalService.open(ConfirmacionActivaComponent);
-      modalRef.componentInstance.documentId = this.documentId;
-      modalRef.result
-        .then((result) => {
-          if (result === 'confirmar') {
-            this.firebase.Eliminar(this.coleccion, this.documentId);
-            this._location.back();
-          }
-        })
-        .catch((error) => {
-          console.log('Error:', error);
-        });
-    } catch (error) {
-      console.log('Error en la base de datos');
-      this.router.navigate(['/errorBBDD']);
-    }
+}
+//Metodo para actualizar los datos del portero
+ActualizarDatos() {
+  try {
+    this.AnadirAlLog('Actualizando datos');
+    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+    this.firebase.Actualizar(
+      this.coleccion,
+      this.documentId,
+      this.formCamisetas.value
+    );
+    this._location.back();
+    this.AnadirAlLog('datos actualizados')
+  } catch (error) {
+    this.AnadirAlLog('Error en la base de datos');
+    this.router.navigate(['/errorBBDD']);
   }
+  // this._location.back();
+}
+//Metodo para eliminar
+Eliminar() {
+  try {
+    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+    this.AnadirAlLog(`Entrando en eliminar: ${this.documentId}`);
+    const modalRef = this.modalService.open(ConfirmacionActivaComponent);
+    modalRef.componentInstance.documentId = this.documentId;
+    modalRef.result
+      .then((result) => {
+        if (result === 'confirmar') {
+          this.AnadirAlLog(`Eliminando objeto: ${this.documentId}`)
+          this.firebase.Eliminar(this.coleccion, this.documentId);
+          this._location.back();
+          this.AnadirAlLog(`Objeto ${this.documentId} eliminado con exito`)
+        }
+      })
+      .catch((error) => {
+        this.AnadirAlLog(error);
+      });
+  } catch (error) {
+    this.AnadirAlLog('Error en la base de datos');
+    this.router.navigate(['/errorBBDD']);
+  }
+}
 
   ngOnInit() {
     this.EditarDatos();

@@ -14,6 +14,10 @@ import { format } from 'date-fns';
   templateUrl: './crear-botines.component.html',
   styleUrls: ['./crear-botines.component.css']
 })
+/*
+  Clase que contiene los metodos de creacion de botines
+  @author
+*/
 export class CrearBotinesComponent {
   constructor(
     private fb: FormBuilder,
@@ -38,20 +42,21 @@ export class CrearBotinesComponent {
     url: ''
   });
 
-
+  //Metodo para crear botines
   CrearBotines() {
     try {
+      this.AnadirAlLog('Creando objeto')
       this.firebase.Crear(this.coleccion,this.formBotines.value);
       this._location.back();
+      this.AnadirAlLog('Objeto creado con exito')
     } catch (error) {
-      console.log("Error en la base de datos");
+      this.AnadirAlLog("Error al crear botin");
       this.router.navigate(['/errorBBDD']);
     }
   }
 
   //Metodo que añade al log
   AnadirAlLog(data:string) {
-    console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
@@ -59,7 +64,7 @@ export class CrearBotinesComponent {
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }

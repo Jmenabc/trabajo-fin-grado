@@ -13,6 +13,10 @@ import 'firebase/compat/firestore';
   templateUrl: './crear-camisetas.component.html',
   styleUrls: ['./crear-camisetas.component.css'],
 })
+/*
+  Clase que contiene los metodos de creacion de Camisetas
+  @author
+*/
 export class CrearCamisetasComponent {
   constructor(
     private fb: FormBuilder,
@@ -21,7 +25,7 @@ export class CrearCamisetasComponent {
     private _location: Location,
     private log: LoggerService
 
-  ) {}
+  ) { }
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Camisetas';
   documentId: string = '';
@@ -37,29 +41,29 @@ export class CrearCamisetasComponent {
     mdUuid: uuidv4(),
     url: ''
   });
-
-  CrearBotines() {
+  //Metodo que crea camisetas
+  CrearCamiseta() {
     try {
-
+      this.AnadirAlLog('Creando camiseta')
       this.firebase.Crear(this.coleccion, this.formCamisetas.value);
       this._location.back();
+      this.AnadirAlLog('Camiseta creada')
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
 
   //Metodo que añade al log
-  AnadirAlLog(data:string) {
-    console.log(data);
+  AnadirAlLog(data: string) {
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }

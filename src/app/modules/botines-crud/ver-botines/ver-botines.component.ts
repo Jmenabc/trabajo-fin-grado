@@ -10,17 +10,22 @@ import { format } from 'date-fns';
   templateUrl: './ver-botines.component.html',
   styleUrls: ['./ver-botines.component.css'],
 })
+/*
+  Clase que carga los botines en la vista
+  @author Jmenabc
+*/
 export class VerBotinesComponent {
-  constructor(    private log: LoggerService
-,    private firebase: BotinesService, private router: Router) {}
+  constructor(private log: LoggerService
+    , private firebase: BotinesService, private router: Router) { }
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
   coleccion = 'Botines';
   botinesLista: any[] = [];
   documentId: string = '';
   fecha: any = format(new Date(), 'dd/MM/yyyy');
-
+  //Metodo para recoger todos los botines
   getTodosLosBotines() {
     try {
+      this.AnadirAlLog('Recogiendo botines')
       this.firebase.cogerTodos(this.coleccion).subscribe((resp: any) => {
         this.botinesLista = [];
         resp.forEach((botinesSnapshot: any) => {
@@ -30,19 +35,20 @@ export class VerBotinesComponent {
           });
         });
       });
+      this.AnadirAlLog('Botines recogidos');
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
 
   //Metodo que añade al log
-  AnadirAlLog(data:string) {
+  AnadirAlLog(data: string) {
     console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {

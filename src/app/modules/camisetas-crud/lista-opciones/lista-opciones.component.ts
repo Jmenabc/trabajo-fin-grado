@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
   templateUrl: './lista-opciones.component.html',
   styleUrls: ['./lista-opciones.component.css']
 })
+/*
+  Pantalla de carga de opciones del crud
+  @author Jmenabc
+*/
 export class ListaOpcionesComponent {
   constructor(
     private router: Router,
@@ -19,7 +23,6 @@ export class ListaOpcionesComponent {
   fecha: any = format(new Date(), 'dd/MM/yyyy');
   //Metodo que añade al log
   AnadirAlLog(data: string) {
-    console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
@@ -27,8 +30,11 @@ export class ListaOpcionesComponent {
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
+  }
+  ngOnInit() {
+    this.AnadirAlLog('Cargando opciones de crud');
   }
 }

@@ -16,6 +16,10 @@ import { format } from 'date-fns';
   templateUrl: './crear-usuarios.component.html',
   styleUrls: ['./crear-usuarios.component.css'],
 })
+/*
+  Clase que contiene los metodos de creacion de usuarios
+  @author
+*/
 export class CrearUsuariosComponent {
   constructor(
     private fb: FormBuilder,
@@ -46,7 +50,6 @@ export class CrearUsuariosComponent {
 
   //Metodo que añade al log
   AnadirAlLog(data:string) {
-    console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
@@ -54,16 +57,15 @@ export class CrearUsuariosComponent {
         }),
       });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
   }
-
+  //metodo que nos registra
   Registrarse(correo: string, password: string) {
     try {
       //Antes de nada hacemos un hash de la contraseña
-      const hash = SHA256(password).toString();
-      console.log('Entrando a Registro.ts || Metodo Registrarse');
+      this.AnadirAlLog('Entrando a Registro.ts || Metodo Registrarse');
       return this.afAuth
         .createUserWithEmailAndPassword(correo, password)
         .then((result) => {
@@ -76,17 +78,17 @@ export class CrearUsuariosComponent {
           this.formUsuarios.patchValue({
             uuid: result.user!.uid,
           });
-          console.log(
+          this.AnadirAlLog(
             'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
           );
           this.firebase.Crear(this.coleccion, this.formUsuarios.value);
           this._location.back();
         })
         .catch((error) => {
-          window.alert(error.message);
+          this.AnadirAlLog(error.message);
         });
     } catch (error) {
-      console.log('Error en la base de datos');
+      this.AnadirAlLog('Error en la base de datos');
       return this.router.navigate(['/errorBBDD']);
     }
   }
