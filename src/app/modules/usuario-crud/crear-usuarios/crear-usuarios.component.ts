@@ -51,7 +51,7 @@ export class CrearUsuariosComponent {
     telefono: ['', Validators.required],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     uuid: '',
-    rol: [2],
+    rol: 2,
   });
 
   //Metodo ir para la ventana de atras
@@ -82,18 +82,20 @@ export class CrearUsuariosComponent {
         .then((result) => {
           //Una vez se registra almacenamos el uuid
           const uuid = result.user!.uid;
-          localStorage.setItem("uuid", uuid)
           //enviamos el correo de verificación
           result.user!.sendEmailVerification();
           //Actualizamos el valor del formulario
           this.formUsuarios.patchValue({
             uuid: result.user!.uid,
           });
+          localStorage.setItem('correo', correo);
+          localStorage.setItem("uuid", uuid)
           this.AnadirAlLog(
             'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
           );
           if (this.formUsuarios.valid) {
             this.firebase.Crear(this.coleccion, this.formUsuarios.value);
+            localStorage.setItem('rol', "2");
             this._location.back();
             this.AnadirAlLog("Usuario Creado");
           }
@@ -103,7 +105,7 @@ export class CrearUsuariosComponent {
           this.rellenar = "Rellene todos los campos";
           if (error.code === 'auth/email-already-in-use') {
             this.AnadirAlLog('El correo electrónico ya está registrado.');
-            this.rellenar = "Correo en uso";
+            this.rellenar = "Correo en";
           }
         });
     } catch (error) {
