@@ -21,7 +21,7 @@ import { format } from 'date-fns';
 export class RegistroComponent {
   public myText: string = '';
   //Variables de validacion
-  email: string = '';
+  correo: string = '';
   contrasena: string = '';
   nombre: string = '';
   apellidos: string = '';
@@ -97,7 +97,7 @@ export class RegistroComponent {
 
   validarEmail() {
     const pattern = /^[a-zA-Z0-9\s.]+@gmail\.com$/;
-    return pattern.test(this.email);
+    return pattern.test(this.correo);
   }
 
   validarContrasena() {
