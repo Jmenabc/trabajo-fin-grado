@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
   @author Jmenabc
 */
 export class PerfilComponent {
-  email: string = localStorage.getItem("correo")!.toString();
-  uuid: string = localStorage.getItem("uuid")!.toString();
-  rol: string = localStorage.getItem("rol")!.toString();
+  email: string = localStorage.getItem("correo")!;
+  uuid: string = localStorage.getItem("uuid")!;
+  rol: string = localStorage.getItem("rol")!;
 }

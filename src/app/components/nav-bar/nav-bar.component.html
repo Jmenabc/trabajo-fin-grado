@@ -19,15 +19,17 @@
       <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/ListaCamisetas">Camisetas</a>
       </li>
-      <li class="nav-item mx-2" >
+      <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/ListaPantalones">Pantalones</a>
       </li>
     </ul>
     <!-- Esta logueado -->
     <ul class="navbar-nav" *ngIf="estado == 'a'">
+
       <li class="nav-item mx-2">
         <a class="nav-link" routerLink="/perfil">Perfil</a>
       </li>
+
       <li class="nav-item mx-2">
         <a class="nav-link bg-transparent" (click)="cerrarSesion()">Cerrar Sesión</a>
       </li>

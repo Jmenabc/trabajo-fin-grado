@@ -39,7 +39,7 @@ export class LoginComponent {
     try {
       this.AnadirAlLog('Entrando a Login.ts || Método Loguearse');
       const result = await this.afAuth.signInWithEmailAndPassword(email, password);
-      const uuid = result.user!.uid;
+      const uuid = await result.user!.uid;
 
       localStorage.setItem('correo', email);
 
@@ -51,8 +51,8 @@ export class LoginComponent {
 
       if (doc!.exists) {
         const campoValor = doc!.get('rol');
-        localStorage.setItem('uuid', uuid);
-        localStorage.setItem('rol', campoValor);
+        await localStorage.setItem('uuid', uuid);
+        await localStorage.setItem('rol', campoValor);
         console.log(localStorage);
       } else {
         this.AnadirAlLog('El documento no existe');

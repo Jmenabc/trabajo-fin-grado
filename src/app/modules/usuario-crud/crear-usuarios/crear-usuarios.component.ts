@@ -27,9 +27,11 @@ export class CrearUsuariosComponent {
     private firebase: UsuarioService,
     private afAuth: AngularFireAuth,
     private router: Router,
+    private rService: RegistroService,
     private RegistroService: RegistroService,
     private _location: Location,
-    private log: LoggerService
+    private log: LoggerService,
+    private reg: RegistroService,
   ) { }
   //La coleccion donde vamos a añadir los juguetes
   coleccion = 'Usuarios';
@@ -51,7 +53,7 @@ export class CrearUsuariosComponent {
     telefono: ['', Validators.required],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     uuid: '',
-    rol: 2,
+    rol: [2],
   });
 
   //Metodo ir para la ventana de atras
@@ -84,18 +86,18 @@ export class CrearUsuariosComponent {
           const uuid = result.user!.uid;
           //enviamos el correo de verificación
           result.user!.sendEmailVerification();
-          //Actualizamos el valor del formulario
-          this.formUsuarios.patchValue({
-            uuid: result.user!.uid,
-          });
-          localStorage.setItem('correo', correo);
-          localStorage.setItem("uuid", uuid)
+
+          // localStorage.setItem('correo', correo);
+          // localStorage.setItem("uuid", uuid)
           this.AnadirAlLog(
             'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
           );
           if (this.formUsuarios.valid) {
-            this.firebase.Crear(this.coleccion, this.formUsuarios.value);
-            localStorage.setItem('rol', "2");
+            this.reg.CrearRegistrar(this.formUsuarios.value, uuid);
+            //Actualizamos el valor del formulario
+            this.formUsuarios.patchValue({
+              uuid: result.user!.uid,
+            });
             this._location.back();
             this.AnadirAlLog("Usuario Creado");
           }
