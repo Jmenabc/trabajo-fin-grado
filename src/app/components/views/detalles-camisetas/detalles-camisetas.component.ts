@@ -41,19 +41,14 @@ export class DetallesCamisetasComponent {
 
   //Metodo que añade al log
   AnadirAlLog(data: string) {
-    try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
           dato: `[${this.fecha}]:${data}`
         }),
       });
-    } catch (error) {
-      this.AnadirAlLog('Error en la base de datos');
-      this.router.navigate(['/errorBBDD']);
-    }
   }
   VerDetalles() {
-    
+
       this.AnadirAlLog('Cargando detalles del producto');
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;
       this.firebase
@@ -68,7 +63,7 @@ export class DetallesCamisetasComponent {
   }
   //Metodo para añadir a favoritos
   Favoritos() {
-    try {
+
       this.AnadirAlLog('Añadiendo a favoritos')
 
       this.cService.AñadirFav().update({
@@ -82,10 +77,7 @@ export class DetallesCamisetasComponent {
       });
       this.AnadirAlLog('Añadido a favoritos')
 
-    } catch (error) {
-      this.AnadirAlLog('Error al añadir a favoritos');
-      this.router.navigate(['/errorBBDD']);
-    }
+
   }
 
   ngOnInit() {
