@@ -27,7 +27,7 @@ export class DetallesPantalonesComponent {
   usuario: any;
   detalles: any[] = [];
   detF: any;
-  cantidad: number = 0;
+  cantidad: number = 1;
   rol = localStorage.getItem("rol");
   fecha: any = format(new Date(), 'dd/MM/yyyy');
 

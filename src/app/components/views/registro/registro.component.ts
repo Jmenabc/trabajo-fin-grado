@@ -90,6 +90,9 @@ export class RegistroComponent {
       .catch((error) => {
         this.AnadirAlLog('Error en la base de datos');
         this.myText = "Rellena todos los valores"
+        if (error.code === 'auth/email-already-in-use') {
+          this.AnadirAlLog('El correo electrónico ya está registrado.');
+        }
       });
   }
 

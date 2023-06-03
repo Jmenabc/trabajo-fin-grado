@@ -26,7 +26,7 @@ export class LoginComponent {
     private router: Router,
     private afs: AngularFirestore,
     private log: LoggerService
-  ) {}
+  ) { }
   contrasenaInc: string = '';
   emailInc: string = '';
   datosUsuario: any[] = [];
@@ -37,7 +37,7 @@ export class LoginComponent {
 
   async Loguearse(email: string, password: string) {
     try {
-      this.AnadirAlLog('Entrando a Login.ts || Metodo Loguearse');
+      this.AnadirAlLog('Entrando a Login.ts || Método Loguearse');
       const result = await this.afAuth.signInWithEmailAndPassword(email, password);
       const uuid = result.user!.uid;
 
@@ -62,11 +62,31 @@ export class LoginComponent {
         'Entrando a Login.ts/Loguearse || Devolviendo el correo y contraseña que recibimos de nuestro formulario'
       );
       this.router.navigate(['/verificado']);
-    } catch (error) {
-      this.AnadirAlLog('Error al loguearse contraseña inválida');
-      this.contrasenaInc="Contraseña incorrecta";
+    } catch (error: any) {
+      this.AnadirAlLog('Error al loguearse: ' + error.message);
+      if (error.code === 'auth/wrong-password') {
+        this.contrasenaInc = 'Contraseña incorrecta';
+      } else if (error.code === 'auth/user-not-found') {
+        this.contrasenaInc = 'Usuario no encontrado';
+      } else if (error.code === 'auth/invalid-email') {
+        this.contrasenaInc = 'Email no válido';
+      } else if (error.code === 'auth/user-disabled') {
+        this.contrasenaInc = 'Usuario deshabilitado';
+      } else if (error.code === 'auth/internal-error') {
+        this.contrasenaInc = 'Error interno en Firebase';
+      } else if (error.code === 'auth/network-request-failed') {
+        this.contrasenaInc = 'Error de solicitud de red. Verifica tu conexión a Internet';
+      } else if (error.code === 'auth/too-many-requests') {
+        this.contrasenaInc = 'Se ha excedido el límite de solicitudes. Inténtalo de nuevo más tarde';
+      } else if (error.code === 'auth/operation-not-allowed') {
+        this.contrasenaInc = 'Operación no permitida en el proyecto de Firebase';
+      } else {
+        // Otros errores
+        this.contrasenaInc = 'Error al iniciar sesión';
+      }
     }
   }
+
 
   //Validaciones de los inputs
 
@@ -81,11 +101,11 @@ export class LoginComponent {
   }
 
   //Metodo que añade al log
-  AnadirAlLog(data:string) {
+  AnadirAlLog(data: string) {
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {
