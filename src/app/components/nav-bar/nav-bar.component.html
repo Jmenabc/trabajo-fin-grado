@@ -46,9 +46,11 @@
           <a class="nav-link" routerLink="/crudselector">Administrador</a>
         </li>
       </i>
-      <li class="nav-item mx-2">
-        <a class="nav-link" routerLink="/carrito">Carrito</a>
-      </li>
+      <i *ngIf="this.rol !== '2'">
+        <li class="nav-item mx-2">
+          <a class="nav-link" routerLink="/carrito">Carrito</a>
+        </li>
+      </i>
 
     </ul>
   </div>

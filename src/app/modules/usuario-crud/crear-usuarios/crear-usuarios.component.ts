@@ -37,16 +37,21 @@ export class CrearUsuariosComponent {
   cliente?: any;
   fecha: any = format(new Date(), 'dd/MM/yyyy');
   rellenar: string = "";
+  //Variables de validacion
+  email: string = '';
+  contrasena: string = '';
+  nombre: string = '';
+  apellidos: string = '';
+  telefono: string = '';
   //Declaramos nuestro formulario para enviar los datos del juguete
   formUsuarios = this.fb.group({
-    nombre: ['',Validators.required],
-    apellidos: ['',Validators.required],
-    correo: ['',Validators.required],
-    telefono: ['',Validators.required],
+    nombre: ['', Validators.required],
+    apellidos: ['', Validators.required],
+    correo: ['', Validators.required],
+    telefono: ['', Validators.required],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     uuid: '',
     rol: [2],
-    url: ['',Validators.required],
   });
 
   //Metodo ir para la ventana de atras
@@ -95,11 +100,37 @@ export class CrearUsuariosComponent {
         })
         .catch((error) => {
           this.AnadirAlLog(error.message);
-          this.rellenar="Rellene todos los campos";
+          this.rellenar = "Rellene todos los campos";
         });
     } catch (error) {
       this.AnadirAlLog('Error en la base de datos');
       return this.router.navigate(['/errorBBDD']);
     }
+  }
+  //Validaciones de los inputs
+
+  validarEmail() {
+    const pattern = /^[a-zA-Z0-9\s.]+@gmail\.com$/;
+    return pattern.test(this.email);
+  }
+
+  validarContrasena() {
+    const pattern = /^[a-zA-Z0-9\s]*$/;
+    return pattern.test(this.contrasena);
+  }
+
+  validarNombre() {
+    const pattern = /^[a-zA-Z\s]*$/;
+    return pattern.test(this.nombre);
+  }
+
+  validarApellidos() {
+    const pattern = /^[a-zA-Z\s]*$/;
+    return pattern.test(this.apellidos);
+  }
+
+  validarTelefono() {
+    const pattern = /^[0-9]*$/;
+    return pattern.test(this.telefono);
   }
 }

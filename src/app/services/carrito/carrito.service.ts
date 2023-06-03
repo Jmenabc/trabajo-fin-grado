@@ -9,11 +9,18 @@ import { Router } from '@angular/router';
   @author Jmenabc
 */
 export class CarritoService {
-  constructor(private firestore: AngularFirestore, private router: Router) {}
+  constructor(private firestore: AngularFirestore, private router: Router) { }
   //Datos necesarios para el acceso al carrito
   collection: string = 'Usuarios';
   collectionCarrito: string = 'Carrito';
   uuid = localStorage.getItem('uuid');
+
+  eliminarObjeto(objetoId: string) {
+    // Obtener la referencia al objeto en el carrito
+    const objetoRef = this.firestore.collection('carrito').doc(objetoId);
+    // Eliminar el objeto del carrito
+    return objetoRef.delete();
+  }
 
   cogerTodos() {
     return this.firestore

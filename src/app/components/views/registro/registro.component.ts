@@ -40,12 +40,13 @@ export class RegistroComponent {
 
   //Creamos el formulario
   formUsuario = this.fb.group({
-    email: '',
+    nombre: ['',Validators.required],
+    apellidos: ['',Validators.required],
+    correo: ['',Validators.required],
+    telefono: ['',Validators.required],
+    mdDate: [format(new Date(), 'dd/MM/yyyy')],
+    uuid: '',
     rol: [1],
-    uuid: [''],
-    nombre: '',
-    apellidos: '',
-    telefono: '',
   });
 
   async Registrarse(email: string, password: string) {
