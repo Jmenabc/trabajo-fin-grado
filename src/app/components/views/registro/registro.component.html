@@ -8,7 +8,7 @@
       class="col-sm-10 col-md-8 col-lg-6 shadow rounded-lg p-4 d-flex flex-column justify-content-center align-items-center text-center mx-3">
       <h3 class="text-center mb-3">Registrarse</h3>
       <div class="formGroup mb-3">
-        <input [(ngModel)]="email" (input)="validarEmail()" formControlName="email" type="text"
+        <input [(ngModel)]="correo" (input)="validarEmail()" formControlName="correo" type="text"
           class="formControl rounded-pill py-2 px-3" placeholder="Correo" #userEmail required>
         <div *ngIf="!validarEmail()" class="text-danger">El correo solo puede contener letras, números y espacios. y el @gmail.com</div>
       </div>

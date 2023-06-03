@@ -49,10 +49,10 @@ export class RegistroComponent {
     rol: [1],
   });
 
-  async Registrarse(email: string, password: string) {
+  async Registrarse(correo: string, password: string) {
     this.AnadirAlLog('Entrando a Registro.ts || Metodo Registrarse');
     return await this.afAuth
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(correo, password)
       .then(async (result) => {
         //Una vez se registra almacenamos el uuid
         const uuid = result.user!.uid;
@@ -62,7 +62,7 @@ export class RegistroComponent {
         this.formUsuario.patchValue({
           uuid: result.user!.uid,
         });
-        localStorage.setItem('correo', email);
+        localStorage.setItem('correo', correo);
         //Una vez se crea el usuario creamos el carrito
         this.firebase.CrearCarrito(uuid);
         //Creamos el documento con el uuid del usuario registrado para que mas tarde se nos sea mas facil buscar sus datos

@@ -9,6 +9,7 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { format } from 'date-fns';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.component.html',
@@ -32,7 +33,8 @@ export class EditarUsuarioComponent {
     private _location: Location,
     private modalService: NgbModal,
     private router: Router,
-    private log: LoggerService
+    private log: LoggerService,
+    private afAuth: AngularFireAuth
   ) { }
 
   formUsuario = this.fb.group({
@@ -97,6 +99,7 @@ export class EditarUsuarioComponent {
   //Metodo para eliminar usuarios
   Eliminar() {
     try {
+      const user = this.afAuth.currentUser;
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;
       this.AnadirAlLog(`Eliminando usuario ${this.documentId}`)
       const modalRef = this.modalService.open(ConfirmacionActivaComponent);
@@ -127,6 +130,7 @@ export class EditarUsuarioComponent {
         if (this.usuario && this.usuario.rol === 3) {
           this.AnadirAlLog('No se puede eliminar debido al rol del usuario.');
         } else {
+
           this.firebase.Eliminar(this.coleccion, this.documentId);
           this._location.back();
         }
