@@ -55,7 +55,7 @@ export class DetallesPantalonesComponent {
 
   //Metodo que carga los detalles
   VerDetalles() {
-    try {
+
       this.AnadirAlLog('Cargando detalles del producto');
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;
       this.firebase
@@ -65,10 +65,7 @@ export class DetallesPantalonesComponent {
           this.detF = this.detalles[0];
         });
       this.AnadirAlLog('Detalles cargados')
-    } catch (error) {
-      this.AnadirAlLog('Error al cargar detalles');
-      this.router.navigate(['/errorBBDD']);
-    }
+    
   }
 
   //Metodo para añadir a favoritos
