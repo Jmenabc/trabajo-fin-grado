@@ -80,7 +80,8 @@ export class DetallesPantalonesComponent {
           nombre: this.detalles[0].nombre,
           marca: this.detalles[0].marca,
           precio: this.detalles[0].precio,
-          cantidad: this.cantidad
+          cantidad: this.cantidad,
+          url: this.detF.url
         }),
       });
       this.AnadirAlLog('Añadido a favoritos')

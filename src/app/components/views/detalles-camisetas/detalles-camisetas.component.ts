@@ -80,6 +80,7 @@ export class DetallesCamisetasComponent {
           marca: this.detalles[0].marca,
           precio: this.detalles[0].precio,
           cantidad: this.cantidad,
+          url: this.detF.url
         }),
       });
       this.AnadirAlLog('Añadido a favoritos')

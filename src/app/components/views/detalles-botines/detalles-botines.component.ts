@@ -77,7 +77,8 @@ export class DetallesBotinesComponent {
             nombre: this.detF.nombre,
             marca: this.detF.marca,
             precio: this.detF.precio,
-            cantidad: this.cantidad
+            cantidad: this.cantidad,
+            url: this.detF.url
           }),
         });
         this.AnadirAlLog('Añadido a favoritos')

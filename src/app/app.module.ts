@@ -75,7 +75,8 @@ import { MatTableModule } from '@angular/material/table'
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -4,7 +4,6 @@ import { RecibosService } from 'src/app/services/recibos/recibos.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import jsPDF from 'jspdf';
-import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-carrito',
@@ -14,8 +13,7 @@ import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 export class CarritoComponent {
   constructor(
     private cService: CarritoService,
-    private rService: RecibosService,
-    private firestore: AngularFirestoreDocument
+    private rService: RecibosService
   ) { }
     uuid: string = localStorage.getItem("uuid")!.toString();
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
@@ -43,18 +41,6 @@ export class CarritoComponent {
 
 
 
-  }
-  //metodo para eliminar
-  eliminarObjeto(objetoId: string) {
-    // Obtener la referencia al objeto en el carrito
-    const objetoRef: AngularFirestoreDocument<any> = this.firestore.collection('carrito').doc(this.uuid);
-
-    // Eliminar el objeto del carrito
-    return objetoRef.delete().then(() => {
-      console.log('Objeto eliminado del carrito');
-    }).catch((error) => {
-      console.error('Error al eliminar el objeto del carrito:', error);
-    });
   }
 
   sumar() {
