@@ -28,7 +28,7 @@ export class DetallesBotinesComponent {
   cantidad: number = 1;
   rol = localStorage.getItem("rol");
   fecha: any = format(new Date(), 'dd/MM/yyyy');
-
+  anadido: string = "";
   constructor(
     private firebase: BotinesService,
     private ruta: ActivatedRoute,
@@ -53,35 +53,32 @@ export class DetallesBotinesComponent {
   //Metodo que carga los detalles
   VerDetalles() {
 
-      this.AnadirAlLog('Cargando detalles del producto');
-      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-      this.firebase
-        .cogerUno(this.coleccion, this.documentId)
-        .subscribe((resp: any) => {
-          this.detalles.push(resp.payload.data());
-          this.detF = this.detalles[0];
-        });
-      this.AnadirAlLog('Detalles cargados')
+    this.AnadirAlLog('Cargando detalles del producto');
+    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+    this.firebase
+      .cogerUno(this.coleccion, this.documentId)
+      .subscribe((resp: any) => {
+        this.detalles.push(resp.payload.data());
+        this.detF = this.detalles[0];
+      });
+    this.AnadirAlLog('Detalles cargados')
 
   }
   //Metodo para añadir a favoritos
   Favoritos() {
-
-    if (firebase.auth().currentUser) {
-      this.AnadirAlLog('Añadiendo a favoritos')
-      this.cService.AñadirFav().update({
-        productos: firebase.firestore.FieldValue.arrayUnion({
-          nombre: this.detF.nombre,
-          marca: this.detF.marca,
-          precio: this.detF.precio,
-          cantidad: this.cantidad,
-          url: this.detF.url
-        }),
-      });
-      this.AnadirAlLog('Añadido a favoritos')
-    }
+    this.AnadirAlLog('Añadiendo a favoritos')
+    this.cService.AñadirFav().update({
+      productos: firebase.firestore.FieldValue.arrayUnion({
+        nombre: this.detF.nombre,
+        marca: this.detF.marca,
+        precio: this.detF.precio,
+        cantidad: this.cantidad,
+        url: this.detF.url
+      }),
+    });
+    this.AnadirAlLog('Añadido a favoritos')
+    this.anadido = "Añadido con exito al carrito"
     this.AnadirAlLog('No tiene permisos')
-
   }
 
   ngOnInit() {

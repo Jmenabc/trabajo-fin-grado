@@ -15,7 +15,7 @@ export class CarritoComponent {
     private cService: CarritoService,
     private rService: RecibosService
   ) { }
-    uuid: string = localStorage.getItem("uuid")!.toString();
+  uuid: string = localStorage.getItem("uuid")!.toString();
   //Requisitos para llamar a la coleccion y pasar los datos a la vista
   carritoLista: any[] = [];
   documentId: string = '';
@@ -23,13 +23,13 @@ export class CarritoComponent {
   suma: number = 0;
   //Recogemos todos los productos de nuestro map productos
   async get() {
-   await this.cService.cogerTodos().subscribe((resp: any) => {
+    await this.cService.cogerTodos().subscribe((resp: any) => {
       this.carritoLista = [];
       resp.forEach((carritoSnapshot: any) => {
-         this.carritoLista.push({
+        this.carritoLista.push({
           ...carritoSnapshot.payload.doc.data(),
         });
-         this.datosCarrito =  this.carritoLista[0].productos;
+        this.datosCarrito = this.carritoLista[0].productos;
         console.log(this.datosCarrito = this.carritoLista[0].productos);
         //Ahora recogemos el precio de todos los obejtos de la lista y los sumamos
         this.datosCarrito.forEach((objeto) => {
@@ -38,8 +38,14 @@ export class CarritoComponent {
         });
       });
     });
+  }
+  //Eliminar del carrito
+  async deleteItem(itemIndex: number) {
+    const itemToDelete = this.datosCarrito[itemIndex];
 
+    this.suma -= itemToDelete.precio * itemToDelete.cantidad;
 
+    this.datosCarrito.splice(itemIndex, 1);
 
   }
 

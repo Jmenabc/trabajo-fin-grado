@@ -30,6 +30,7 @@ export class DetallesPantalonesComponent {
   cantidad: number = 1;
   rol = localStorage.getItem("rol");
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  anadido: string = "";
 
   constructor(
     private firebase: PantalonesService,
@@ -56,36 +57,34 @@ export class DetallesPantalonesComponent {
   //Metodo que carga los detalles
   VerDetalles() {
 
-      this.AnadirAlLog('Cargando detalles del producto');
-      this.documentId = this.ruta.snapshot.paramMap.get('id')!;
-      this.firebase
-        .cogerUno(this.coleccion, this.documentId)
-        .subscribe((resp: any) => {
-          this.detalles.push(resp.payload.data());
-          this.detF = this.detalles[0];
-        });
-      this.AnadirAlLog('Detalles cargados')
-    
+    this.AnadirAlLog('Cargando detalles del producto');
+    this.documentId = this.ruta.snapshot.paramMap.get('id')!;
+    this.firebase
+      .cogerUno(this.coleccion, this.documentId)
+      .subscribe((resp: any) => {
+        this.detalles.push(resp.payload.data());
+        this.detF = this.detalles[0];
+      });
+    this.AnadirAlLog('Detalles cargados')
+
+
   }
 
   //Metodo para añadir a favoritos
   Favoritos() {
-    try {
-      this.AnadirAlLog('Añadiendo a favoritos')
-      this.cService.AñadirFav().update({
-        productos: firebase.firestore.FieldValue.arrayUnion({
-          nombre: this.detalles[0].nombre,
-          marca: this.detalles[0].marca,
-          precio: this.detalles[0].precio,
-          cantidad: this.cantidad,
-          url: this.detF.url
-        }),
-      });
-      this.AnadirAlLog('Añadido a favoritos')
-    } catch (error) {
-      this.AnadirAlLog('Error al añadir a favoritos');
-      this.router.navigate(['/errorBBDD']);
-    }
+    this.AnadirAlLog('Añadiendo a favoritos')
+    this.cService.AñadirFav().update({
+      productos: firebase.firestore.FieldValue.arrayUnion({
+        nombre: this.detalles[0].nombre,
+        marca: this.detalles[0].marca,
+        precio: this.detalles[0].precio,
+        cantidad: this.cantidad,
+        url: this.detF.url
+      }),
+    });
+    this.AnadirAlLog('Añadido a favoritos')
+    this.anadido = "Añadido con exito al carrito"
+
   }
 
   ngOnInit() {

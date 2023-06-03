@@ -29,6 +29,7 @@ export class DetallesCamisetasComponent {
   cantidad: number = 1;
   rol = localStorage.getItem("rol");
   fecha: any = format(new Date(), 'dd/MM/yyyy');
+  anadido: string = "";
 
   constructor(
     private firebase: CamisetasService,
@@ -76,7 +77,7 @@ export class DetallesCamisetasComponent {
         }),
       });
       this.AnadirAlLog('Añadido a favoritos')
-
+      this.anadido = "Añadido con exito al carrito"
 
   }
 
