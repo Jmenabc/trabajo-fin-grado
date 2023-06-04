@@ -18,9 +18,11 @@ import { ListaPantalonesComponent } from './components/views/lista-pantalones/li
 import { DetallesCamisetasComponent } from './components/views/detalles-camisetas/detalles-camisetas.component';
 import { DetallesPantalonesComponent } from './components/views/detalles-pantalones/detalles-pantalones.component';
 import { PerfilComponent } from './components/views/perfil/perfil.component';
+import { DesconectadoLstorageTocadoComponent } from './components/desconectado-lstorage-tocado/desconectado-lstorage-tocado.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'desconectado', component: DesconectadoLstorageTocadoComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'Inicio', component: PaginicialComponent },
   { path: 'Menu', component: PrincipalMenuEntradaComponent },
@@ -84,4 +86,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

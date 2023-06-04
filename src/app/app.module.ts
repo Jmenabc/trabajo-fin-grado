@@ -33,7 +33,8 @@ import { DetallesPantalonesComponent } from './components/views/detalles-pantalo
 import { PerfilComponent } from './components/views/perfil/perfil.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table';
+import { DesconectadoLstorageTocadoComponent } from './components/desconectado-lstorage-tocado/desconectado-lstorage-tocado.component'
 
 @NgModule({
 
@@ -59,6 +60,7 @@ import { MatTableModule } from '@angular/material/table'
     DetallesCamisetasComponent,
     DetallesPantalonesComponent,
     PerfilComponent,
+    DesconectadoLstorageTocadoComponent,
 
   ],
   imports: [

@@ -9,7 +9,7 @@
       <div class="fw-bold">Precio - {{detF.precio}}</div>
       <i *ngIf="this.rol !== null">
         <button (click)="Favoritos()" class="btn btn-primary mt-3">Añadir al carrito</button>
-        <input type="number" id="cantidad" name="cantidad" [(ngModel)]="cantidad" class="form-control mt-2" min="0" maxlength="2">
+        <input maxlength="3" type="text" id="cantidad" name="cantidad" [(ngModel)]="cantidad" class="form-control mt-2" pattern="-?[0-9]+" required>
       </i>
       <h3>{{anadido}}</h3>
     </div>

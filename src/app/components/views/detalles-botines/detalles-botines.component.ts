@@ -7,6 +7,7 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { format } from 'date-fns';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class DetallesBotinesComponent {
   usuario: any;
   detalles: any[] = [];
   detF: any;
-  cantidad: number = 1;
+  cantidad: string = "1";
   rol = localStorage.getItem("rol");
   fecha: any = format(new Date(), 'dd/MM/yyyy');
   anadido: string = "";
@@ -34,7 +35,8 @@ export class DetallesBotinesComponent {
     private ruta: ActivatedRoute,
     private router: Router,
     private cService: CarritoService,
-    private log: LoggerService
+    private log: LoggerService,
+    private fb: FormBuilder
   ) { }
 
   //Metodo que añade al log
@@ -50,9 +52,9 @@ export class DetallesBotinesComponent {
       this.router.navigate(['/errorBBDD']);
     }
   }
+
   //Metodo que carga los detalles
   VerDetalles() {
-
     this.AnadirAlLog('Cargando detalles del producto');
     this.documentId = this.ruta.snapshot.paramMap.get('id')!;
     this.firebase

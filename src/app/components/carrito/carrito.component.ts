@@ -22,8 +22,8 @@ export class CarritoComponent {
   datosCarrito: any[] = [];
   suma: number = 0;
   //Recogemos todos los productos de nuestro map productos
-  async get() {
-    await this.cService.cogerTodos().subscribe((resp: any) => {
+  get() {
+    this.cService.cogerTodos().subscribe((resp: any) => {
       this.carritoLista = [];
       resp.forEach((carritoSnapshot: any) => {
         this.carritoLista.push({
@@ -31,23 +31,43 @@ export class CarritoComponent {
         });
         this.datosCarrito = this.carritoLista[0].productos;
         console.log(this.datosCarrito = this.carritoLista[0].productos);
-        //Ahora recogemos el precio de todos los obejtos de la lista y los sumamos
+
+        this.suma = 0; // Reiniciamos la suma antes de recalcularla
+
         this.datosCarrito.forEach((objeto) => {
           this.suma += objeto.precio * objeto.cantidad;
-          console.log(this.suma);
         });
+
+        console.log(this.suma);
       });
     });
   }
-  //Eliminar del carrito
-  async deleteItem(itemIndex: number) {
-    const itemToDelete = this.datosCarrito[itemIndex];
 
-    this.suma -= itemToDelete.precio * itemToDelete.cantidad;
+  deleteItem(i: number) {
+    const objeto = this.datosCarrito[i];
+    const precioTotal = objeto.precio * objeto.cantidad; // Multiplica el precio por la cantidad
 
-    this.datosCarrito.splice(itemIndex, 1);
+    const docRef = this.cService.docDir();
+    docRef.update({
+      productos: firebase.firestore.FieldValue.arrayRemove(objeto)
+    });
 
+    // Elimina el objeto de la lista utilizando splice() en lugar de slice()
+    this.datosCarrito.splice(i, 1);
+
+    // Resta el precio total del objeto eliminado de this.suma
+    this.suma -= precioTotal;
+
+    console.log(this.suma);
   }
+
+
+
+
+
+
+
+
 
   sumar() {
     if (this.suma == 0) {
