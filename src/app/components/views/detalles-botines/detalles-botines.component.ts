@@ -68,7 +68,13 @@ export class DetallesBotinesComponent {
   }
   //Metodo para añadir a favoritos
   Favoritos() {
-    this.AnadirAlLog('Añadiendo a favoritos')
+    this.AnadirAlLog('Añadiendo a favoritos');
+
+    if (this.cantidad === undefined || this.cantidad.trim() === '') {
+      this.anadido = "El campo no puede estar vacío";
+      return;
+    }
+
     this.cService.AñadirFav().update({
       productos: firebase.firestore.FieldValue.arrayUnion({
         nombre: this.detF.nombre,
@@ -78,10 +84,11 @@ export class DetallesBotinesComponent {
         url: this.detF.url
       }),
     });
-    this.AnadirAlLog('Añadido a favoritos')
-    this.anadido = "Añadido con exito al carrito"
-    this.AnadirAlLog('No tiene permisos')
+
+    this.AnadirAlLog('Añadido a favoritos');
+    this.anadido = "Añadido con éxito al carrito";
   }
+
 
   ngOnInit() {
     this.VerDetalles();

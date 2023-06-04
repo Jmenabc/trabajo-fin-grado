@@ -27,7 +27,7 @@ export class DetallesPantalonesComponent {
   usuario: any;
   detalles: any[] = [];
   detF: any;
-  cantidad: number = 1;
+  cantidad: string = "1";
   rol = localStorage.getItem("rol");
   fecha: any = format(new Date(), 'dd/MM/yyyy');
   anadido: string = "";
@@ -72,19 +72,25 @@ export class DetallesPantalonesComponent {
 
   //Metodo para añadir a favoritos
   Favoritos() {
-    this.AnadirAlLog('Añadiendo a favoritos')
+    this.AnadirAlLog('Añadiendo a favoritos');
+
+    if (this.cantidad === undefined || this.cantidad.trim() === '') {
+      this.anadido = "El campo no puede estar vacío";
+      return;
+    }
+
     this.cService.AñadirFav().update({
       productos: firebase.firestore.FieldValue.arrayUnion({
-        nombre: this.detalles[0].nombre,
-        marca: this.detalles[0].marca,
-        precio: this.detalles[0].precio,
+        nombre: this.detF.nombre,
+        marca: this.detF.marca,
+        precio: this.detF.precio,
         cantidad: this.cantidad,
         url: this.detF.url
       }),
     });
-    this.AnadirAlLog('Añadido a favoritos')
-    this.anadido = "Añadido con exito al carrito"
 
+    this.AnadirAlLog('Añadido a favoritos');
+    this.anadido = "Añadido con éxito al carrito";
   }
 
   ngOnInit() {
