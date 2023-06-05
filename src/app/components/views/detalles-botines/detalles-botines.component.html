@@ -6,7 +6,7 @@
       <img src="{{ detF.url }}" alt="Imagen del producto" class="rounded" style="max-width: 200px; max-height: 200px;">
       <div class="fw-bold mt-3">Nombre - {{detF.nombre}}</div>
       <div class="fw-bold">Marca - {{detF.marca}}</div>
-      <div class="fw-bold">Precio - {{detF.precio}}</div>
+      <div class="fw-bold">Precio - {{detF.precio}} €</div>
       <i *ngIf="this.rol !== null">
         <button (click)="Favoritos()" class="btn btn-primary mt-3">Añadir al carrito</button>
         <input type="text" id="cantidad" name="cantidad" [(ngModel)]="cantidad" class="form-control mt-2" pattern="^(?=.*[1-9]|10$)(?!.*\s)[0-9+*/%-]+$" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>

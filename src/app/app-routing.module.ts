@@ -19,6 +19,7 @@ import { DetallesCamisetasComponent } from './components/views/detalles-camiseta
 import { DetallesPantalonesComponent } from './components/views/detalles-pantalones/detalles-pantalones.component';
 import { PerfilComponent } from './components/views/perfil/perfil.component';
 import { DesconectadoLstorageTocadoComponent } from './components/desconectado-lstorage-tocado/desconectado-lstorage-tocado.component';
+import { CarritoGuard } from './guards/carrito/carrito.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -33,7 +34,7 @@ const routes: Routes = [
     canActivate: [AdministradorPageGuard],
   },
   { path: 'verificado', component: VerificadoEstadoComponent },
-  { path: 'carrito', component: CarritoComponent },
+  { path: 'carrito',canActivate: [CarritoGuard], component: CarritoComponent },
   { path: 'noPermisos', component: NoPermisosComponent },
   { path: 'errorBBDD', component: BaseDatosErrorComponent },
   { path: 'perfil', component: PerfilComponent },
