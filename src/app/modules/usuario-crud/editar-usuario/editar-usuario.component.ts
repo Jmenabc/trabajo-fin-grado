@@ -10,6 +10,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { format } from 'date-fns';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import 'firebase/auth';
 @Component({
   selector: 'app-editar-usuario',
   templateUrl: './editar-usuario.component.html',
@@ -26,7 +27,7 @@ export class EditarUsuarioComponent {
   usuario: any;
   rol: string = localStorage.getItem('rol')!;
   fecha: any = format(new Date(), 'dd/MM/yyyy');
-  constructor(
+  user: any; constructor(
     private firebase: UsuarioService,
     private fb: FormBuilder,
     private ruta: ActivatedRoute,
@@ -35,12 +36,16 @@ export class EditarUsuarioComponent {
     private router: Router,
     private log: LoggerService,
     private afAuth: AngularFireAuth
-  ) { }
+  ) {
+
+
+  }
+
 
   formUsuario = this.fb.group({
     nombre: [],
     apellidos: [],
-    correo: [],
+    correo: '',
     telefono: [],
     mdDate: [],
     uuid: '',
@@ -99,7 +104,7 @@ export class EditarUsuarioComponent {
   //Metodo para eliminar usuarios
   Eliminar() {
     try {
-      const user = this.afAuth.currentUser;
+
       this.documentId = this.ruta.snapshot.paramMap.get('id')!;
       this.AnadirAlLog(`Eliminando usuario ${this.documentId}`)
       const modalRef = this.modalService.open(ConfirmacionActivaComponent);
@@ -122,19 +127,37 @@ export class EditarUsuarioComponent {
   }
   //metodo que nos verifica el rol del usuario
   verificarRolYEliminar() {
-    this.AnadirAlLog('Verificando rol');
-    this.firebase
-      .cogerUno(this.coleccion, this.documentId)
-      .subscribe((resp: any) => {
-        this.usuario = resp.payload.data();
-        if (this.usuario && this.usuario.rol === 3) {
-          this.AnadirAlLog('No se puede eliminar debido al rol del usuario.');
-        } else {
+    try {
+      const correo = this.formUsuario.value.correo;
+      this.AnadirAlLog('Verificando rol');
+      this.firebase
+        .cogerUno(this.coleccion, this.documentId)
+        .subscribe((resp: any) => {
+          this.usuario = resp.payload.data();
+          if (this.usuario && this.usuario.rol === 3) {
+            this.AnadirAlLog('No se puede eliminar debido al rol del usuario.');
+          } else {
+          ;
+            this.afAuth.fetchSignInMethodsForEmail(correo!).then((signInMethods) => {
+              if (signInMethods && signInMethods.length > 0) {
+                // El usuario existe, procedemos a eliminarlo
+                this.afAuth.currentUser.then((user) => {
+                  if (user) {
+                    this.router.navigate(['usuarioCRUD/OpcionesUsuarios/VerUsuarios'])
+                    user.delete();
+                  }
+                });
+              }
+            });
+            this.firebase.Eliminar(this.coleccion, this.documentId);
 
-          this.firebase.Eliminar(this.coleccion, this.documentId);
-          this._location.back();
-        }
-      });
+            // Navegar hacia atrás sin recargar el componente actual
+
+          }
+        });
+    } catch (error: any) {
+      this.AnadirAlLog(error);
+    }
   }
 
   ngOnInit() {

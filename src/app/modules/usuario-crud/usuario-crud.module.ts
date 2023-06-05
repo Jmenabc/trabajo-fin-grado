@@ -8,19 +8,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { NavBarComponent } from 'src/app/components/nav-bar/nav-bar.component';
 
-
 @NgModule({
   declarations: [
     ListaOpcionesComponent,
     VerUsuariosComponent,
     CrearUsuariosComponent,
     EditarUsuarioComponent,
+
   ],
   imports: [
     CommonModule,
     UsuarioCrudRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+
   ],
 })
 export class UsuarioCrudModule { }

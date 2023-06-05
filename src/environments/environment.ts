@@ -7,6 +7,7 @@ export const environment = {
     projectId: 'menashop-9399b',
     appId: '1:823838293592:web:227eb1772ee97f1fd4d42d',
     storageBucket: 'menashop-9399b.appspot.com',
+    locationId: 'us-central',
     apiKey: 'AIzaSyDrLuvYmQ0fVCQ0ouMj8aDjveESy9YrF3M',
     authDomain: 'menashop-9399b.firebaseapp.com',
     messagingSenderId: '823838293592',

@@ -79,6 +79,7 @@ import { DesconectadoLstorageTocadoComponent } from './components/desconectado-l
     MatInputModule,
     MatTableModule,
 
+
   ],
   providers: [],
   bootstrap: [AppComponent],

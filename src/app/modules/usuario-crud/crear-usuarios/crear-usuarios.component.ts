@@ -107,7 +107,7 @@ export class CrearUsuariosComponent {
           this.rellenar = "Rellene todos los campos";
           if (error.code === 'auth/email-already-in-use') {
             this.AnadirAlLog('El correo electrónico ya está registrado.');
-            this.rellenar = "Correo en";
+            this.rellenar = "Correo en uso";
           }
         });
     } catch (error) {

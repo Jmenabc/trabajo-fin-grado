@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -13,4 +15,10 @@ export class PerfilComponent {
   email: string = localStorage.getItem("correo")!;
   uuid: string = localStorage.getItem("uuid")!;
   rol: string = localStorage.getItem("rol")!;
+  constructor(private agfire: AngularFireAuth, private route: Router) { }
+
+  eliminarUsuario() {
+    this.agfire.currentUser.then(user => user?.delete());
+  }
+
 }

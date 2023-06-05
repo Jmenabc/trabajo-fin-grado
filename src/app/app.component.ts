@@ -13,6 +13,7 @@ export class AppComponent {
     window.addEventListener('storage', (event) => {
       if (event.key !== null) {
         // Si se modificó el localStorage, redirigir al inicio de sesión
+        localStorage.clear();
         this.router.navigate(['/desconectado']);
       }
     });
