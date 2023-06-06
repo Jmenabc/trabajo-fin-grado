@@ -114,7 +114,7 @@ export class EditarUsuarioComponent {
             this.verificarRolYEliminar();
             this.AnadirAlLog(`Usuario ${this.documentId} eliminado con exito`)
           }
-          this.AnadirAlLog(`Se cancelo la eliminacion de ${this.documentId}`)
+          this.AnadirAlLog(`Usuario ${this.documentId} eliminado con exito`)
         })
         .catch((error) => {
           this.AnadirAlLog(error);
@@ -148,8 +148,6 @@ export class EditarUsuarioComponent {
               }
             });
             this.firebase.Eliminar(this.coleccion, this.documentId);
-
-            // Navegar hacia atrás sin recargar el componente actual
 
           }
         });
