@@ -36,4 +36,8 @@ export class UsuarioService {
   Eliminar(coleccion: string, documentId: string) {
     return this.firestore.collection(coleccion).doc(documentId).delete();
   }
+
+  EliminarCarrito(documentId: string) {
+    return this.firestore.collection("Usuarios").doc(documentId).collection("Carrito").doc(documentId).delete()
+  }
 }

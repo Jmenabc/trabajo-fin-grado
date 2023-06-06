@@ -147,6 +147,7 @@ export class EditarUsuarioComponent {
                 });
               }
             });
+            this.firebase.EliminarCarrito(this.documentId);
             this.firebase.Eliminar(this.coleccion, this.documentId);
 
           }

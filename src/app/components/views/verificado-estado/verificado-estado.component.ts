@@ -16,6 +16,7 @@ import { format } from 'date-fns';
 })
 export class VerificadoEstadoComponent {
   constructor(private log: LoggerService, private router: Router, private afAuth: AngularFireAuth) { }
+  emailVerified = false;
   estadoText: string = '';
   fecha: any = format(new Date(), 'dd/MM/yyyy');
   AnadirAlLog(data: string) {
@@ -33,10 +34,12 @@ export class VerificadoEstadoComponent {
   }
   checkEmailVerification() {
     const user = firebase.auth().currentUser;
+    console.log(user);
     console.log(user!.emailVerified);
     if (user!.emailVerified == true) {
       this.router.navigate(['/Menu']);
     } else {
+      this.router.navigate(['/verificado']);
       this.estadoText =
         'Vaya a su correo y compruebe que le haya llegado el correo, sino mire en spam';
     }
@@ -49,6 +52,6 @@ export class VerificadoEstadoComponent {
   }
 
   ngOnInit() {
-    this.checkEmailVerification();
+     this.checkEmailVerification();
   }
 }

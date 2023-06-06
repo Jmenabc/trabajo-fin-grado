@@ -5,6 +5,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+/*
+  Guardian que cuida que nadie que no este permitido entre en carrito
+  @author Jmenabc
+*/
 export class CarritoGuard implements CanActivate {
    constructor(private router: Router) { }
   canActivate(

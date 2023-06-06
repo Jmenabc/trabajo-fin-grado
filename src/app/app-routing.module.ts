@@ -34,7 +34,7 @@ const routes: Routes = [
     canActivate: [AdministradorPageGuard],
   },
   { path: 'verificado', component: VerificadoEstadoComponent },
-  { path: 'carrito',canActivate: [CarritoGuard], component: CarritoComponent },
+  { path: 'carrito', canActivate: [CarritoGuard], component: CarritoComponent },
   { path: 'noPermisos', component: NoPermisosComponent },
   { path: 'errorBBDD', component: BaseDatosErrorComponent },
   { path: 'perfil', component: PerfilComponent },
