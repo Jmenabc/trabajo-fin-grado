@@ -27,6 +27,7 @@ export class LoginComponent {
     private afs: AngularFirestore,
     private log: LoggerService
   ) { }
+  loged: boolean = false;
   contrasenaInc: string = '';
   emailInc: string = '';
   datosUsuario: any[] = [];
@@ -41,7 +42,7 @@ export class LoginComponent {
       const result = await this.afAuth.signInWithEmailAndPassword(email, password);
       const uuid = await result.user!.uid;
 
-      localStorage.setItem('correo', email);
+      await localStorage.setItem('correo', email);
 
       const doc = await this.afs
         .collection('Usuarios')
@@ -61,6 +62,7 @@ export class LoginComponent {
       this.AnadirAlLog(
         'Entrando a Login.ts/Loguearse || Devolviendo el correo y contraseña que recibimos de nuestro formulario'
       );
+      this.loged = true;
       this.router.navigate(['/verificado']);
     } catch (error: any) {
       this.AnadirAlLog('Error al loguearse: ' + error.message);
@@ -82,7 +84,7 @@ export class LoginComponent {
         this.contrasenaInc = 'Operación no permitida en el proyecto de Firebase';
       } else {
         // Otros errores
-        this.contrasenaInc = 'Error al iniciar sesión';
+         this.contrasenaInc = 'Error al iniciar sesión';
       }
     }
   }
@@ -91,7 +93,7 @@ export class LoginComponent {
   //Validaciones de los inputs
 
   validarEmail() {
-    const pattern = /^[a-zA-Z0-9\s.]+@gmail\.com$/;
+    const pattern = /^[a-zA-Z0-9\s.]+@/;
     return pattern.test(this.email);
   }
 

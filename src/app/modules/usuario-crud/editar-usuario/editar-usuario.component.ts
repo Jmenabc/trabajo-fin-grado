@@ -41,7 +41,6 @@ export class EditarUsuarioComponent {
 
   }
 
-
   formUsuario = this.fb.group({
     nombre: [],
     apellidos: [],
@@ -137,7 +136,6 @@ export class EditarUsuarioComponent {
           if (this.usuario && this.usuario.rol === 3) {
             this.AnadirAlLog('No se puede eliminar debido al rol del usuario.');
           } else {
-          ;
             this.afAuth.fetchSignInMethodsForEmail(correo!).then((signInMethods) => {
               if (signInMethods && signInMethods.length > 0) {
                 // El usuario existe, procedemos a eliminarlo

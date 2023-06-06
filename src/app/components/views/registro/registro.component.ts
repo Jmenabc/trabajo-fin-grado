@@ -99,7 +99,7 @@ export class RegistroComponent {
   //Validaciones de los inputs
 
   validarEmail() {
-    const pattern = /^[a-zA-Z0-9\s.]+@gmail\.com$/;
+    const pattern = /^[a-zA-Z0-9\s.]+@/;
     return pattern.test(this.correo);
   }
 

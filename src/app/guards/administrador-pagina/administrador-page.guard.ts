@@ -16,7 +16,7 @@ export class AdministradorPageGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (localStorage.getItem("rol") == "1") {
+    if (localStorage.getItem("rol") == "2") {
       return true;
     } else if (localStorage.getItem("rol") == "3") {
       return true;

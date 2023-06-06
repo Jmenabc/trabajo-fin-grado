@@ -9,13 +9,6 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'tfg';
   constructor(private router: Router) {
-    // Observar cambios en el localStorage
-    window.addEventListener('storage', (event) => {
-      if (event.key !== null) {
-        // Si se modificó el localStorage, redirigir al inicio de sesión
-        localStorage.clear();
-        this.router.navigate(['/desconectado']);
-      }
-    });
+    
   }
 }
