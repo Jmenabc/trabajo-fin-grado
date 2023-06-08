@@ -15,6 +15,7 @@ export class CarritoGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (localStorage.getItem("rol") == "1") {
+      console.log(localStorage.getItem("rol") )
       return true;
     } else if (localStorage.getItem("rol") == "3") {
       return true;

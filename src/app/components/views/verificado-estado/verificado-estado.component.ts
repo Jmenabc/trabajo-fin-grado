@@ -36,7 +36,9 @@ export class VerificadoEstadoComponent {
     const user = firebase.auth().currentUser;
     console.log(user);
     console.log(user!.emailVerified);
-    if (user!.emailVerified == true) {
+    var estado = firebase.auth().currentUser?.emailVerified;
+     localStorage.setItem('estado-correo',estado!.toString());
+    if (localStorage.getItem("estado-correo") == "true") {
       this.router.navigate(['/Menu']);
     } else {
       this.router.navigate(['/verificado']);

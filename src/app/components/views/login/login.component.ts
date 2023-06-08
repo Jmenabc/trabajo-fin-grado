@@ -5,10 +5,12 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { LoginService } from 'src/app/services/login/login.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { format } from 'date-fns';
-
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/database';
+import 'firebase/compat/firestore';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -41,9 +43,7 @@ export class LoginComponent {
       this.AnadirAlLog('Entrando a Login.ts || Método Loguearse');
       const result = await this.afAuth.signInWithEmailAndPassword(email, password);
       const uuid = await result.user!.uid;
-
       await localStorage.setItem('correo', email);
-
       const doc = await this.afs
         .collection('Usuarios')
         .doc(uuid)
@@ -63,6 +63,9 @@ export class LoginComponent {
         'Entrando a Login.ts/Loguearse || Devolviendo el correo y contraseña que recibimos de nuestro formulario'
       );
       this.loged = true;
+      var estado = firebase.auth().currentUser?.emailVerified;
+      await localStorage.setItem('estado-correo',estado!.toString());
+
       this.router.navigate(['/verificado']);
     } catch (error: any) {
       this.AnadirAlLog('Error al loguearse: ' + error.message);

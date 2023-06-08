@@ -34,16 +34,16 @@ export class RegistroComponent {
     private fb: FormBuilder,
     private afs: AngularFirestore,
     private log: LoggerService
-  ) {}
+  ) { }
 
 
 
   //Creamos el formulario
   formUsuario = this.fb.group({
-    nombre: ['',Validators.required],
-    apellidos: ['',Validators.required],
-    correo: ['',Validators.required],
-    telefono: ['',Validators.required],
+    nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    apellidos: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    correo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s.]+@/)]],
+    telefono: ['',[ Validators.required, Validators.pattern(/^[0-9]*$/)]],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     uuid: '',
     rol: [1],
@@ -51,6 +51,9 @@ export class RegistroComponent {
 
   async Registrarse(correo: string, password: string) {
     this.AnadirAlLog('Entrando a Registro.ts || Metodo Registrarse');
+    if (this.formUsuario.invalid) {
+      this.myText = "Revise las alertas del formulario"
+   }
     return await this.afAuth
       .createUserWithEmailAndPassword(correo, password)
       .then(async (result) => {
@@ -89,7 +92,7 @@ export class RegistroComponent {
       })
       .catch((error) => {
         this.AnadirAlLog('Error en la base de datos');
-        this.myText = "Rellena todos los valores"
+        this.myText = "Revisa los campos e indicaciones"
         if (error.code === 'auth/email-already-in-use') {
           this.AnadirAlLog('El correo electrónico ya está registrado.');
         }
@@ -98,37 +101,32 @@ export class RegistroComponent {
 
   //Validaciones de los inputs
 
-  validarEmail() {
-    const pattern = /^[a-zA-Z0-9\s.]+@/;
-    return pattern.test(this.correo);
+  get email() {
+    return this.formUsuario.get('correo');
   }
 
-  validarContrasena() {
-    const pattern = /^[a-zA-Z0-9\s]*$/;
-    return pattern.test(this.contrasena);
+  get Contrasena() {
+    return this.formUsuario.get('contrasena');
   }
 
-  validarNombre() {
-    const pattern = /^[a-zA-Z\s]*$/;
-    return pattern.test(this.nombre);
+  get Nombre() {
+    return this.formUsuario.get('nombre');
   }
 
-  validarApellidos() {
-    const pattern = /^[a-zA-Z\s]*$/;
-    return pattern.test(this.apellidos);
+  get Apellidos() {
+    return this.formUsuario.get('apellidos');
   }
 
-  validarTelefono() {
-    const pattern = /^[0-9]*$/;
-    return pattern.test(this.telefono);
+  get Telefono() {
+    return this.formUsuario.get('telefono');
   }
 
-  AnadirAlLog(data:string) {
+  AnadirAlLog(data: string) {
     console.log(data);
     try {
       this.log.AñadirLog().update({
         data: firebase.firestore.FieldValue.arrayUnion({
-          dato:`[${this.fecha}]:${data}`
+          dato: `[${this.fecha}]:${data}`
         }),
       });
     } catch (error) {

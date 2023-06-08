@@ -8,34 +8,33 @@
       class="col-sm-10 col-md-8 col-lg-6 shadow rounded-lg p-4 d-flex flex-column justify-content-center align-items-center text-center mx-3">
       <h3 class="text-center mb-3">Registrarse</h3>
       <div class="formGroup mb-3">
-        <input [(ngModel)]="correo" (input)="validarEmail()" formControlName="correo" type="text"
+        <input [(ngModel)]="correo"  formControlName="correo" type="text"
           class="formControl rounded-pill py-2 px-3" placeholder="Correo" #userEmail required>
-        <div *ngIf="!validarEmail()" class="text-danger">El correo solo puede contener letras, números y espacios. y el @gmail.com</div>
+        <div *ngIf="formUsuario.controls['correo'].errors?.['pattern']" class="text-danger">El correo solo puede contener letras, números y el dominio</div>
       </div>
       <div class="formGroup mb-3">
-        <input [(ngModel)]="contrasena" (input)="validarContrasena()" type="password"
+        <input [(ngModel)]="contrasena"  type="password"
           maxlength="10" class="formControl rounded-pill py-2 px-3" placeholder="Password" #userPassword required>
-        <div *ngIf="!validarContrasena()" class="text-danger">La contraseña solo puede contener letras y números.
         </div>
-      </div>
+
       <div class="mb-3 form-group">
-        <input [(ngModel)]="nombre" (input)="validarNombre()" class="rounded-pill p-2" placeholder="Nombre" type="text"
+        <input [(ngModel)]="nombre"  class="rounded-pill p-2" placeholder="Nombre" type="text"
           formControlName="nombre" id="publico">
-        <div *ngIf="!validarNombre()" class="text-danger">El nombre solo puede contener letras.
+        <div *ngIf="formUsuario.controls['nombre'].errors?.['pattern']" class="text-danger">El nombre solo puede contener letras.
         </div>
 
       </div>
       <div class="mb-3 form-group">
-        <input [(ngModel)]="apellidos" (input)="validarApellidos()" class="rounded-pill p-2" placeholder="Apellidos"
+        <input [(ngModel)]="apellidos"  class="rounded-pill p-2" placeholder="Apellidos"
           type="text" formControlName="apellidos" id="publico">
-        <div *ngIf="!validarApellidos()" class="text-danger">El apellido solo puede contener letras.
+        <div *ngIf="formUsuario.controls['apellidos'].errors?.['pattern']" class="text-danger">El apellido solo puede contener letras.
         </div>
 
       </div>
       <div class="col text-center mb-3">
-        <input [(ngModel)]="telefono" (input)="validarTelefono()" class="rounded-pill p-2" placeholder="telefono"
+        <input [(ngModel)]="telefono"  class="rounded-pill p-2" placeholder="telefono"
           maxlength="9" type="text" formControlName="telefono" id="publico">
-        <div *ngIf="!validarTelefono()" class="text-danger">El apellido solo puede contener letras.
+        <div *ngIf="formUsuario.controls['telefono'].errors?.['pattern']" class="text-danger">El apellido solo puede contener letras.
         </div>
       </div>
       <div class="formGroup">

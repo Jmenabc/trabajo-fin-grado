@@ -13,12 +13,15 @@
             class="col-sm-10 col-md-8 col-lg-6 shadow rounded-lg p-4 d-flex flex-column justify-content-center align-items-center text-center mx-3">
             <div class="mb-3 form-group">
               <input class="rounded-pill p-2" placeholder="Nombre" type="text" formControlName="nombre" id="publico">
+              <div *ngIf="formBotines.controls['nombre'].errors?.['pattern']" class="text-danger">El nombre solo acepta texto</div>
             </div>
             <div class="mb-3 form-group">
               <input class="rounded-pill p-2" placeholder="Marca" type="text" formControlName="marca" id="publico">
+              <div *ngIf="formBotines.controls['marca'].errors?.['pattern']" class="text-danger">La marca solo acepta texto</div>
             </div>
             <div class="mb-3 col text-center">
               <input class="rounded-pill p-2" placeholder="Precio €" type="text" formControlName="precio" id="publico">
+              <div *ngIf="formBotines.controls['precio'].errors?.['pattern']" class="text-danger">El precio solo puede contener numeros</div>
             </div>
             <div class="col text-center">
               <input class="rounded-pill p-2" placeholder="Url de imagen" type="text" formControlName="url"

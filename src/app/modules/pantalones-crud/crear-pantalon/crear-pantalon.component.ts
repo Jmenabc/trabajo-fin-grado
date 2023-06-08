@@ -35,9 +35,9 @@ export class CrearPantalonComponent {
 
   //Declaramos nuestro formulario para enviar los datos del botin registrado
   formPantalones = this.fb.group({
-    nombre: ['', Validators.required],
-    marca: ['', Validators.required],
-    precio: ['', Validators.required],
+    nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    marca: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    precio: ['', [Validators.required, Validators.pattern(/^[0-9\s]*$/)]],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     mdUuid: [uuidv4()],
     url: ['', Validators.required]
@@ -62,6 +62,9 @@ export class CrearPantalonComponent {
   //Metodo que crea pantalones
   CrearPatalones() {
     try {
+      if (this.formPantalones.invalid) {
+        this.rellenar = "Revisa el formulario (No se aceptan huecos en blanco)";
+      }
       if (this.formPantalones.valid) {
         this.AnadirAlLog('Creando Pantalon')
         this.firebase.Crear(this.coleccion, this.formPantalones.value);
@@ -69,7 +72,6 @@ export class CrearPantalonComponent {
         this.AnadirAlLog('Pantalon creado con exito')
       }
       this.AnadirAlLog('Formulario invalido');
-      this.rellenar = "Rellene todos los campos";
     } catch (error) {
       this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

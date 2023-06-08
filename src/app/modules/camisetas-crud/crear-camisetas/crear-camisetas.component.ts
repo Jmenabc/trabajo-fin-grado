@@ -35,11 +35,11 @@ export class CrearCamisetasComponent {
 
   //Declaramos nuestro formulario para enviar los datos del botin registrado
   formCamisetas = this.fb.group({
-    nombre: ['', Validators.required],
-    marca: ['', Validators.required],
-    precio: ['', Validators.required],
-    mdDate: [format(new Date(), 'dd/MM/yyyy'), Validators.required],
-    mdUuid: [uuidv4(), Validators.required],
+    nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    marca: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    precio: ['', [Validators.required, Validators.pattern(/^[0-9\s]*$/)]],
+    mdDate: [format(new Date(), 'dd/MM/yyyy')],
+    mdUuid: [uuidv4()],
     url: ['', Validators.required]
   });
   //Metodo ir para la ventana de atras
@@ -49,6 +49,9 @@ export class CrearCamisetasComponent {
   //Metodo que crea camisetas
   CrearCamiseta() {
     try {
+      if (this.formCamisetas.invalid) {
+        this.rellenar = "Revisa el formulario (No se aceptan huecos en blanco)";
+      }
       if (this.formCamisetas.valid) {
         this.AnadirAlLog('Creando camiseta')
         this.firebase.Crear(this.coleccion, this.formCamisetas.value);
@@ -56,7 +59,6 @@ export class CrearCamisetasComponent {
         this.AnadirAlLog('Camiseta creado con exito')
       }
       this.AnadirAlLog('Formulario invalido');
-      this.rellenar = "Rellene todos los campos";
     } catch (error) {
       this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);

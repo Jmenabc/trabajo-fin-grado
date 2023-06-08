@@ -32,9 +32,9 @@ export class CrearBotinesComponent {
   rellenar: string = "";
   //Declaramos nuestro formulario para enviar los datos del botin registrado
   formBotines = this.fb.group({
-    nombre: ['', Validators.required],
-    marca: ['', Validators.required],
-    precio: ['', Validators.required],
+    nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    marca: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    precio: ['', [Validators.required, Validators.pattern(/^[0-9\s]*$/)]],
     mdDate: [format(new Date(), 'dd/MM/yyyy')],
     mdUuid: [uuidv4()],
     url: ['', Validators.required]
@@ -43,6 +43,9 @@ export class CrearBotinesComponent {
   //Metodo para crear botines
   CrearBotines() {
     try {
+      if (this.formBotines.invalid) {
+        this.rellenar = "Revisa el formulario (No se aceptan huecos en blanco)";
+      }
       if (this.formBotines.valid) {
         this.AnadirAlLog('Creando objeto')
         this.firebase.Crear(this.coleccion, this.formBotines.value);
@@ -50,7 +53,6 @@ export class CrearBotinesComponent {
         this.AnadirAlLog('Objeto creado con exito')
       }
       this.AnadirAlLog('Formulario invalido');
-      this.rellenar = "Rellene todos los campos";
     } catch (error) {
       this.AnadirAlLog("Error al crear botin");
       this.router.navigate(['/errorBBDD']);
@@ -73,5 +75,17 @@ export class CrearBotinesComponent {
       this.AnadirAlLog('Error en la base de datos');
       this.router.navigate(['/errorBBDD']);
     }
+  }
+  //Getter del form
+  get nombre() {
+    return this.formBotines.get('nombre');
+  }
+
+  get marca() {
+    return this.formBotines.get('marca');
+  }
+
+  get precio() {
+    return this.formBotines.get('precio');
   }
 }
