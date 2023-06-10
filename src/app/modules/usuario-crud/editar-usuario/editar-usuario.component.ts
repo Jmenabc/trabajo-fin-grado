@@ -52,7 +52,7 @@ export class EditarUsuarioComponent {
   });
   //Metodo ir para la ventana de atras
   irAtras() {
-    this._location.back();
+    this.router.navigate(['/crudselector']);
   }
   //Metodo que añade al log
   AnadirAlLog(data: string) {
@@ -128,6 +128,7 @@ export class EditarUsuarioComponent {
   verificarRolYEliminar() {
     try {
       const correo = this.formUsuario.value.correo;
+      console.log(correo)
       this.AnadirAlLog('Verificando rol');
       this.firebase
         .cogerUno(this.coleccion, this.documentId)
@@ -139,9 +140,10 @@ export class EditarUsuarioComponent {
             this.afAuth.fetchSignInMethodsForEmail(correo!).then((signInMethods) => {
               if (signInMethods && signInMethods.length > 0) {
                 // El usuario existe, procedemos a eliminarlo
+                console.log(this.afAuth.currentUser)
                 this.afAuth.currentUser.then((user) => {
                   if (user) {
-                    this.router.navigate(['usuarioCRUD/OpcionesUsuarios/VerUsuarios'])
+                    this.router.navigate(['usuarioCRUD/OpcionesUsuarios'])
                     user.delete();
                   }
                 });

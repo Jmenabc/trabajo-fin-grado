@@ -25,7 +25,7 @@ export class ListaOpcionesComponent {
   fecha: any = format(new Date(), 'dd/MM/yyyy');
   //Metodo ir para la ventana de atras
   irAtras() {
-    this._location.back();
+    this.router.navigate(['/crudselector'])
   }
   //Metodo que añade al log
   AnadirAlLog(data: string) {

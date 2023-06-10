@@ -48,7 +48,7 @@ export class EditarCamisetasComponent {
   });
   //Metodo ir para la ventana de atras
   irAtras() {
-    this._location.back();
+    this.router.navigate(['/crudselector'])
   }
 //Metodo que carga los datos
 EditarDatos() {
@@ -109,7 +109,7 @@ Eliminar() {
         if (result === 'confirmar') {
           this.AnadirAlLog(`Eliminando objeto: ${this.documentId}`)
           this.firebase.Eliminar(this.coleccion, this.documentId);
-          this._location.back();
+          this.router.navigate(['camisetasCRUD/camisetas'])
           this.AnadirAlLog(`Objeto ${this.documentId} eliminado con exito`)
         }
       })

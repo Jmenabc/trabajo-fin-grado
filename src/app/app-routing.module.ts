@@ -1,4 +1,3 @@
-import { VerificarEstadoCorreoGuard } from './guards/verificar-estado-correo/verificar-estado-correo.guard';
 import { LoginComponent } from './components/views/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -38,14 +37,14 @@ const routes: Routes = [
   { path: 'carrito', canActivate:[CarritoGuard], component: CarritoComponent },
   { path: 'noPermisos', component: NoPermisosComponent },
   { path: 'errorBBDD', component: BaseDatosErrorComponent },
-  { path: 'perfil', canActivate: [VerificarEstadoCorreoGuard], component: PerfilComponent },
+  { path: 'perfil', component: PerfilComponent },
   //Listas de la ropa cliente
   { path: 'ListaBotines', component: ListaBotinesComponent },
-  { path: 'DetallesBotines/:id', canActivate: [VerificarEstadoCorreoGuard], component: DetallesBotinesComponent },
+  { path: 'DetallesBotines/:id', component: DetallesBotinesComponent },
   { path: 'ListaCamisetas', component: ListaCamisetasComponent },
-  { path: 'DetallesCamisetas/:id', canActivate: [VerificarEstadoCorreoGuard], component: DetallesCamisetasComponent },
+  { path: 'DetallesCamisetas/:id',  component: DetallesCamisetasComponent },
   { path: 'ListaPantalones', component: ListaPantalonesComponent },
-  { path: 'DetallesPantalones/:id', canActivate: [VerificarEstadoCorreoGuard], component: DetallesPantalonesComponent },
+  { path: 'DetallesPantalones/:id',  component: DetallesPantalonesComponent },
   //Modules
   {
     path: 'usuarioCRUD',

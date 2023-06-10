@@ -66,7 +66,7 @@ export class LoginComponent {
       var estado = firebase.auth().currentUser?.emailVerified;
       await localStorage.setItem('estado-correo',estado!.toString());
 
-      this.router.navigate(['/verificado']);
+      this.router.navigate(['/Menu']);
     } catch (error: any) {
       this.AnadirAlLog('Error al loguearse: ' + error.message);
       if (error.code === 'auth/wrong-password') {

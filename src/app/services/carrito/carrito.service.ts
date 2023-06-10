@@ -22,6 +22,10 @@ export class CarritoService {
     return objetoRef.delete();
   }
 
+  existeCarro() {
+    return this.firestore.collection(this.collection).doc(this.uuid!);
+  }
+
   cogerTodos() {
     return this.firestore
       .collection(this.collection)

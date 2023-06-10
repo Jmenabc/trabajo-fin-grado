@@ -25,7 +25,7 @@ export class VerUsuariosComponent {
   fecha: any = format(new Date(), 'dd/MM/yyyy');
   //Metodo ir para la ventana de atras
   irAtras() {
-    this._location.back();
+    this.router.navigate(['usuarioCRUD/OpcionesUsuarios'])
   }
   //Metodo para recoger todos los clientes/usuarios
   getTodosLosClientes() {

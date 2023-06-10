@@ -47,7 +47,7 @@ export class EditarBotinesComponent {
 
   //Metodo ir para la ventana de atras
   irAtras() {
-    this._location.back();
+    this.router.navigate(['/crudselector'])
   }
   //Metodo que carga los datos
   EditarDatos() {
@@ -108,7 +108,7 @@ export class EditarBotinesComponent {
           if (result === 'confirmar') {
             this.AnadirAlLog(`Eliminando objeto: ${this.documentId}`)
             this.firebase.Eliminar(this.coleccion, this.documentId);
-            this._location.back();
+            this.router.navigate(['botinesCRUD/botines'])
             this.AnadirAlLog(`Objeto ${this.documentId} eliminado con exito`)
           }
         })

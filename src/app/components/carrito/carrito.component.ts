@@ -4,6 +4,7 @@ import { RecibosService } from 'src/app/services/recibos/recibos.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import jsPDF from 'jspdf';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -13,6 +14,7 @@ import jsPDF from 'jspdf';
 export class CarritoComponent {
   constructor(
     private cService: CarritoService,
+    private router: Router,
     private rService: RecibosService
   ) { }
   uuid: string = localStorage.getItem("uuid")!.toString();

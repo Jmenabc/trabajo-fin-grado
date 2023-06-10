@@ -88,7 +88,7 @@ export class RegistroComponent {
           'Entrando a Registro.ts/Registrarse || Enviando el correo y contraseña que recibimos de nuestro formulario'
         );
         //y le redirigimos a la ventana del menu
-        this.router.navigate(['/verificado']);
+        this.router.navigate(['/Menu']);
       })
       .catch((error) => {
         this.AnadirAlLog('Error en la base de datos');
